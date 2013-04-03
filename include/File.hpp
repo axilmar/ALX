@@ -16,7 +16,7 @@ class File {
 public:
 
 private:
-    std::shared_ptr<ALLEGRO_FILE> m_file;
+    std::shared_ptr<ALLEGRO_FILE> m_object;
 
     friend class Config;
 };

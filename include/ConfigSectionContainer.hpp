@@ -75,7 +75,7 @@ public:
      */
     const_iterator begin() const {
         const_iterator it;
-        it.m_name = al_get_first_config_section(m_config.get(), &it.m_section);
+        it.m_name = al_get_first_config_section(m_object.get(), &it.m_section);
         return it;
     }
 
@@ -88,10 +88,10 @@ public:
 
 private:
     //pointer to config
-    std::shared_ptr<ALLEGRO_CONFIG> m_config;
+    std::shared_ptr<ALLEGRO_CONFIG> m_object;
 
     //internal constructor
-    ConfigSectionContainer(const std::shared_ptr<ALLEGRO_CONFIG> &config) : m_config(config) {
+    ConfigSectionContainer(const std::shared_ptr<ALLEGRO_CONFIG> &config) : m_object(config) {
     }
 
     friend class Config;
