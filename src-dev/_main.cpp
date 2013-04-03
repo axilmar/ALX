@@ -3,6 +3,7 @@
 #include "Display.hpp"
 #include "EventQueue.hpp"
 #include "UserEventSource.hpp"
+#include "File.hpp"
 
 
 using namespace std;
@@ -29,6 +30,8 @@ int main() {
 
     EventQueue queue;
     queue << display << userEventSource << al_get_keyboard_event_source();
+
+    File file("test.txt", "rt");
 
     for(;;) {
         Event event = queue.waitForEvent();
