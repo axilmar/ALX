@@ -95,7 +95,7 @@ public:
         Checks if the EOF indicator has been set.
         @return true if set.
      */
-    bool getEOF() const {
+    bool isEOF() const {
         return al_feof(m_object.get());
     }
 
@@ -103,7 +103,7 @@ public:
         Checks if the error indicator has been set.
         @return true if set.
      */
-    bool getError() const {
+    bool isError() const {
         return al_ferror(m_object.get());
     }
 
@@ -186,7 +186,7 @@ public:
         return write(&src[0], std::min(src.size() * sizeof(T), size));
     }
 
-    //TODO read/write specific types
+    //TODO read/write primitive values
 
 private:
     //internal allegro object.
