@@ -9,6 +9,17 @@ using namespace std;
 using namespace alx;
 
 
+class MyEvent : public UserEvent {
+public:
+    MyEvent() : UserEvent(10000) {
+    }
+
+    virtual ~MyEvent() {
+        cout << "~MyEvent()\n";
+    }
+};
+
+
 int main() {
     al_init();
     al_install_keyboard();
@@ -27,7 +38,7 @@ int main() {
                     case ALLEGRO_KEY_ESCAPE:
                         goto END;
                     case ALLEGRO_KEY_SPACE:
-                        userEventSource.emitUserEvent(new UserEvent(10000));
+                        userEventSource.emitUserEvent(new MyEvent());
                         break;
                 }
                 break;
