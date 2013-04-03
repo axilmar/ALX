@@ -188,6 +188,7 @@ public:
 
     //TODO read/write primitive values
 
+
 private:
     //internal allegro object.
     std::shared_ptr<ALLEGRO_FILE> m_object;
