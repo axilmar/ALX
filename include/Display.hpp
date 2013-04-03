@@ -5,7 +5,7 @@
 #include "Bitmap.hpp"
 #include "Point.hpp"
 #include "Size.hpp"
-#include "EventSource.hpp"
+#include "IEventSource.hpp"
 
 
 namespace alx {
@@ -14,7 +14,7 @@ namespace alx {
 /**
     Value-based wrapper around ALLEGRO_DISPLAY.
  */
-class Display {
+class Display : public IEventSource {
 public:
     /**
         constructor from Allegro object.
@@ -189,7 +189,7 @@ public:
         Returns the event source of the display.
         @return the event source of the display.
      */
-    EventSource getEventSource() const {
+    virtual EventSource getEventSource() const override {
         return EventSource(al_get_display_event_source(m_object.get()), false);
     }
 

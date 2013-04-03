@@ -138,7 +138,7 @@ public:
         @param conf config.
         @return reference to this.
      */
-    Config &operator += (const Config &config) {
+    Config &operator << (const Config &config) {
         al_merge_config_into(m_object.get(), config.m_object.get());
         return *this;
     }
