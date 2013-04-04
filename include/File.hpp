@@ -5,7 +5,11 @@
 #include <vector>
 #include <array>
 #include <algorithm>
+#include <stdexcept>
+#include <tuple>
 #include "String.hpp"
+#include "Util.hpp"
+#include "FilePath.hpp"
 
 
 #ifdef min
@@ -33,11 +37,25 @@ public:
     }
 
     /**
+        null file constructor.
+     */
+    File() {
+    }
+
+    /**
         Opens a file.
         @param path path.
         @param mode mode.
      */
     File(const char *path, const char *mode) : m_object(al_fopen(path, mode), al_fclose) {
+    }
+
+    /**
+        Opens a file.
+        @param fd file descriptor.
+        @param mode mode.
+     */
+    File(int fd, const char *mode) : m_object(al_fopen_fd(fd, mode), al_fclose) {
     }
 
     /**
@@ -49,13 +67,24 @@ public:
     }
 
     /**
-        opens the file.
+        opens a file.
         @param path path.
         @param mode mode.
         @return true on success.
      */
     bool open(const char *path, const char *mode) {
         m_object = std::shared_ptr<ALLEGRO_FILE>(al_fopen(path, mode), al_fclose);
+        return m_object;
+    }
+
+    /**
+        opens a file.
+        @param int fd file descriptor.
+        @param mode mode.
+        @return true on success.
+     */
+    bool open(int fd, const char *mode) {
+        m_object = std::shared_ptr<ALLEGRO_FILE>(al_fopen_fd(fd, mode), al_fclose);
         return m_object;
     }
 
@@ -155,6 +184,51 @@ public:
     }
 
     /**
+        Reads a single value from the file.
+        @param v destination variable.
+        @return true on success.
+     */
+    template <bool LittleEndian = true, class T> bool read(T &v) {
+        if (!read(&v, sizeof(T))) return false;
+        if (LittleEndian) v = Util::littleToNativeEndian(v); else v = Util::bigToNativeEndian(v);
+        return true;
+    }
+
+    /**
+        Reads a single value from the file.
+        @param v destination variable.
+        @return this file.
+        @exception std::runtime_error thrown if there was an error reading the value.
+     */
+    template <class T> File &operator >> (T &v) {
+        if (read(v)) return *this;
+        throw std::runtime_error("File I/O error");
+    }
+
+    /**
+        Reads a line of text.
+        @param v destination variable.
+        @return true on success.
+     */
+    bool read(String &v) {
+        ALLEGRO_USTR *str = al_fget_ustr(m_object.get());
+        if (!str) return false;
+        v = str;
+        return true;
+    }
+
+    /**
+        Reads a line of text.
+        @param v destination variable.
+        @return true on success.
+        @exception std::runtime_error thrown if there was an error reading the line.
+     */
+    File &operator >> (String &v) {
+        if (read(v)) return *this;
+        throw std::runtime_error("File I/O error");
+    }
+
+    /**
         Writes raw bytes to the file.
         @param src source buffer.
         @param size number of bytes to write.
@@ -186,8 +260,56 @@ public:
         return write(&src[0], std::min(src.size() * sizeof(T), size));
     }
 
-    //TODO read/write primitive values
+    /**
+        Writes a single value to the file.
+        @param v source value.
+        @return true on success.
+     */
+    template <bool LittleEndian = true, class T> bool write(T v) {
+        if (LittleEndian) v = Util::nativeToLittleEndian(v); else v = Util::nativeToBigEndian(v);
+        return write(&v, sizeof(T));
+    }
 
+    /**
+        Writes a single value to the file.
+        @param v source value.
+        @return this file.
+        @exception std::runtime_error thrown if there was an error writing the value.
+     */
+    template <class T> File &operator << (T v) {
+        if (write(v)) return *this;
+        throw std::runtime_error("File I/O error");
+    }
+
+    /**
+        Writes a string to the file.
+        @param v string to write.
+        @return true on success.
+     */
+    bool write(const String &v) {
+        return al_fputs(m_object.get(), v) >= 0;
+    }
+
+    /**
+        Writes a string to the file.
+        @param v string to write.
+        @return this file.
+        @exception std::runtime_error thrown if there was an error writing the value.
+     */
+    File &operator << (const String &v) {
+        if (write(v)) return *this;
+        throw std::runtime_error("File I/O error");
+    }
+
+    /**
+        Creates a temporary file.
+        @param filenameTemplate the template for the filename.
+     */
+    static std::tuple<File, FilePath> createTempFile(const char *filenameTemplate) {
+        ALLEGRO_PATH *path = nullptr;
+        ALLEGRO_FILE *file = al_make_temp_file(filenameTemplate, &path);       
+        return std::make_tuple(file, path); 
+    }
 
 private:
     //internal allegro object.

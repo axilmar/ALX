@@ -31,8 +31,6 @@ int main() {
     EventQueue queue;
     queue << display << userEventSource << al_get_keyboard_event_source();
 
-    //File file("test.txt", "rt");
-
     for(;;) {
         Event event = queue.waitForEvent();
         switch (event.getEvent().type) {

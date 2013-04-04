@@ -20,6 +20,10 @@ public:
     String() : m_object(al_ustr_dup(al_ustr_empty_string()), al_ustr_free) {
     }
 
+    operator const char *() const {
+        return al_cstr(m_object.get());
+    }
+
 private:
     std::shared_ptr<ALLEGRO_USTR> m_object;
 };
