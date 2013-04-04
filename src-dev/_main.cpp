@@ -5,6 +5,7 @@
 #include "UserEventSource.hpp"
 #include "FileEntry.hpp"
 #include "Fixed.hpp"
+#include "Color.hpp"
 
 
 using namespace std;
@@ -39,8 +40,12 @@ int main() {
     }
     */
 
+    /*
     Fixed f1 = 14.5, f2 = 3;
     cout << (double)(f1 % f2);
+    */
+
+    //Color c = {0.1f, 0.2f, 0.3f, 0.4f};
 
     for(;;) {
         Event event = queue.waitForEvent();

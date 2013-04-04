@@ -39,7 +39,7 @@ public:
         conversion to double.
         @return double.
      */
-    operator double() const {
+    operator double () const {
         return al_fixtof(m_value);
     }
 
