@@ -212,8 +212,7 @@ public:
 
         //internal constructor
         const_iterator(const std::shared_ptr<ALLEGRO_FS_ENTRY> &dirEntry) : m_dirEntry(dirEntry) {
-            al_open_directory(m_dirEntry.get());
-            _readFileEntry();
+            if (al_open_directory(m_dirEntry.get())) _readFileEntry();
         }
 
         //empty iterator constructor
