@@ -3,7 +3,7 @@
 #include "Display.hpp"
 #include "EventQueue.hpp"
 #include "UserEventSource.hpp"
-#include "File.hpp"
+#include "FileEntry.hpp"
 
 
 using namespace std;
@@ -30,6 +30,13 @@ int main() {
 
     EventQueue queue;
     queue << display << userEventSource << al_get_keyboard_event_source();
+
+    /*
+    FileEntry dir(".");
+    for(FileEntry entry : dir) {
+        cout << entry.getPath() << endl;
+    }
+    */
 
     for(;;) {
         Event event = queue.waitForEvent();

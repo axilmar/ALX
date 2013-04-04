@@ -17,7 +17,11 @@ public:
     String(ALLEGRO_USTR *object, bool managed = true) : m_object(object, managed ? al_ustr_free : [](ALLEGRO_USTR *){}) {
     }
 
-    String() : m_object(al_ustr_dup(al_ustr_empty_string()), al_ustr_free) {
+    String() {
+    }
+
+    bool isNull() const {
+        return m_object;
     }
 
     operator const char *() const {

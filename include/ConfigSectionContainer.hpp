@@ -80,7 +80,8 @@ public:
     }
 
     /**
-        Returns an iterator that points to the section end.
+        Returns an iterator that points to the sections end.
+        @return an iterator that points to the sections end.
      */
     const_iterator end() const {
         return const_iterator();    
