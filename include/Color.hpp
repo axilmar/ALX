@@ -72,6 +72,13 @@ public:
     }
 
     /**
+        Constructor from allegro color.
+     */
+    Color(const ALLEGRO_COLOR &color) {
+        operator = (color);
+    }
+
+    /**
         Converts the internal color components to a color using the function al_map_rgba.
         @return an allegro color instance.
      */
@@ -188,6 +195,16 @@ public:
             case 2: m_color.m_green = _floatToInt(*(it + 1));
             case 1: m_color.m_red   = _floatToInt(*it);
         }
+        return *this;
+    }
+
+    /**
+        assignment from allegro color.
+        @param color color.
+        @return reference to this.
+     */
+    Color &operator = (const ALLEGRO_COLOR &color) {
+        al_unmap_rgba(color, &m_color.m_red, &m_color.m_green, &m_color.m_blue, &m_color.m_alpha);
         return *this;
     }
 

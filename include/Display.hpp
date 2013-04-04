@@ -193,6 +193,22 @@ public:
         return EventSource(al_get_display_event_source(m_object.get()), false);
     }
 
+    /**
+        Sets the target bitmap to be the backbuffer of the given display.
+        @param display display.
+     */
+    static void setTarget(Display &display) {
+        al_set_target_backbuffer(display.m_object.get());
+    }
+
+    /**
+        Returns the current display.
+        @return the current display.
+     */
+    static Display getCurrent() {
+        return Display(al_get_current_display(), false);
+    }
+
 private:
     //internal pointer to the allegro object
     std::shared_ptr<ALLEGRO_DISPLAY> m_object;
