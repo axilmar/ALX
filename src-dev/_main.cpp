@@ -4,6 +4,7 @@
 #include "EventQueue.hpp"
 #include "UserEventSource.hpp"
 #include "FileEntry.hpp"
+#include "Fixed.hpp"
 
 
 using namespace std;
@@ -37,6 +38,9 @@ int main() {
         cout << entry.getPath() << endl;
     }
     */
+
+    Fixed f1 = 14.5, f2 = 3;
+    cout << (double)(f1 % f2);
 
     for(;;) {
         Event event = queue.waitForEvent();
