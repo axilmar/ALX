@@ -4,7 +4,6 @@
 
 #include "String.hpp"
 #include "EventSource.hpp"
-#include "JoystickState.hpp"
 
 
 namespace alx {
@@ -101,10 +100,11 @@ public:
 
     /**
         Returns the joystick's number of axes.
+        @param stick stick index.
         @return the joystick's number of axes.
      */
-    int getNumAxes() const {
-        return al_get_joystick_num_axes(m_object.get());
+    int getNumAxes(int stick) const {
+        return al_get_joystick_num_axes(m_object.get(), stick);
     }
 
     /**
@@ -113,16 +113,6 @@ public:
      */
     int getNumButtons() const {
         return al_get_joystick_num_buttons(m_object.get());
-    }
-
-    /**
-        Returns the joystick's state this particular instance.
-        @return the joystick's state this particular instance.
-     */
-    JoystickState getState() const {
-        JoystickState state;
-        al_get_joystick_state(m_object.get(), state.m_object.get());
-        return state;
     }
 
     /**
@@ -136,6 +126,8 @@ public:
 private:
     //allegro object
     std::shared_ptr<ALLEGRO_JOYSTICK> m_object;
+
+    friend class JoystickState;
 };
 
 

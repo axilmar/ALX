@@ -2,8 +2,7 @@
 #define ALX_JOYSTICKSTATE_HPP
 
 
-#include <memory>
-#include <allegro5/allegro.h>
+#include "Joystick.hpp"
 
 
 namespace alx {
@@ -19,7 +18,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    JoystickState(ALLEGRO_JOYSTICK_STATE *object, bool managed = true) : m_object(object, managed ? [](ALLEGRO_JOYSTICK_STATE *state){ delete state; } : [](ALLEGRO_JOYSTICK_STATE *state){}) {
+    JoystickState(ALLEGRO_JOYSTICK_STATE *object, bool managed = true) : m_object(object, managed ? _deleteState : [](ALLEGRO_JOYSTICK_STATE *){}) {
     }
 
     /**
@@ -34,6 +33,14 @@ public:
      */
     bool isNull() const {
         return m_object;
+    }
+
+    /**
+        Reads the given joystick's state.
+        @param stick joystick.
+     */
+    void readState(const Joystick &stick) {
+        al_get_joystick_state(stick.m_object.get(), m_object.get());    
     }
 
     /**
@@ -59,7 +66,10 @@ private:
     //allegro object
     std::shared_ptr<ALLEGRO_JOYSTICK_STATE> m_object;
 
-    friend class Joystick;
+    //state deleter
+    static void _deleteState(ALLEGRO_JOYSTICK_STATE *state) {
+        delete state;
+    }
 };
 
 

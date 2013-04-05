@@ -6,6 +6,7 @@
 #include "FileEntry.hpp"
 #include "Fixed.hpp"
 #include "Color.hpp"
+#include "JoystickState.hpp"
 
 
 using namespace std;
@@ -46,6 +47,10 @@ int main() {
     */
 
     //Color c = {0.1f, 0.2f, 0.3f, 0.4f};
+
+    Joystick joy0(0);
+    JoystickState state;
+    state.readState(joy0);
 
     for(;;) {
         Event event = queue.waitForEvent();

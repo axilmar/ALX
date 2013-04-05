@@ -39,7 +39,7 @@ public:
     /**
         Retrieves the mouse state.
      */
-    void getState() {
+    void readState() {
         al_get_mouse_state(m_object.get());
     }
 

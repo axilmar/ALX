@@ -37,9 +37,9 @@ public:
     }
 
     /**
-        puts the keyboard state into this object.
+        Retrieves the keyboard state.
      */
-    void getState() {
+    void readState() {
         al_get_keyboard_state(m_object.get());
     }
 
