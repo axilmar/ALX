@@ -20,6 +20,9 @@ public:
     String() {
     }
 
+    String(const char *str) : m_object(al_ustr_new(str), al_ustr_free) {
+    }
+
     bool isNull() const {
         return m_object;
     }
