@@ -9,19 +9,21 @@ namespace alx {
 
 
 /**
-    An ALLEGRO_TIMEOUT value.
+    An ALLEGRO_TIMEOUT.
  */
-class Timeout : private ALLEGRO_TIMEOUT {
+class Timeout {
 public:
     /**
         constructor.
         @param seconds seconds.
      */
     Timeout(double seconds) {
-        al_init_timeout(this, seconds);
+        al_init_timeout(&m_object, seconds);
     }
 
 private:
+    ALLEGRO_TIMEOUT m_object;
+
     friend class Condition;
 };
 

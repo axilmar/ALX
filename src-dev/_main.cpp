@@ -71,13 +71,13 @@ int main() {
     int x = mtx << [](){cout << "yo!"; return 1; };
     */
 
-    Condition c;
+    //Condition c;
 
     for(;;) {
         Event event = queue.waitForEvent();
-        switch (event.getEvent().type) {
+        switch (event.getType()) {
             case ALLEGRO_EVENT_KEY_DOWN:
-                switch (event.getEvent().keyboard.keycode) {
+                switch (event.getKeyboardKeycode()) {
                     case ALLEGRO_KEY_ESCAPE:
                         goto END;
                     case ALLEGRO_KEY_SPACE:

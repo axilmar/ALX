@@ -51,7 +51,7 @@ public:
         @return true on success, false on timeout
      */
     bool wait(Mutex &mutex, const Timeout &timeout) {
-        return al_wait_cond_until(m_object.get(), mutex.m_object.get(), &timeout) == 0;
+        return al_wait_cond_until(m_object.get(), mutex.m_object.get(), &timeout.m_object) == 0;
     }
 
     /**

@@ -2,7 +2,7 @@
 #define ALX_EVENTQUEUE_HPP
 
 
-#include "IEventSource.hpp"
+#include "EventSource.hpp"
 #include "Event.hpp"
 
 
@@ -51,7 +51,7 @@ public:
         @param source event source.
         @return reference to this.
      */
-    EventQueue& operator << (const IEventSource &source) {
+    template <class T> EventQueue& operator << (const T &source) {
         al_register_event_source(m_object.get(), source.getEventSource().m_object.get());
         return *this;
     }
@@ -71,7 +71,7 @@ public:
         @param source event source.
         @return reference to this.
      */
-    EventQueue& operator >> (const IEventSource &source) {
+    template <class T> EventQueue& operator >> (const T &source) {
         al_unregister_event_source(m_object.get(), source.getEventSource().m_object.get());
         return *this;
     }

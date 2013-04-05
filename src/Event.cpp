@@ -35,12 +35,4 @@ bool Event::_isUserEvent(int type) {
 }       
 
 
-//deletes the given event, and also unrefs it if it is a user event
-void Event::_deleteEvent(ALLEGRO_EVENT *event) {
-    if (_isUserEvent(event->type)) {
-        al_unref_user_event(&event->user);
-    }
-    delete event;
-}
-
 } //namespace alx

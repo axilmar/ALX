@@ -2,7 +2,7 @@
 #define ALX_USER_EVENT_SOURCE_HPP
 
 
-#include "IEventSource.hpp"
+#include "EventSource.hpp"
 #include "Event.hpp"
 #include "UserEvent.hpp"
 
@@ -13,7 +13,7 @@ namespace alx {
 /**
     Base class for user event sources.
  */
-class UserEventSource : public IEventSource {
+class UserEventSource {
 public:
     /**
         The default constructor.
@@ -34,7 +34,7 @@ public:
         Retrieves the event source for the object.
         @return the event source for the object.
      */
-    virtual EventSource getEventSource() const override {
+    EventSource getEventSource() const {
         return EventSource(const_cast<ALLEGRO_EVENT_SOURCE *>(&m_event_source), false);
     }
 
@@ -55,7 +55,7 @@ public:
         @return true on success.
      */
     bool emitUserEvent(const Event &event, void (*dtor)(ALLEGRO_USER_EVENT *) = nullptr) {
-        return al_emit_user_event(&m_event_source, event.m_object.get(), dtor);
+        return al_emit_user_event(&m_event_source, const_cast<ALLEGRO_EVENT *>(&event.m_object), dtor);
     }
 
     /**
