@@ -58,6 +58,8 @@ public:
 private:
     //allegro object
     std::shared_ptr<ALLEGRO_JOYSTICK_STATE> m_object;
+
+    friend class Joystick;
 };
 
 

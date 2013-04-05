@@ -129,7 +129,7 @@ public:
         Returns the joystick event source.
         @return the joystick event source.
      */
-    static EventSource getJoystickEventSource() {
+    static EventSource getEventSource() {
         return EventSource(al_get_joystick_event_source(), false);
     }
 
