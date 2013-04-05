@@ -47,11 +47,11 @@ public:
     /**
         Waits for the condition to be true until the specific time.
         @param mutex mutex to unlock.
-        @param timeout timeout
+        @param timeout timeout.
         @return true on success, false on timeout
      */
     bool wait(Mutex &mutex, const Timeout &timeout) {
-        return al_wait_cond_until(m_object.get(), mutex.m_object.get(), timeout.m_object.get()) == 0;
+        return al_wait_cond_until(m_object.get(), mutex.m_object.get(), &timeout) == 0;
     }
 
     /**
