@@ -2,9 +2,21 @@
 #define ALX_RECT_HPP
 
 
+#include <initializer_list>
+#include <algorithm>
 #include <allegro5/allegro.h>
 #include "Point.hpp"
 #include "Size.hpp"
+
+
+#ifdef min
+#undef min
+#endif
+
+
+#ifdef max
+#undef max
+#endif
 
 
 namespace alx {
@@ -34,7 +46,13 @@ public:
         set(left, top, right, bottom);
     }
 
-    //TODO constructor from initializer list
+    /**
+        Constructor from initializer list.
+        @param coords coordinates; only the 1st 4 values are used.
+     */
+    Rect(std::initializer_list<T> coords) {
+        operator = (coords);
+    }
 
     /**
         Constructor from point and size.
@@ -109,11 +127,210 @@ public:
         return m_top + getHeight() / 2;
     }
 
-    //TODO test intersection functions
+    /**
+        Checks intersection with point.
+        @param x horizontal coordinate.
+        @param y vertical coordinate.
+        @return true if coordinates within the rectangle.
+     */
+    bool intersects(T x, T y) const {
+        return x >= m_left && x <= m_right && y >= m_top && y <= m_bottom;
+    }
 
-    //TODO is normal function
+    /**
+        Checks intersection with point object.
+        @param pt point object.
+        @return true if coordinates within the rectangle.
+     */
+    bool intersects(const Point<T> &pt) const {
+        return intersects(pt.getX(), pt.getY());
+    }
 
-    //TODO assignment functions
+    /**
+        Checks intersection with rectangle.
+        @param left left coordinate of rectangle.
+        @param top top coordinate of rectangle.
+        @param right right coordinate of rectangle.
+        @param bottom bottom coordinate of rectangle.
+        @return true if the two rectangles intersect, false otherwise.
+     */
+    bool intersects(T left, T top, T right, T bottom) const {
+        return left <= m_right && right >= m_left && top <= m_bottom && bottom >= m_top;
+    }
+
+    /**
+        Checks intersection with rectangle object.
+        @param r rectangle.
+        @return true if the two rectangles intersect, false otherwise.
+     */
+    bool intersects(const Rect<T> &r) const {
+        return intersects(r.m_left, r.m_top, r.m_right, r._bottom);
+    }
+
+    /**
+        Checks if left <= right and top <= bottom.
+        @return true if normalized.
+     */
+    bool isNormalized() const {
+        return m_left <= m_right && m_top <= m_bottom;
+    }
+
+    /**
+        sets the rectangle from coordinates.
+        Only the first 4 coordinates are used.
+        @param coords list of coordinates (left, top, right, bottom).
+        @return reference to this.
+     */
+    Rect<T> &operator = (const std::initializer_list<T> &coords) {
+        std::initializer_list<T>::const_iterator it = coords.begin();
+        switch (coords.size()) {
+            case 4: m_bottom = *(it + 3);
+            case 3: m_right  = *(it + 2);
+            case 2: m_top    = *(it + 1);
+            case 1: m_left   = *it;
+        }
+        return *this;
+    }
+
+    /**
+        Sets the left coordinate.
+        @param x coordinate.
+     */
+    void setLeft(T x) {
+        m_left = x;
+    }
+
+    /**
+        Sets the top coordinate.
+        @param y coordinate.
+     */
+    void setTop(T y) {
+        m_top = y;
+    }
+
+    /**
+        sets the left and top coordinates.
+        @param x left.
+        @param y top.
+     */
+    void setTopLeft(T x, T y) {
+        setLeft(x);
+        setTop(y);
+    }
+
+    /**
+        sets the left and top coordinates.
+        @param pt coordinates.
+     */
+    void setTopLeft(const Point<T> &pt) {
+        setTopLeft(pt.getX(), pt.getY());
+    }
+
+    /**
+        Sets the right coordinate.
+        @param x coordinate.
+     */
+    void setRight(T x) {
+        m_right = x;
+    }
+
+    /**
+        Sets the bottom coordinate.
+        @param y coordinate.
+     */
+    void setBottom(T y) {
+        m_bottom = y;
+    }
+
+    /**
+        sets the right and bottom coordinates.
+        @param x right.
+        @param y bottom.
+     */
+    void setBottomRight(T x, T y) {
+        setright(x);
+        setbottom(y);
+    }
+
+    /**
+        sets the right and bottom coordinates.
+        @param pt coordinates.
+     */
+    void setBottomRight(const Point<T> &pt) {
+        setBottomRight(pt.getX(), pt.getY());
+    }
+
+    /**
+        sets the width.
+        @param w width.
+     */
+    void setWidth(T w) {
+        m_right = m_left + w - 1;
+    }
+
+    /**
+        sets the height.
+        @param h height.
+     */
+    void setHeight(T h) {
+        m_bottom = m_top + h - 1;
+    }
+
+    /**
+        Sets the size of the rectangle.
+        @param w width.
+        @param h height.
+     */
+    void setSize(T w, T h) {
+        setWidth(w);
+        setHeight(h);
+    }
+
+    /**
+        sets the size of the rectangle.
+        @param sz size.
+     */
+    void setSize(const Size<T> &sz) {
+        setSize(sz.getWidth(), sz.getHeight());
+    }
+
+    /**
+        Moves the rectangle horizontally so as that the given coordinate is the center.
+        @param cx new center x.
+     */
+    void setCenterX(T cx) {
+        T w = getWidth();
+        m_left  = cx - w/2;
+        m_right = m_left + w - 1;
+    }
+
+    /**
+        Moves the rectangle vertically so as that the given coordinate is the center.
+        @param cy new center y.
+     */
+    void setCenterY(T cy) {
+        T h = getHeight();
+        m_top    = cy - h/2;
+        m_bottom = m_top + h - 1;
+    }
+
+    /**
+        Sets the center of the rectangle.
+        @param cx horizontal center coordinate.
+        @param cy vertical center coordinate.
+     */
+    void setCenter(T cx, T cy) {
+        setCenterX(cx);
+        setCenterY(cy);
+    }
+
+    /**
+        sets the center of the rectangle from point.
+        @param cpt center point.
+     */
+    void setCenter(const Point<T> &cpt) {
+        setCenter(cpt.getX(), cpt.getY());
+    }
 
     /**
         Sets the rectangles from individual parameters.
@@ -129,8 +346,6 @@ public:
         m_bottom = bottom;
     }
 
-    //TODO individual coordinates set functions
-
     /**
         Set from from point and size.
         @param topLeft top left point.
@@ -143,9 +358,144 @@ public:
         m_bottom = m_top  + size.getHeight() - 1;
     }
 
-    //TODO move and offset functions
+    /**
+        Moves the rectangle horizontally to the given left position.
+        @param x new left position.
+     */
+    void moveToX(T x) {
+        T w = getWidth();
+        m_left = x;
+        m_right = m_left + w - 1;
+    }
 
-    //TODO union and intersection functions
+    /**
+        Moves the rectangle vertically to the given top position.
+        @param y new top position.
+     */
+    void moveToY(T y) {
+        T h = getHeight();
+        m_top = y;
+        m_bottom = m_top + h - 1;
+    }
+
+    /**
+        moves the rectangle to the given top-left position.
+        @param x new left position.
+        @param y new top position.
+     */
+    void moveTo(T x, T y) {
+        moveToX(x);
+        moveToY(y);
+    }
+
+    /**
+        Moves the rectangle to the given top-left position.
+        @param pt new top-left position.
+     */
+    void moveTo(const Point<T> &pt) {
+        moveToX(pt.getX());
+        moveToY(pt.getY());
+    }
+
+    /**
+        Moves the rectangle horizontally by the given points.
+        @param dx horizontal delta.
+     */
+    void offsetByX(T dx) {
+        T w = getWidth();
+        m_left += dx;
+        m_right = m_left + w - 1;
+    }
+
+    /**
+        Moves the rectangle vertically by the given points.
+        @param dy vertical delta.
+     */
+    void offsetByY(T dy) {
+        T h = getHeight();
+        m_top += dy;
+        m_bottom = m_top + h - 1;
+    }
+
+    /**
+        Moves the rectangle by the given amount.
+        @param dx horizontal delta.
+        @param dy vertical delta.
+     */
+    void offsetBy(T dx, T dy) {
+        offsetByX(dx);
+        offsetByY(dy);
+    }
+
+    /**
+        Moves the rectangle by the given amount.
+        @param dpt delta point.
+     */
+    void offsetBy(const Point<T> &dpt) {
+        offsetBy(dpt.getX(), dpt.getY());
+    }
+
+    /**
+        Moves the rectangle by the given amount.
+        @param dsz delta size.
+     */
+    void offsetBy(const Size<T> &dsz) {
+        offsetBy(dsz.getWidth(), dpt.getHeight());
+    }
+
+    /**
+        Calculates the intersection of two rectangles.
+        @param a first rectangle.
+        @param b second rectangle.
+        @return the rectangle intersection.
+     */
+    friend Rect<T> operator & (const Rect<T> &a, const Rect<T> &b) {
+        return Rect<T>(
+            std::max(a.m_left  , b.m_left  ),
+            std::max(a.m_top   , b.m_top   ),
+            std::min(a.m_right , b.m_right ),
+            std::min(a.m_bottom, b.m_bottom));
+    }
+
+    /**
+        calculates the intersection of this and given rectangle and stores the result in this.
+        @param rt the other rectangle.
+        @return reference to this.
+     */
+    Rect<T> &operator &= (const Rect<T> &rt) {
+        m_left   = std::max(m_left  , rt.m_left  );
+        m_top    = std::max(m_top   , rt.m_top   );
+        m_right  = std::min(m_right , rt.m_right );
+        m_bottom = std::min(m_bottom, rt.m_bottom);
+        return *this;
+    }
+
+    /**
+        Calculates the union of two rectangles.
+        @param a first rectangle.
+        @param b second rectangle.
+        @return the rectangle union.
+     */
+    friend Rect<T> operator | (const Rect<T> &a, const Rect<T> &b) {
+        return Rect<T>(
+            std::min(a.m_left  , b.m_left  ),
+            std::min(a.m_top   , b.m_top   ),
+            std::max(a.m_right , b.m_right ),
+            std::max(a.m_bottom, b.m_bottom));
+    }
+
+    /**
+        calculates the union of this and given rectangle and stores the result in this.
+        @param rt the other rectangle.
+        @return reference to this.
+     */
+    Rect<T> &operator |= (const Rect<T> &rt) {
+        m_left   = std::min(m_left  , rt.m_left  );
+        m_top    = std::min(m_top   , rt.m_top   );
+        m_right  = std::max(m_right , rt.m_right );
+        m_bottom = std::max(m_bottom, rt.m_bottom);
+        return *this;
+    }
 
     /**
         Returns the current bitmap clipping.
@@ -165,6 +515,7 @@ public:
     }
 
 private:
+    //coordinates
     T m_left;
     T m_top;
     T m_right;
