@@ -13,6 +13,7 @@
 #include "Thread.hpp"
 #include "Mutex.hpp"
 #include "Condition.hpp"
+#include "Keyboard.hpp"
 
 
 using namespace std;
@@ -33,12 +34,12 @@ public:
 int main() {
     al_init();
     al_install_keyboard();
+    al_install_mouse();
 
     Display display(640, 480);
     UserEventSource userEventSource;
 
     EventQueue queue;
-    queue << display << userEventSource << al_get_keyboard_event_source();
 
     /*
     FileEntry dir(".");
@@ -73,6 +74,12 @@ int main() {
 
     //Condition c;
 
+    Timer timer(1);
+
+    queue << display << userEventSource << Keyboard::getEventSource() << timer;
+
+    timer.start();
+
     for(;;) {
         Event event = queue.waitForEvent();
         switch (event.getType()) {
@@ -84,6 +91,10 @@ int main() {
                         userEventSource.emitUserEvent(new MyEvent());
                         break;
                 }
+                break;
+
+            case ALLEGRO_EVENT_TIMER:
+                if (event.getTimer() == timer) cout << "timer!\n";
                 break;
 
             case 10000:

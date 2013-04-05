@@ -186,6 +186,14 @@ public:
     }
 
     /**
+        Returns the event source of the display.
+        @return the event source of the display.
+     */
+    operator EventSource() const {
+        return getEventSource();
+    }
+
+    /**
         Sets the target bitmap to be the backbuffer of the given display.
         @param display display.
      */

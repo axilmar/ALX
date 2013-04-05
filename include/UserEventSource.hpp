@@ -39,6 +39,14 @@ public:
     }
 
     /**
+        Retrieves the event source for the object.
+        @return the event source for the object.
+     */
+    operator EventSource () const {
+        return EventSource(const_cast<ALLEGRO_EVENT_SOURCE *>(&m_event_source), false);
+    }
+
+    /**
         emits a user event.
         @param event event to emit.
         @param dtor destructor.

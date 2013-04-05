@@ -61,6 +61,14 @@ public:
     }
 
     /**
+        Returns the event source of the timer.
+        @return the event source of the timer.
+     */
+    operator EventSource () const {
+        return getEventSource();
+    }
+
+    /**
         Start the timer.
      */
     void start() {

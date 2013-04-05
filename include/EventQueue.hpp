@@ -43,8 +43,8 @@ public:
         @param source event source.
         @return reference to this.
      */
-    template <class T> EventQueue& operator << (const T &source) {
-        al_register_event_source(get(), source.getEventSource().get());
+    EventQueue& operator << (const EventSource &source) {
+        al_register_event_source(get(), source.get());
         return *this;
     }
 
@@ -63,8 +63,8 @@ public:
         @param source event source.
         @return reference to this.
      */
-    template <class T> EventQueue& operator >> (const T &source) {
-        al_unregister_event_source(get(), source.getEventSource().get());
+    EventQueue& operator >> (const EventSource &source) {
+        al_unregister_event_source(get(), source.get());
         return *this;
     }
 
