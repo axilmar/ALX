@@ -10,6 +10,9 @@
 #include "KeyboardState.hpp"
 #include "State.hpp"
 #include "System.hpp"
+#include "Thread.hpp"
+#include "Mutex.hpp"
+#include "Condition.hpp"
 
 
 using namespace std;
@@ -62,6 +65,13 @@ int main() {
     //State state;
 
     //System::getStandardPath(ALLEGRO_USER_HOME_PATH);
+
+    /*
+    Mutex mtx;
+    int x = mtx << [](){cout << "yo!"; return 1; };
+    */
+
+    Condition c;
 
     for(;;) {
         Event event = queue.waitForEvent();
