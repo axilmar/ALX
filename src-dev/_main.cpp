@@ -79,9 +79,9 @@ int main() {
 
     queue << display << userEventSource << Keyboard::getEventSource() << timer;
 
-    timer.start();
+    //timer.start();
 
-    Transform tr(true);
+    //Transform tr(true);
 
     for(;;) {
         Event event = queue.waitForEvent();

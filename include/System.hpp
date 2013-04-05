@@ -28,7 +28,7 @@ public:
         @return the system config.
      */
     static Config getConfig() {
-        return al_get_system_config();
+        return Config(al_get_system_config(), false);
     }
 };
 
