@@ -15,6 +15,19 @@ namespace alx {
 class JoystickState : public Value<ALLEGRO_JOYSTICK_STATE> {
 public:
     /**
+        The default constructor.
+     */
+    JoystickState() {
+    }
+
+    /**
+        constructor from state.
+        @param state state.
+     */
+    JoystickState(const ALLEGRO_JOYSTICK_STATE &state) : Value(state) {
+    }
+
+    /**
         Reads the given joystick's state.
         @param stick joystick.
      */

@@ -15,6 +15,19 @@ namespace alx {
 class KeyboardState : public Value<ALLEGRO_KEYBOARD_STATE> {
 public:
     /**
+        The default constructor.
+     */
+    KeyboardState() {
+    }
+
+    /**
+        constructor from state.
+        @param state state.
+     */
+    KeyboardState(const ALLEGRO_KEYBOARD_STATE &state) : Value(state) {
+    }
+
+    /**
         Retrieves the keyboard state.
      */
     void retrieve() {

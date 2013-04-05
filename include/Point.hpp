@@ -21,9 +21,16 @@ public:
         return m_y;
     }
 
+    void set(T x, T y) {
+        m_x = x;
+        m_y = y;
+    }
+
 private:
-    int m_x;
-    int m_y;
+    T m_x;
+    T m_y;
+
+    friend class Transform;
 };
 
 

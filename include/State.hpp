@@ -15,6 +15,19 @@ namespace alx {
 class State : public Value<ALLEGRO_STATE> {
 public:
     /**
+        The default constructor.
+     */
+    State() {
+    }
+
+    /**
+        constructor from state.
+        @param state state.
+     */
+    State(const ALLEGRO_STATE &state) : Value(state) {
+    }
+
+    /**
         Restores the state.
      */
     void restore() const {

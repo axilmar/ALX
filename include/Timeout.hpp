@@ -15,6 +15,19 @@ namespace alx {
 class Timeout : public Value<ALLEGRO_TIMEOUT> {
 public:
     /**
+        The default constructor.
+     */
+    Timeout() {
+    }
+
+    /**
+        constructor from timeout.
+        @param timeout timeout.
+     */
+    Timeout(const ALLEGRO_TIMEOUT &timeout) : Value(timeout) {
+    }
+
+    /**
         constructor.
         @param seconds seconds.
      */

@@ -14,6 +14,7 @@
 #include "Mutex.hpp"
 #include "Condition.hpp"
 #include "Keyboard.hpp"
+#include "Transform.hpp"
 
 
 using namespace std;
@@ -79,6 +80,8 @@ int main() {
     queue << display << userEventSource << Keyboard::getEventSource() << timer;
 
     timer.start();
+
+    Transform tr(true);
 
     for(;;) {
         Event event = queue.waitForEvent();

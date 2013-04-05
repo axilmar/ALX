@@ -15,6 +15,19 @@ namespace alx {
 class MouseState : public Value<ALLEGRO_MOUSE_STATE> {
 public:
     /**
+        The default constructor.
+     */
+    MouseState() {
+    }
+
+    /**
+        constructor from state.
+        @param state state.
+     */
+    MouseState(const ALLEGRO_MOUSE_STATE &state) : Value(state) {
+    }
+
+    /**
         Retrieves the mouse state.
      */
     void retrieve() {

@@ -520,6 +520,8 @@ private:
     T m_top;
     T m_right;
     T m_bottom;
+
+    friend class Transform;
 };
 
 
