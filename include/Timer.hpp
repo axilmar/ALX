@@ -57,7 +57,7 @@ public:
         @return the event source of the timer.
      */
     EventSource getEventSource() const {
-        return al_get_timer_event_source(get());
+        return EventSource(al_get_timer_event_source(get()), false);
     }
 
     /**
