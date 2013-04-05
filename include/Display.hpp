@@ -209,6 +209,23 @@ public:
         return Display(al_get_current_display(), false);
     }
 
+    /**
+        Sets the position of the mouse cursor.
+        @param x x coordinate.
+        @param y y coordinate.
+     */
+    void setMousePosition(int x, int y) {
+        al_set_mouse_xy(m_object.get(), x, y);
+    }
+
+    /**
+        Sets the position of the mouse cursor.
+        @param pt mouse point.
+     */
+    void setMousePosition(const Point<int> &pt) {
+        setMousePosition(pt.getX(), pt.getY());
+    }
+
 private:
     //internal pointer to the allegro object
     std::shared_ptr<ALLEGRO_DISPLAY> m_object;
