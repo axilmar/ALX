@@ -19,7 +19,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    KeyboardState(ALLEGRO_KEYBOARD_STATE *object, bool managed = true) : m_object(object, managed ? [](ALLEGRO_KEYBOARD_STATE *state){ delete state; } : [](ALLEGRO_KEYBOARD_STATE *state){}) {
+    KeyboardState(ALLEGRO_KEYBOARD_STATE *object, bool managed = true) : m_object(object, managed ? _deleteState : [](ALLEGRO_KEYBOARD_STATE *state){}) {
     }
 
     /**
@@ -39,7 +39,7 @@ public:
     /**
         Retrieves the keyboard state.
      */
-    void get() {
+    void retrieve() {
         al_get_keyboard_state(m_object.get());
     }
 
@@ -49,12 +49,17 @@ public:
         @return true if the key was down.
      */
     bool isKeyDown(int keycode) const {
-        return al_key_down(m_object.get());
+        return al_key_down(m_object.get(), keycode);
     }
 
 private:
     //allegro object
     std::shared_ptr<ALLEGRO_KEYBOARD_STATE> m_object;
+
+    //state deleter
+    static void _deleteState(ALLEGRO_KEYBOARD_STATE *state) {
+        delete state;
+    }
 };
 
 

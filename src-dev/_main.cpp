@@ -7,6 +7,8 @@
 #include "Fixed.hpp"
 #include "Color.hpp"
 #include "JoystickState.hpp"
+#include "KeyboardState.hpp"
+#include "State.hpp"
 
 
 using namespace std;
@@ -55,6 +57,8 @@ int main() {
     */
 
     //FilePath path(".");
+
+    //State state;
 
     for(;;) {
         Event event = queue.waitForEvent();
