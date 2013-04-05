@@ -9,6 +9,7 @@
 #include "JoystickState.hpp"
 #include "KeyboardState.hpp"
 #include "State.hpp"
+#include "System.hpp"
 
 
 using namespace std;
@@ -59,6 +60,8 @@ int main() {
     //FilePath path(".");
 
     //State state;
+
+    //System::getStandardPath(ALLEGRO_USER_HOME_PATH);
 
     for(;;) {
         Event event = queue.waitForEvent();
