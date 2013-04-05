@@ -2,18 +2,18 @@
 #define ALX_CONFIGENTRYCONTAINER_HPP
 
 
-#include <memory>
 #include <iterator>
 #include <allegro5/allegro.h>
+#include "Shared.hpp"
 
 
 namespace alx {
 
 
 /**
-    Value-base wrapper for container of entries.
+    Shared-based wrapper for container of entries.
  */
-class ConfigEntryContainer {
+class ConfigEntryContainer : public Shared<ALLEGRO_CONFIG> {
 public:
     /**
         Iterator for entries.
@@ -75,7 +75,7 @@ public:
      */
     const_iterator begin() const {
         const_iterator it;
-        it.m_name = al_get_first_config_entry(m_object.get(), m_section, &it.m_entry);
+        it.m_name = al_get_first_config_entry(get(), m_section, &it.m_entry);
         return it;
     }
 
@@ -90,11 +90,8 @@ private:
     //section name
     const char *m_section;
 
-    //pointer to config
-    std::shared_ptr<ALLEGRO_CONFIG> m_object;
-
     //internal constructor
-    ConfigEntryContainer(const char *section, const std::shared_ptr<ALLEGRO_CONFIG> &config) : m_section(section), m_object(config) {
+    ConfigEntryContainer(const char *section, const std::shared_ptr<ALLEGRO_CONFIG> &config) : m_section(section), Shared(config) {
     }
 
     friend class Config;

@@ -2,45 +2,23 @@
 #define ALX_KEYBOARDSTATE_HPP
 
 
-#include <memory>
 #include <allegro5/allegro.h>
+#include "Value.hpp"
 
 
 namespace alx {
 
 
 /**
-    Value-based wrapper class around ALLEGRO_KEYBOARD_STATE.
+    an ALLEGRO_KEYBOARD_STATE.
  */
-class KeyboardState {
+class KeyboardState : public Value<ALLEGRO_KEYBOARD_STATE> {
 public:
-    /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    KeyboardState(ALLEGRO_KEYBOARD_STATE *object, bool managed = true) : m_object(object, managed ? _deleteState : [](ALLEGRO_KEYBOARD_STATE *state){}) {
-    }
-
-    /**
-        Creates a keyboard state.
-     */
-    KeyboardState() : m_object(new ALLEGRO_KEYBOARD_STATE) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
-    }
-
     /**
         Retrieves the keyboard state.
      */
     void retrieve() {
-        al_get_keyboard_state(m_object.get());
+        al_get_keyboard_state(&get());
     }
 
     /**
@@ -49,16 +27,7 @@ public:
         @return true if the key was down.
      */
     bool isKeyDown(int keycode) const {
-        return al_key_down(m_object.get(), keycode);
-    }
-
-private:
-    //allegro object
-    std::shared_ptr<ALLEGRO_KEYBOARD_STATE> m_object;
-
-    //state deleter
-    static void _deleteState(ALLEGRO_KEYBOARD_STATE *state) {
-        delete state;
+        return al_key_down(&get(), keycode);
     }
 };
 

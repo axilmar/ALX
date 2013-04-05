@@ -20,20 +20,17 @@
 namespace alx {
 
 
-//TODO
-
-
 /**
-    Value-based wrapper around ALLEGRO_FILE.
+    Shared-based wrapper around ALLEGRO_FILE.
  */
-class File {
+class File : public Shared<ALLEGRO_FILE> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    File(ALLEGRO_FILE *object, bool managed = true) : m_object(object, managed ? al_fclose : [](ALLEGRO_FILE *){}) {
+    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose, [](ALLEGRO_FILE *){}) {
     }
 
     /**
@@ -47,7 +44,7 @@ public:
         @param path path.
         @param mode mode.
      */
-    File(const char *path, const char *mode) : m_object(al_fopen(path, mode), al_fclose) {
+    File(const char *path, const char *mode) : Shared(al_fopen(path, mode), al_fclose) {
     }
 
     /**
@@ -55,15 +52,7 @@ public:
         @param fd file descriptor.
         @param mode mode.
      */
-    File(int fd, const char *mode) : m_object(al_fopen_fd(fd, mode), al_fclose) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    File(int fd, const char *mode) : Shared(al_fopen_fd(fd, mode), al_fclose) {
     }
 
     /**
@@ -73,8 +62,8 @@ public:
         @return true on success.
      */
     bool open(const char *path, const char *mode) {
-        m_object = std::shared_ptr<ALLEGRO_FILE>(al_fopen(path, mode), al_fclose);
-        return m_object;
+        reset(al_fopen(path, mode), al_fclose);
+        return *this;
     }
 
     /**
@@ -84,15 +73,15 @@ public:
         @return true on success.
      */
     bool open(int fd, const char *mode) {
-        m_object = std::shared_ptr<ALLEGRO_FILE>(al_fopen_fd(fd, mode), al_fclose);
-        return m_object;
+        reset(al_fopen_fd(fd, mode), al_fclose);
+        return *this;
     }
 
     /**
         closes the file.
      */
     void close() {
-        al_fclose(m_object.get());
+        al_fclose(get());
     }
 
     /**
@@ -100,7 +89,7 @@ public:
         @return true on success.
      */
     bool flush() {
-        al_fflush(m_object.get());
+        al_fflush(get());
     }
 
     /**
@@ -108,7 +97,7 @@ public:
         @return the file position.
      */
     int64_t getFilePosition() const {
-        return al_ftell(m_object.get());
+        return al_ftell(get());
     }
 
     /**
@@ -117,7 +106,7 @@ public:
         @param from the 'whence' parameter: ALLEGRO_SEEK_SET, ALLEGRO_SEEK_CUR, ALLEGRO_SEEK_END.
      */
     bool setFilePosition(int64_t pos, int from = ALLEGRO_SEEK_SET) {
-        return al_fseek(m_object.get(), pos, from);
+        return al_fseek(get(), pos, from);
     }
 
     /**
@@ -125,7 +114,7 @@ public:
         @return true if set.
      */
     bool isEOF() const {
-        return al_feof(m_object.get());
+        return al_feof(get());
     }
 
     /**
@@ -133,14 +122,14 @@ public:
         @return true if set.
      */
     bool isError() const {
-        return al_ferror(m_object.get());
+        return al_ferror(get());
     }
 
     /**
         Clears the error.
      */
     void clearError() {
-        al_fclearerr(m_object.get());
+        al_fclearerr(get());
     }
 
     /**
@@ -148,7 +137,7 @@ public:
         @return the size of the file.
      */
     int64_t getSize() const {
-       return al_fsize(m_object.get());
+       return al_fsize(get());
     }
     
     /**
@@ -158,7 +147,7 @@ public:
         @return the number of bytes actually read.
      */
     size_t read(void *dst, size_t size) {
-        return al_fread(m_object.get(), dst, size);
+        return al_fread(get(), dst, size);
     }
 
     /**
@@ -211,7 +200,7 @@ public:
         @return true on success.
      */
     bool read(String &v) {
-        ALLEGRO_USTR *str = al_fget_ustr(m_object.get());
+        ALLEGRO_USTR *str = al_fget_ustr(get());
         if (!str) return false;
         v = str;
         return true;
@@ -235,7 +224,7 @@ public:
         @return number of bytes actually written.
      */
     size_t write(const void *src, size_t size) {
-        return al_fwrite(m_object.get(), src, size);
+        return al_fwrite(get(), src, size);
     }
 
     /**
@@ -287,7 +276,7 @@ public:
         @return true on success.
      */
     bool write(const String &v) {
-        return al_fputs(m_object.get(), v) >= 0;
+        return al_fputs(get(), v) >= 0;
     }
 
     /**
@@ -310,13 +299,6 @@ public:
         ALLEGRO_FILE *file = al_make_temp_file(filenameTemplate, &path);       
         return std::make_tuple(file, path); 
     }
-
-private:
-    //internal allegro object.
-    std::shared_ptr<ALLEGRO_FILE> m_object;
-
-    friend class Config;
-    friend class Bitmap;
 };
 
 

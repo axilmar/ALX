@@ -3,28 +3,24 @@
 
 
 #include <allegro5/allegro.h>
+#include "Value.hpp"
 
 
 namespace alx {
 
 
 /**
-    An ALLEGRO_TIMEOUT.
+    Value-based wrapper aroundaAn ALLEGRO_TIMEOUT.
  */
-class Timeout {
+class Timeout : public Value<ALLEGRO_TIMEOUT> {
 public:
     /**
         constructor.
         @param seconds seconds.
      */
     Timeout(double seconds) {
-        al_init_timeout(&m_object, seconds);
+        al_init_timeout(&get(), seconds);
     }
-
-private:
-    ALLEGRO_TIMEOUT m_object;
-
-    friend class Condition;
 };
 
 

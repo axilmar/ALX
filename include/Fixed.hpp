@@ -9,7 +9,7 @@ namespace alx {
 
 
 /**
-    Wrapper around al_fixed.
+    A fixed number.
  */
 class Fixed {
 public:

@@ -21,7 +21,7 @@ namespace alx {
 
 
 /**
-    Wrapper class around ALLEGRO_COLOR.
+    Color class.
  */
 class Color {
 public:

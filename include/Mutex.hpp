@@ -2,54 +2,46 @@
 #define ALX_MUTEX_HPP
 
 
-#include <memory>
 #include <allegro5/allegro.h>
 #include "Lock.hpp"
+#include "Shared.hpp"
 
 
 namespace alx {
 
 
 /**
-    Value-based wrapper class around ALLEGRO_MUTEX.
+    Shared-based wrapper class around ALLEGRO_MUTEX.
  */
-class Mutex {
+class Mutex : public Shared<ALLEGRO_MUTEX> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Mutex(ALLEGRO_MUTEX *object, bool managed = true) : m_object(object, managed ? al_destroy_mutex : [](ALLEGRO_MUTEX *){}) {
+    Mutex(ALLEGRO_MUTEX *object, bool managed = true) : Shared(object, managed, al_destroy_mutex, [](ALLEGRO_MUTEX *){}) {
     }
 
     /**
         Creates a mutex.
         @param recursive if true, a recursive mutex is created.
      */
-    Mutex(bool recursive = false) : m_object(recursive ? al_create_mutex_recursive() : al_create_mutex(), al_destroy_mutex) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    Mutex(bool recursive = false) : Shared(recursive ? al_create_mutex_recursive() : al_create_mutex(), al_destroy_mutex) {
     }
 
     /**
         locks the mutex.
      */
     void lock() {
-        al_lock_mutex(m_object.get());
+        al_lock_mutex(get());
     }
 
     /**
         unlocks the mutex.
      */
     void unlock() {
-        al_unlock_mutex(m_object.get());
+        al_unlock_mutex(get());
     }
 
     /**
@@ -62,11 +54,6 @@ public:
         Lock<Mutex> lock(*this);
         return f();
     }
-
-private:
-    std::shared_ptr<ALLEGRO_MUTEX> m_object;
-
-    friend class Condition;
 };
 
 

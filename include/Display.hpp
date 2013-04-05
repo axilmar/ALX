@@ -12,16 +12,16 @@ namespace alx {
 
 
 /**
-    Value-based wrapper around ALLEGRO_DISPLAY.
+    Shared-based wrapper around ALLEGRO_DISPLAY.
  */
-class Display {
+class Display : public Shared<ALLEGRO_DISPLAY> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Display(ALLEGRO_DISPLAY *object, bool managed = true) : m_object(object, managed ? al_destroy_display : [](ALLEGRO_DISPLAY *){}) {
+    Display(ALLEGRO_DISPLAY *object, bool managed = true) : Shared(object, managed, al_destroy_display, [](ALLEGRO_DISPLAY *){}) {
     }
 
     /**
@@ -29,15 +29,7 @@ public:
         @param width width.
         @param height height.
      */
-    Display(int width, int height) : m_object(al_create_display(width, height), al_destroy_display) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    Display(int width, int height) : Shared(al_create_display(width, height), al_destroy_display) {
     }
 
     /**
@@ -45,7 +37,7 @@ public:
         @return true on success.
      */
     bool acknowledgeResize() {
-        return al_acknowledge_resize(m_object.get());
+        return al_acknowledge_resize(get());
     }
 
     /**
@@ -53,7 +45,7 @@ public:
         @return a bitmap object that represents the backbuffer.
      */
     Bitmap getBackbuffer() const {
-        return Bitmap(al_get_backbuffer(m_object.get()), false);
+        return Bitmap(al_get_backbuffer(get()), false);
     }
 
     /**
@@ -61,7 +53,7 @@ public:
         @return the flags of the display.
      */
     int getFlags() const {
-        return al_get_display_flags(m_object.get());
+        return al_get_display_flags(get());
     }
 
     /**
@@ -69,7 +61,7 @@ public:
         @return the pixel format of the display.
      */
     int getFormat() const {
-        return al_get_display_format(m_object.get());
+        return al_get_display_format(get());
     }
 
     /**
@@ -77,7 +69,7 @@ public:
         @return the refresh rate of the display.
      */
     int getRefreshRate() const {
-        return al_get_display_refresh_rate(m_object.get());
+        return al_get_display_refresh_rate(get());
     }
 
     /**
@@ -86,7 +78,7 @@ public:
      */
     Point<int> getWindowPosition() const {
         int x, y;
-        al_get_window_position(m_object.get(), &x, &y);
+        al_get_window_position(get(), &x, &y);
         return Point<int>(x, y);
     }
 
@@ -96,7 +88,7 @@ public:
         @param y vertical position.
      */
     void setWindowPosition(int x, int y) {
-        al_set_window_position(m_object.get(), x, y);
+        al_set_window_position(get(), x, y);
     }
 
     /**
@@ -104,7 +96,7 @@ public:
         @param pos position.
      */
     void setWindowPosition(const Point<int> &pos) {
-        al_set_window_position(m_object.get(), pos.getX(), pos.getY());
+        al_set_window_position(get(), pos.getX(), pos.getY());
     }
 
     /**
@@ -112,7 +104,7 @@ public:
         @return the width of the display.
      */
     int getWidth() const {
-        return al_get_display_width(m_object.get());
+        return al_get_display_width(get());
     }
 
     /**
@@ -120,7 +112,7 @@ public:
         @return the height of the display.
      */
     int getHeight() const {
-        return al_get_display_height(m_object.get());
+        return al_get_display_height(get());
     }
 
     /**
@@ -138,7 +130,7 @@ public:
         @return true on success.
      */
     bool setSize(int width, int height) {
-        return al_resize_display(m_object.get(), width, height);
+        return al_resize_display(get(), width, height);
     }
 
     /**
@@ -155,7 +147,7 @@ public:
         @param bitmap bitmap for the icon.
      */
     void setWindowIcon(const Bitmap &bitmap) {
-        al_set_display_icon(m_object.get(), bitmap.m_object.get());
+        al_set_display_icon(get(), bitmap.get());
     }
 
     /**
@@ -164,7 +156,7 @@ public:
         @return option value.
      */
     int getOption(int option) const {
-        return al_get_display_option(m_object.get(), option);
+        return al_get_display_option(get(), option);
     }
 
     /**
@@ -172,7 +164,7 @@ public:
         @param title title.
      */
     void setWindowTitle(const char *title) {
-        al_set_window_title(m_object.get(), title);
+        al_set_window_title(get(), title);
     }
 
     /**
@@ -182,7 +174,7 @@ public:
         @return true on success.
      */
     bool setFlagEnabled(int flag, bool enabled) {
-        return al_toggle_display_flag(m_object.get(), flag, enabled);
+        return al_toggle_display_flag(get(), flag, enabled);
     }
 
     /**
@@ -190,7 +182,7 @@ public:
         @return the event source of the display.
      */
     EventSource getEventSource() const {
-        return EventSource(al_get_display_event_source(m_object.get()), false);
+        return EventSource(al_get_display_event_source(get()), false);
     }
 
     /**
@@ -198,7 +190,7 @@ public:
         @param display display.
      */
     static void setTarget(Display &display) {
-        al_set_target_backbuffer(display.m_object.get());
+        al_set_target_backbuffer(display.get());
     }
 
     /**
@@ -215,7 +207,7 @@ public:
         @param y y coordinate.
      */
     void setMousePosition(int x, int y) {
-        al_set_mouse_xy(m_object.get(), x, y);
+        al_set_mouse_xy(get(), x, y);
     }
 
     /**
@@ -225,10 +217,6 @@ public:
     void setMousePosition(const Point<int> &pt) {
         setMousePosition(pt.getX(), pt.getY());
     }
-
-private:
-    //internal pointer to the allegro object
-    std::shared_ptr<ALLEGRO_DISPLAY> m_object;
 };
 
 

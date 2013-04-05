@@ -55,7 +55,7 @@ public:
         @return true on success.
      */
     bool emitUserEvent(const Event &event, void (*dtor)(ALLEGRO_USER_EVENT *) = nullptr) {
-        return al_emit_user_event(&m_event_source, const_cast<ALLEGRO_EVENT *>(&event.m_object), dtor);
+        return al_emit_user_event(&m_event_source, const_cast<ALLEGRO_EVENT *>(&event.get()), dtor);
     }
 
     /**

@@ -11,44 +11,36 @@ namespace alx {
 
 
 /**
-    Value-based wrapper around ALLEGRO_CONFIG.
+    Shared-based wrapper around ALLEGRO_CONFIG.
  */
-class Config {
+class Config : public Shared<ALLEGRO_CONFIG> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Config(ALLEGRO_CONFIG *object, bool managed = true) : m_object(object, managed ? al_destroy_config : [](ALLEGRO_CONFIG *){}) {
+    Config(ALLEGRO_CONFIG *object, bool managed = true) : Shared(object, managed, al_destroy_config, [](ALLEGRO_CONFIG *){}) {
     }
 
     /**
         creates an internal config object.
      */
-    Config() : m_object(al_create_config(), al_destroy_config) {
+    Config() : Shared(al_create_config(), al_destroy_config) {
     }
 
     /**
         Constructor from disk file.
         @param filename filename.
      */
-    Config(const char *filename) : m_object(al_load_config_file(filename), al_destroy_config) {
+    Config(const char *filename) : Shared(al_load_config_file(filename), al_destroy_config) {
     }
 
     /**
         Constructor from open file.
         @param file file.
      */
-    Config(File &file) : m_object(al_load_config_file_f(file.m_object.get()), al_destroy_config) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    Config(File &file) : Shared(al_load_config_file_f(file.get()), al_destroy_config) {
     }
 
     /**
@@ -57,7 +49,7 @@ public:
         @return true on success.
      */
     bool save(const char *filename) const {
-        return al_save_config_file(filename, m_object.get());
+        return al_save_config_file(filename, get());
     }
 
     /**
@@ -66,7 +58,7 @@ public:
         @return true on success.
      */
     bool save(File &file) const {
-        return al_save_config_file_f(file.m_object.get(), m_object.get());
+        return al_save_config_file_f(file.get(), get());
     }
 
     /**
@@ -74,7 +66,7 @@ public:
         @param name section name.
      */
     void addSection(const char *name) {
-        al_add_config_section(m_object.get(), name);
+        al_add_config_section(get(), name);
     }
 
     /**
@@ -83,7 +75,7 @@ public:
         @param comment comment.
      */
     void addComment(const char *section, const char *comment) {
-        al_add_config_comment(m_object.get(), section, comment);
+        al_add_config_comment(get(), section, comment);
     }
 
     /**
@@ -93,7 +85,7 @@ public:
         @return the key's value or null.
      */
     const char *getValue(const char *section, const char *key) const {
-        return al_get_config_value(m_object.get(), section, key);
+        return al_get_config_value(get(), section, key);
     }
 
     /**
@@ -103,7 +95,7 @@ public:
         @param value value.
      */
     void setValue(const char *section, const char *key, const char *value) {
-        al_set_config_value(m_object.get(), section, key, value);
+        al_set_config_value(get(), section, key, value);
     }
 
     /**
@@ -111,7 +103,7 @@ public:
         @return a container for sections.
      */
     ConfigSectionContainer getSections() const {
-        return m_object;
+        return *this;
     }
 
     /**
@@ -120,7 +112,7 @@ public:
         @return a container for entries of a section.
      */
     ConfigEntryContainer getEntries(const char *section) const {
-        return ConfigEntryContainer(section, m_object);
+        return ConfigEntryContainer(section, *this);
     }
 
     /**
@@ -130,7 +122,7 @@ public:
         @return result config.
      */
     friend Config operator + (const Config &a, const Config &b) {
-        return Config(al_merge_config(a.m_object.get(), b.m_object.get()));
+        return Config(al_merge_config(a.get(), b.get()));
     }
 
     /**
@@ -139,13 +131,9 @@ public:
         @return reference to this.
      */
     Config &operator << (const Config &config) {
-        al_merge_config_into(m_object.get(), config.m_object.get());
+        al_merge_config_into(get(), config.get());
         return *this;
     }
-
-private:
-    //internal pointer to the allegro object
-    std::shared_ptr<ALLEGRO_CONFIG> m_object;
 };
 
 

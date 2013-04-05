@@ -6,15 +6,16 @@
 #include "Joystick.hpp"
 #include "Display.hpp"
 #include "Timer.hpp"
+#include "Value.hpp"
 
 
 namespace alx {
 
 
 /**
-    An allegro event.
+    Value-based wrapper around ALLEGRO_EVENT.
  */
-class Event {
+class Event : public Value<ALLEGRO_EVENT> {
 public:
     /**
         default constructor.
@@ -25,14 +26,14 @@ public:
     /**
         constructor from event struct.
      */
-    Event(const ALLEGRO_EVENT &event) :m_object(event) {
+    Event(const ALLEGRO_EVENT &event) :Value(event) {
     }
 
     /**
         If the event is a user event, then it is automatically unrefd.
      */
     ~Event() {
-        if (_isUserEvent(m_object.type)) al_unref_user_event(&m_object.user);
+        if (_isUserEvent(get().type)) al_unref_user_event(&get().user);
     }
 
     /**
@@ -40,7 +41,7 @@ public:
         @return true if user event, false otherwise.
      */
     bool isUserEvent() const {
-        return _isUserEvent(m_object.type);
+        return _isUserEvent(get().type);
     }
 
     /**
@@ -48,7 +49,7 @@ public:
         @return the type of the event.
      */
     int getType() const {
-        return m_object.type;
+        return get().type;
     }
 
     /**
@@ -56,7 +57,7 @@ public:
         @return the event source.
      */
     EventSource getEventSource() const {
-        return EventSource(m_object.any.source, false);
+        return EventSource(get().any.source, false);
     }
 
     /**
@@ -64,7 +65,7 @@ public:
         @return the timestamp.
      */
     double getTimestamp() const {
-        return m_object.any.timestamp;
+        return get().any.timestamp;
     }
 
     /**
@@ -72,7 +73,7 @@ public:
         @return the display.
      */
     Display getDisplay() const {
-        return Display(m_object.display.source, false);
+        return Display(get().display.source, false);
     }
 
     /**
@@ -80,7 +81,7 @@ public:
         @return the display x.
      */
     int getDisplayX() const {
-        return m_object.display.x;
+        return get().display.x;
     }
 
     /**
@@ -88,7 +89,7 @@ public:
         @return the display y.
      */
     int getDisplayY() const {
-        return m_object.display.y;
+        return get().display.y;
     }
 
     /**
@@ -96,7 +97,7 @@ public:
         @return the display width.
      */
     int getDisplayWidth() const {
-        return m_object.display.width;
+        return get().display.width;
     }
 
     /**
@@ -104,7 +105,7 @@ public:
         @return the display height.
      */
     int getDisplayHeight() const {
-        return m_object.display.height;
+        return get().display.height;
     }
 
     /**
@@ -112,7 +113,7 @@ public:
         @return the display orientation.
      */
     int getDisplayOrientation() const {
-        return m_object.display.orientation;
+        return get().display.orientation;
     }
 
     /**
@@ -120,7 +121,7 @@ public:
         @return the joystick.
      */
     Joystick getJoystick() const {
-        return Joystick(m_object.joystick.source, false);
+        return Joystick(get().joystick.source, false);
     }
 
     /**
@@ -128,7 +129,7 @@ public:
         @return the joystick id.
      */
     Joystick getJoystickId() const {
-        return Joystick(m_object.joystick.id, false);
+        return Joystick(get().joystick.id, false);
     }
 
     /**
@@ -136,7 +137,7 @@ public:
         @return the joystick stick.
      */
     int getJoystickStick() const {
-        return m_object.joystick.stick;
+        return get().joystick.stick;
     }
 
     /**
@@ -144,7 +145,7 @@ public:
         @return the joystick axis.
      */
     int getJoystickAxis() const {
-        return m_object.joystick.axis;
+        return get().joystick.axis;
     }
 
     /**
@@ -152,7 +153,7 @@ public:
         @return the joystick position.
      */
     float getJoystickPos() const {
-        return m_object.joystick.pos;
+        return get().joystick.pos;
     }
 
     /**
@@ -160,7 +161,7 @@ public:
         @return the joystick button.
      */
     int getJoystickButton() const {
-        return m_object.joystick.button;
+        return get().joystick.button;
     }
 
     /**
@@ -168,7 +169,7 @@ public:
         @return the keyboard display.
      */
     Display getKeyboardDisplay() const {
-        return Display(m_object.keyboard.display, false);
+        return Display(get().keyboard.display, false);
     }
 
     /**
@@ -176,7 +177,7 @@ public:
         @return the keyboard keycode.
      */
     int getKeyboardKeycode() const {
-        return m_object.keyboard.keycode;
+        return get().keyboard.keycode;
     }
 
     /**
@@ -184,7 +185,7 @@ public:
         @return the keyboard unicode character.
      */
     int getKeyboardCharacter() const {
-        return m_object.keyboard.unichar;
+        return get().keyboard.unichar;
     }
 
     /**
@@ -192,7 +193,7 @@ public:
         @return the keyboard modifiers.
      */
     int getKeyboardModifiers() const {
-        return m_object.keyboard.modifiers;
+        return get().keyboard.modifiers;
     }
 
     /**
@@ -200,7 +201,7 @@ public:
         @return the keyboard repeat flag.
      */
     bool getKeyboardRepeat() const {
-        return m_object.keyboard.repeat;
+        return get().keyboard.repeat;
     }
 
     /**
@@ -208,7 +209,7 @@ public:
         @return the mouse display.
      */
     Display getMouseDisplay() const {
-        return Display(m_object.mouse.display, false);
+        return Display(get().mouse.display, false);
     }
 
     /**
@@ -216,7 +217,7 @@ public:
         @return the mouse x.
      */
     int getMouseX() const {
-        return m_object.mouse.x;
+        return get().mouse.x;
     }
 
     /**
@@ -224,7 +225,7 @@ public:
         @return the mouse y.
      */
     int getMouseY() const {
-        return m_object.mouse.y;
+        return get().mouse.y;
     }
 
     /**
@@ -232,7 +233,7 @@ public:
         @return the mouse z. 
      */
     int getMouseZ() const {
-        return m_object.mouse.z;
+        return get().mouse.z;
     }
 
     /**
@@ -240,7 +241,7 @@ public:
         @return the mouse w. 
      */
     int getMouseW() const {
-        return m_object.mouse.w;
+        return get().mouse.w;
     }
 
     /**
@@ -248,7 +249,7 @@ public:
         @return the mouse dx. 
      */
     int getMouseDX() const {
-        return m_object.mouse.dx;
+        return get().mouse.dx;
     }
 
     /**
@@ -256,7 +257,7 @@ public:
         @return the mouse dy. 
      */
     int getMouseDY() const {
-        return m_object.mouse.dy;
+        return get().mouse.dy;
     }
 
     /**
@@ -264,7 +265,7 @@ public:
         @return the mouse dz. 
      */
     int getMouseDZ() const {
-        return m_object.mouse.dz;
+        return get().mouse.dz;
     }
 
     /**
@@ -272,7 +273,7 @@ public:
         @return the mouse dw. 
      */
     int getMouseDW() const {
-        return m_object.mouse.dw;
+        return get().mouse.dw;
     }
 
     /**
@@ -280,7 +281,7 @@ public:
         @return the mouse pressure. 
      */
     float getMousePressure() const {
-        return m_object.mouse.pressure;
+        return get().mouse.pressure;
     }
 
     /**
@@ -288,7 +289,7 @@ public:
         @return the timer.
      */
     Timer getTimer() const {
-        return Timer(m_object.timer.source, false);
+        return Timer(get().timer.source, false);
     }
 
     /**
@@ -296,7 +297,7 @@ public:
         @return the timer count.
      */
     int64_t getTimerCount() const {
-        return m_object.timer.count;
+        return get().timer.count;
     }
 
     /**
@@ -304,7 +305,7 @@ public:
         @return the timer error.
      */
     double getTimerError() const {
-        return m_object.timer.error;
+        return get().timer.error;
     }
 
     /**
@@ -312,7 +313,7 @@ public:
         @return the user data field 1.
      */
     intptr_t getUserData1() const {
-        return m_object.user.data1;
+        return get().user.data1;
     }
 
     /**
@@ -320,7 +321,7 @@ public:
         @return the user data field 2. 
      */
     intptr_t getUserData2() const {
-        return m_object.user.data2;
+        return get().user.data2;
     }
 
     /**
@@ -328,7 +329,7 @@ public:
         @return the user data field 3. 
      */
     intptr_t getUserData3() const {
-        return m_object.user.data3;
+        return get().user.data3;
     }
 
     /**
@@ -336,13 +337,10 @@ public:
         @return the user data field 4. 
      */
     intptr_t getUserData4() const {
-        return m_object.user.data4;
+        return get().user.data4;
     }
 
 private:
-    //allegro event
-    ALLEGRO_EVENT m_object;
-
     friend class UserEventSource;
     
     //check if the type represents an Allegro event or a user type event.

@@ -10,31 +10,23 @@ namespace alx {
 
 
 /**
-    Value-based wrapper class around ALLEGRO_JOYSTICK.
+    Shared-based wrapper class around ALLEGRO_JOYSTICK.
  */
-class Joystick {
+class Joystick : public Shared<ALLEGRO_JOYSTICK> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : m_object(object, managed ? al_release_joystick : [](ALLEGRO_JOYSTICK *){}) {
+    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : Shared(object, managed, al_release_joystick, [](ALLEGRO_JOYSTICK *){}) {
     }
 
     /**
         Gets a joystick.
         @param num joystick number.
      */
-    Joystick(int num) : m_object(al_get_joystick(num), al_release_joystick) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    Joystick(int num) : Shared(al_get_joystick(num), al_release_joystick) {
     }
 
     /**
@@ -42,7 +34,7 @@ public:
         @return true if active.
      */
     bool isActive() const {
-        return al_get_joystick_active(m_object.get());
+        return al_get_joystick_active(get());
     }
 
     /**
@@ -50,7 +42,7 @@ public:
         @return the joystick's name.
      */
     String getName() const {
-        return al_get_joystick_name(m_object.get());
+        return al_get_joystick_name(get());
     }
 
     /**
@@ -59,7 +51,7 @@ public:
         @return the given stick's name.
      */
     String getStickName(int stick) const {
-        return al_get_joystick_stick_name(m_object.get(), stick);
+        return al_get_joystick_stick_name(get(), stick);
     }
 
     /**
@@ -69,7 +61,7 @@ public:
         @return the given stick axis' name.
      */
     String getAxisName(int stick, int axis) const {
-        return al_get_joystick_axis_name(m_object.get(), stick, axis);
+        return al_get_joystick_axis_name(get(), stick, axis);
     }
 
     /**
@@ -78,7 +70,7 @@ public:
         @return the given button's name.
      */
     String getButtonName(int button) const {
-        return al_get_joystick_button_name(m_object.get(), button);
+        return al_get_joystick_button_name(get(), button);
     }
 
     /**
@@ -87,7 +79,7 @@ public:
         @return the given stick's flags.
      */
     int getStickFlags(int stick) const {
-        return al_get_joystick_stick_flags(m_object.get(), stick);
+        return al_get_joystick_stick_flags(get(), stick);
     }
 
     /**
@@ -95,7 +87,7 @@ public:
         @return the joystick's number of sticks.
      */
     int getNumSticks() const {
-        return al_get_joystick_num_sticks(m_object.get());
+        return al_get_joystick_num_sticks(get());
     }
 
     /**
@@ -104,7 +96,7 @@ public:
         @return the joystick's number of axes.
      */
     int getNumAxes(int stick) const {
-        return al_get_joystick_num_axes(m_object.get(), stick);
+        return al_get_joystick_num_axes(get(), stick);
     }
 
     /**
@@ -112,7 +104,7 @@ public:
         @return the joystick's number of buttons.
      */
     int getNumButtons() const {
-        return al_get_joystick_num_buttons(m_object.get());
+        return al_get_joystick_num_buttons(get());
     }
 
     /**
@@ -122,12 +114,6 @@ public:
     static EventSource getEventSource() {
         return EventSource(al_get_joystick_event_source(), false);
     }
-
-private:
-    //allegro object
-    std::shared_ptr<ALLEGRO_JOYSTICK> m_object;
-
-    friend class JoystickState;
 };
 
 

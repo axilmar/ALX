@@ -2,24 +2,24 @@
 #define ALX_FILEENTRY_HPP
 
 
-#include <memory>
 #include <allegro5/allegro.h>
+#include "Shared.hpp"
 
 
 namespace alx {
 
 
 /**
-    Value-based wrapper around ALLEGRO_FS_ENTRY.
+    Shared-based wrapper around ALLEGRO_FS_ENTRY.
  */
-class FileEntry {
+class FileEntry : public Shared<ALLEGRO_FS_ENTRY> {
 public:
     /**
         Constructor from allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : m_object(object, managed ? al_destroy_fs_entry : [](ALLEGRO_FS_ENTRY *){}) {
+    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : Shared(object, managed, al_destroy_fs_entry, [](ALLEGRO_FS_ENTRY *){}) {
     }
 
     /**
@@ -32,15 +32,7 @@ public:
         constructor from path.
         @param path file path.
      */
-    FileEntry(const char *path) : m_object(al_create_fs_entry(path), al_destroy_fs_entry) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    FileEntry(const char *path) : Shared(al_create_fs_entry(path), al_destroy_fs_entry) {
     }
 
     /**
@@ -48,7 +40,7 @@ public:
         @return the path of the file entry.
      */
     String getPath() const {
-        return m_object ? al_ustr_new(al_get_fs_entry_name(m_object.get())) : String();
+        return al_ustr_new(al_get_fs_entry_name(get()));
     }
 
     /**
@@ -56,7 +48,7 @@ public:
         @return the mode flags.
      */
     uint32_t getMode() const {
-        return al_get_fs_entry_mode(m_object.get());
+        return al_get_fs_entry_mode(get());
     }
 
     /**
@@ -112,7 +104,7 @@ public:
         @return the entry's last access time.
      */
     time_t getAccessTime() const {
-        return al_get_fs_entry_atime(m_object.get());
+        return al_get_fs_entry_atime(get());
     }
 
     /**
@@ -120,7 +112,7 @@ public:
         @return the entry's creation time.
      */
     time_t getCreationTime() const {
-        return al_get_fs_entry_ctime(m_object.get());
+        return al_get_fs_entry_ctime(get());
     }
 
     /**
@@ -128,7 +120,7 @@ public:
         @return the entry's last modification time.
      */
     time_t getModificationTime() const {
-        return al_get_fs_entry_mtime(m_object.get());
+        return al_get_fs_entry_mtime(get());
     }
 
     /**
@@ -136,7 +128,7 @@ public:
         @return the size of the file.
      */
     off_t getSize() const {
-        return al_get_fs_entry_size(m_object.get());
+        return al_get_fs_entry_size(get());
     }
 
     /**
@@ -144,7 +136,7 @@ public:
         @return true on success.
      */
     bool exists() const {
-        return al_fs_entry_exists(m_object.get());
+        return al_fs_entry_exists(get());
     }
 
     /**
@@ -152,7 +144,7 @@ public:
         @return true on success.
      */
     bool update() {
-        return al_update_fs_entry(m_object.get());
+        return al_update_fs_entry(get());
     }
 
     /**
@@ -160,7 +152,7 @@ public:
         @return true on success.
      */
     bool remove() {
-        return al_remove_fs_entry(m_object.get());
+        return al_remove_fs_entry(get());
     }
 
     /**
@@ -232,7 +224,7 @@ public:
         @return an iterator that points to the first file entry.
      */
     const_iterator begin() const {
-        return m_object;
+        return *this;
     }
 
     /**
@@ -244,11 +236,8 @@ public:
     }
 
 private:
-    //allegro object
-    std::shared_ptr<ALLEGRO_FS_ENTRY> m_object;
-
     //internal constructor from object pointer
-    FileEntry(const std::shared_ptr<ALLEGRO_FS_ENTRY> &object) : m_object(object) {
+    FileEntry(const std::shared_ptr<ALLEGRO_FS_ENTRY> &object) : Shared(object) {
     }
 
     friend class const_iterator;

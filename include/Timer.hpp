@@ -9,31 +9,23 @@ namespace alx {
 
 
 /**
-    Value-based wrapper around ALLEGRO_TIMER.
+    Shared-based wrapper around ALLEGRO_TIMER.
  */
-class Timer {
+class Timer : public Shared<ALLEGRO_TIMER> {
 public:
     /**
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Timer(ALLEGRO_TIMER *object, bool managed = true) : m_object(object, managed ? al_destroy_timer : [](ALLEGRO_TIMER *){}) {
+    Timer(ALLEGRO_TIMER *object, bool managed = true) : Shared(object, managed, al_destroy_timer, [](ALLEGRO_TIMER *){}) {
     }
 
     /**
         Creates a timer.
         @param speedSecs speed, in seconds.
      */
-    Timer(double speedSecs) : m_object(al_create_timer(speedSecs), al_destroy_timer) {
-    }
-
-    /**
-        Checks if the internal allegro object is null.
-        @return true if null, false otherwise.
-     */
-    bool isNull() const {
-        return m_object;
+    Timer(double speedSecs) : Shared(al_create_timer(speedSecs), al_destroy_timer) {
     }
 
     /**
@@ -41,7 +33,7 @@ public:
         @return true if started.
      */
     bool isStarted() const {
-        return al_get_timer_started(m_object.get());
+        return al_get_timer_started(get());
     }
 
     /**
@@ -49,7 +41,7 @@ public:
         @return the timer count.
      */
     int64_t getCount() const {
-        return al_get_timer_count(m_object.get());
+        return al_get_timer_count(get());
     }
 
     /**
@@ -57,7 +49,7 @@ public:
         @return the timer speed in seconds.
      */
     double getSpeed() const {
-        return al_get_timer_speed(m_object.get());
+        return al_get_timer_speed(get());
     }
 
     /**
@@ -65,21 +57,21 @@ public:
         @return the event source of the timer.
      */
     EventSource getEventSource() const {
-        return al_get_timer_event_source(m_object.get());
+        return al_get_timer_event_source(get());
     }
 
     /**
         Start the timer.
      */
     void start() {
-        al_start_timer(m_object.get());
+        al_start_timer(get());
     }
 
     /**
         Stops the timer.
      */
     void stop() {
-        al_stop_timer(m_object.get());
+        al_stop_timer(get());
     }
 
     /**
@@ -87,7 +79,7 @@ public:
         @param count new count.
      */
     void setCount(int64_t count) {
-        al_set_timer_count(m_object.get(), count);
+        al_set_timer_count(get(), count);
     }
 
     /**
@@ -95,7 +87,7 @@ public:
         @param count count to add.
      */
     void addCount(int64_t count) {
-        al_add_timer_count(m_object.get(), count);
+        al_add_timer_count(get(), count);
     }
 
     /**
@@ -103,12 +95,8 @@ public:
         @param speedSecs the timer speed, in seconds.
      */
     void setSpeed(double speedSecs) {
-        al_set_timer_speed(m_object.get(), speedSecs);
+        al_set_timer_speed(get(), speedSecs);
     }
-
-private:
-    //internal pointer to the allegro object
-    std::shared_ptr<ALLEGRO_TIMER> m_object;
 };
 
 
