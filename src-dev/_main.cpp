@@ -48,9 +48,13 @@ int main() {
 
     //Color c = {0.1f, 0.2f, 0.3f, 0.4f};
 
+    /*
     Joystick joy0(0);
     JoystickState state;
     state.readState(joy0);
+    */
+
+    //FilePath path(".");
 
     for(;;) {
         Event event = queue.waitForEvent();

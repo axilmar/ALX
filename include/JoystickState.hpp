@@ -39,7 +39,7 @@ public:
         Reads the given joystick's state.
         @param stick joystick.
      */
-    void readState(const Joystick &stick) {
+    void get(const Joystick &stick) {
         al_get_joystick_state(stick.m_object.get(), m_object.get());    
     }
 
