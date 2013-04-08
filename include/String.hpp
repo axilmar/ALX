@@ -1284,6 +1284,14 @@ public:
         return findReverseAndReplaceAll(al_ref_cstr(&oldInfo, oldStr), al_ref_cstr(&newInfo, newStr), offset);
      }
 
+     //TODO assigment operators
+
+     //TODO operator +
+
+     //TODO operator <<
+
+     //TODO STL-interface
+
 private:
     //converts the string to UTF8 character sequence
     static std::string _wideCharToUTF8(const wchar_t *str);
