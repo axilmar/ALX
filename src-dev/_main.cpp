@@ -83,6 +83,8 @@ int main() {
 
     //Transform tr(true);
 
+    String str;
+
     for(;;) {
         Event event = queue.waitForEvent();
         switch (event.getType()) {

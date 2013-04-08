@@ -197,14 +197,14 @@ public:
 
     private:
         //dir entry
-        std::shared_ptr<ALLEGRO_FS_ENTRY> m_dirEntry;
+        ALLEGRO_FS_ENTRY *m_dirEntry;
 
         //current file entry
         std::shared_ptr<ALLEGRO_FS_ENTRY> m_fileEntry;
 
         //internal constructor
-        const_iterator(const std::shared_ptr<ALLEGRO_FS_ENTRY> &dirEntry) : m_dirEntry(dirEntry) {
-            if (al_open_directory(m_dirEntry.get())) _readFileEntry();
+        const_iterator(ALLEGRO_FS_ENTRY *dirEntry) : m_dirEntry(dirEntry) {
+            if (al_open_directory(m_dirEntry)) _readFileEntry();
         }
 
         //empty iterator constructor
@@ -213,7 +213,7 @@ public:
 
         //read a file entry
         void _readFileEntry() {
-            m_fileEntry = std::shared_ptr<ALLEGRO_FS_ENTRY>(al_read_directory(m_dirEntry.get()), al_destroy_fs_entry);
+            m_fileEntry = std::shared_ptr<ALLEGRO_FS_ENTRY>(al_read_directory(m_dirEntry), al_destroy_fs_entry);
         }
 
         friend class FileEntry;
@@ -224,7 +224,7 @@ public:
         @return an iterator that points to the first file entry.
      */
     const_iterator begin() const {
-        return *this;
+        return get();
     }
 
     /**
