@@ -13,27 +13,6 @@ namespace alx {
     @param T type of resource to manage via shared pointer.
  */
 template <class T> class Shared : public std::shared_ptr<T> {
-public:
-    /**
-        Conversion to Allegro object pointer.
-        @return allegro object pointer.
-     */
-    operator const T *() const {
-        return get();
-    }
-
-    /**
-        Conversion to Allegro object pointer.
-        @return allegro object pointer.
-     */
-    operator T *() {
-        return get();
-    }
-
-    operator bool () const;
-    operator bool ();
-
-
 protected:
     /**
         null object constructor.

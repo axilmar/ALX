@@ -276,7 +276,7 @@ public:
         @return true on success.
      */
     bool write(const String &v) {
-        return al_fputs(get(), v) >= 0;
+        return al_fputs(get(), v.cstr()) >= 0;
     }
 
     /**

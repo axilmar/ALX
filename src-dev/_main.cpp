@@ -83,7 +83,13 @@ int main() {
 
     //Transform tr(true);
 
-    String str;
+    String str = "the quick brown fox";
+    str = {'a', 'b', 'c'};
+    str.front() = 'f';
+    for(char ch : str) {
+        cout << ch;
+    }
+    cout << endl;
 
     for(;;) {
         Event event = queue.waitForEvent();
