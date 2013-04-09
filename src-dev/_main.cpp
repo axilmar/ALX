@@ -95,6 +95,7 @@ int main() {
     */
 
     //Voice voice(100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
+    //Mixer mixer(44400, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
 
     for(;;) {
         Event event = queue.waitForEvent();
