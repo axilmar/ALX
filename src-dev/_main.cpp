@@ -15,6 +15,7 @@
 #include "Condition.hpp"
 #include "Keyboard.hpp"
 #include "Transform.hpp"
+#include "Voice.hpp"
 
 
 using namespace std;
@@ -83,6 +84,7 @@ int main() {
 
     //Transform tr(true);
 
+    /*
     String str = "the quick brown fox";
     str = {'a', 'b', 'c'};
     str.front() = 'f';
@@ -90,6 +92,9 @@ int main() {
         cout << ch;
     }
     cout << endl;
+    */
+
+    //Voice voice(100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
 
     for(;;) {
         Event event = queue.waitForEvent();
