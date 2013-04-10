@@ -374,10 +374,20 @@ public:
     bool printf(const char *format, ...) {
         va_list args;
         va_start(args, format);
-        reset(al_ustr_new(""), al_ustr_free);
-        bool ok = al_ustr_vappendf(get(), format, args);
+        bool ok = printf(format, args);
         va_end(args);
         return ok;
+    }
+
+    /**
+        Printf.
+        @param format format string.
+        @param args printf arguments.
+        @return true on success.
+     */
+    bool printf(const char *format, va_list args) {
+        reset(al_ustr_new(""), al_ustr_free);
+        return al_ustr_vappendf(get(), format, args);
     }
 
     /**

@@ -27,6 +27,11 @@ private:
 };
 
 
+template <class T> Size<T> makeSize(T w, T h) {
+    return Size<T>(w, h);
+}
+
+
 } //namespace alx
 
 

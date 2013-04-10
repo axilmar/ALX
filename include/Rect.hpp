@@ -525,6 +525,16 @@ private:
 };
 
 
+template <class T> Rect<T> makeRect(T x1, T y1, T x2, T y2) {
+    return Rect<T>(x1, y1, x2, y2);
+}
+
+
+template <class T> Rect<T> makeRect(const Point<T> &pt, const Size<T> &sz) {
+    return Rect<T>(pt, sz);
+}
+
+
 } //namespace alx
 
 

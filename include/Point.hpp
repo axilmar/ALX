@@ -34,6 +34,11 @@ private:
 };
 
 
+template <class T> Point<T> makePoint(T x, T y) {
+    return Point<T>(x, y);
+}
+
+
 } //namespace alx
 
 

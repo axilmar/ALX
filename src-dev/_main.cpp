@@ -16,6 +16,7 @@
 #include "Keyboard.hpp"
 #include "Transform.hpp"
 #include "Voice.hpp"
+#include "Font.hpp"
 
 
 using namespace std;
@@ -96,7 +97,9 @@ int main() {
 
     //Voice voice(100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
     //Mixer mixer(44400, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
-    AudioStream stream(1, 100, 44100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
+    //AudioStream stream(1, 100, 44100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
+
+    Font font1("test.ttf", 12);
 
     for(;;) {
         Event event = queue.waitForEvent();
