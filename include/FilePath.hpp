@@ -23,6 +23,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    FilePath() {
+    }
+
+    /**
         Creates a path.
         @param path path string.
         @param dir if true, the path is created for a directory.

@@ -26,6 +26,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Voice() {
+    }
+
+    /**
         Constructs a new voice.
         @param freq frequency.
         @param depth depth.

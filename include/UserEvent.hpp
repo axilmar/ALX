@@ -12,7 +12,7 @@ class UserEvent {
 public:
     /**
         constructor.
-        @param type type.
+        @param type event type.
      */
     UserEvent(int type) : m_type(type) {
     }

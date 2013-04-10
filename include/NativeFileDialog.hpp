@@ -27,6 +27,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    NativeFileDialog() {
+    }
+
+    /**
         Constructor.
         @param title the window title.
         @param path the initial path.

@@ -23,6 +23,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Joystick() {
+    }
+
+    /**
         Gets a joystick.
         @param num joystick number.
      */

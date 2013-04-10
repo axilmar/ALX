@@ -29,6 +29,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Bitmap() {
+    }
+
+    /**
         Creates a bitmap of the specific size.
         @param width width.
         @param height height.

@@ -25,6 +25,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    VertexDecl() {
+    }
+
+    /**
         Constructor.
         @param elements An array of ALLEGRO_VERTEX_ELEMENT structures.
         @param stride Size of the custom vertex structure 

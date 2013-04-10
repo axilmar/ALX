@@ -25,8 +25,9 @@ public:
 
     /**
         creates an internal config object.
+        @param create create flag.
      */
-    Config() : Shared(al_create_config(), al_destroy_config) {
+    Config(bool create = true) : Shared(create ? al_create_config() : nullptr, al_destroy_config) {
     }
 
     /**

@@ -3,8 +3,6 @@
 
 
 #include "EventSource.hpp"
-#include "Event.hpp"
-#include "UserEvent.hpp"
 
 
 namespace alx {

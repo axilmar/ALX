@@ -27,6 +27,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Sample() {
+    }
+
+    /**
         constructor.
         @param buffer buffer with sample data.
         @param samples number of samples.

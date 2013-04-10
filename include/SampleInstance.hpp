@@ -24,6 +24,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    SampleInstance() {
+    }
+
+    /**
         Constructor from sample.
         @param sample sample.
      */

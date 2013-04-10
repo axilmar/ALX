@@ -29,6 +29,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Thread() {
+    }
+
+    /**
         Creates an Allegro thread.
         @param proc procedure.
         @param arg argument.

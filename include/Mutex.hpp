@@ -25,9 +25,10 @@ public:
 
     /**
         Creates a mutex.
+        @param create create flag.
         @param recursive if true, a recursive mutex is created.
      */
-    Mutex(bool recursive = false) : Shared(recursive ? al_create_mutex_recursive() : al_create_mutex(), al_destroy_mutex) {
+    Mutex(bool create = true, bool recursive = false) : Shared(create ? (recursive ? al_create_mutex_recursive() : al_create_mutex()) : nullptr, al_destroy_mutex) {
     }
 
     /**

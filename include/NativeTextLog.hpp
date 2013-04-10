@@ -26,11 +26,17 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    NativeTextLog() {
+    }
+
+    /**
         Constructor.
         @param title the window title.
         @param flags flags.
      */
-    NativeTextLog(const char *title = "TextLog", int flags = 0) :
+    NativeTextLog(const char *title, int flags = 0) :
         Shared(al_open_native_text_log(title, flags), al_close_native_text_log)
     {
     }

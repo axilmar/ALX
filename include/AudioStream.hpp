@@ -25,6 +25,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    AudioStream() {
+    }
+
+    /**
         constructor.
         @param fragmentCount How many fragments to use for the audio stream.
         @param samples The size of a fragment in samples.

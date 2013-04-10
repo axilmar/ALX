@@ -24,8 +24,9 @@ public:
 
     /**
         Creates a condition object.
+        @param create create flag.
      */
-    Condition() : Shared(al_create_cond(), al_destroy_cond) {
+    Condition(bool create = true) : Shared(create ? al_create_cond() : nullptr, al_destroy_cond) {
     }
 
     /**

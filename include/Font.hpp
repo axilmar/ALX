@@ -31,6 +31,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Font() {
+    }
+
+    /**
         Constructor from file.
         @param filename name of file.
         @param size size in points.

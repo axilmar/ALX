@@ -25,6 +25,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Display() {
+    }
+
+    /**
         creates a display from the given size.
         @param width width.
         @param height height.

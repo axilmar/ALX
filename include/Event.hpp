@@ -8,6 +8,7 @@
 #include "Display.hpp"
 #include "Timer.hpp"
 #include "Value.hpp"
+#include "UserEvent.hpp"
 
 
 namespace alx {
@@ -339,6 +340,14 @@ public:
      */
     intptr_t getUserData4() const {
         return get().user.data4;
+    }
+
+    /**
+        A user event is stored in event.user.data1.
+        @return the user event.
+     */
+    UserEvent *getUserEvent() const {
+        return reinterpret_cast<UserEvent *>(getUserData1());
     }
 
 private:

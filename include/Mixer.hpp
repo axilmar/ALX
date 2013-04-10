@@ -28,6 +28,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Mixer() {
+    }
+
+    /**
         constructor.
         @param freq frequency.
         @param depth depth.

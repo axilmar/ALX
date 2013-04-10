@@ -22,6 +22,12 @@ public:
     }
 
     /**
+        Null constructor.
+     */
+    Timer() {
+    }
+
+    /**
         Creates a timer.
         @param speedSecs speed, in seconds.
      */

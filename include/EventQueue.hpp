@@ -19,13 +19,18 @@ public:
         @param object object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) : Shared(object, managed, al_destroy_event_queue, [](ALLEGRO_EVENT_QUEUE *){}) {
+    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_event_queue, [](ALLEGRO_EVENT_QUEUE *){})
+    {
     }
 
     /**
         Creates an event queue.
+        @param create create flag.
      */
-    EventQueue() : Shared(al_create_event_queue(), al_destroy_event_queue) {
+    EventQueue(bool create = true) : 
+        Shared(create ? al_create_event_queue() : nullptr, create ? al_destroy_event_queue : [](ALLEGRO_EVENT_QUEUE *){})
+    {
     }
 
     /**
