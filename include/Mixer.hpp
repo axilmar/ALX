@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <list>
+#include <memory>
 #include "SampleInstance.hpp"
 #include "AudioStream.hpp"
 
@@ -178,27 +179,62 @@ public:
      */
     typedef std::function<void(void *, unsigned int, void *)> PostProcessCallbackFunctionType;
 
-    /**
-        Type of shared pointer to the function.
+    /*
+        Internal object.
      */
-    typedef std::shared_ptr<PostProcessCallbackFunctionType> PostProcessCallbackFunctionTypePtr;
+    class PostProcessCallbackInstance {
+    public:
+        //resets the post process callback
+        ~PostProcessCallbackInstance() {
+            std::shared_ptr<ALLEGRO_MIXER> mixer = m_mixer.lock();
+            if (mixer) al_set_mixer_postprocess_callback(mixer.get(), nullptr, nullptr);
+        }
+
+    private:
+        //required in order to reset the mixer callback
+        std::weak_ptr<ALLEGRO_MIXER> m_mixer;
+
+        //the actual function that is invoked
+        PostProcessCallbackFunctionType m_function;
+
+        //constructor
+        PostProcessCallbackInstance(const std::weak_ptr<ALLEGRO_MIXER> &mixer, const PostProcessCallbackFunctionType &fn) :
+            m_mixer(mixer), m_function(fn)
+        {
+        }
+
+        //invokes the callback
+        static void callback(void *buf, unsigned int samples, void *data) {
+            PostProcessCallbackInstance *instance = (PostProcessCallbackInstance *)data;
+            instance->m_function(buf, samples, data);
+        }
+
+        friend class Mixer;
+        friend class PostProcessCallback;
+    };
+
+    /**
+        Post process callback.
+     */
+    class PostProcessCallback : public std::shared_ptr<PostProcessCallbackInstance> {
+    public:
+
+    private:
+        //constructor
+        PostProcessCallback(const std::shared_ptr<PostProcessCallbackInstance> &instance) : std::shared_ptr<PostProcessCallbackInstance>(instance) {
+        }        
+
+        friend class Mixer;
+    };
 
     /**
         Sets an std::function to be invoked as a post-process callback.
         @param fn function to invoke.
-        @return the pointer to the function or null if the function fails.
-            The result must be kept around for as long as the post process callback is valid.
+        @return callback container; while in scope, the callback is valid; if false, then the call failed.
      */
-    PostProcessCallbackFunctionTypePtr setPostProcessCallback(PostProcessCallbackFunctionType &fn) {
-        PostProcessCallbackFunctionTypePtr ptr = PostProcessCallbackFunctionTypePtr(new PostProcessCallbackFunctionType(fn));
-        return al_set_mixer_postprocess_callback(get(), _postProcessFunctionCallback, ptr.get()) ? ptr : nullptr;        
-    }
-
-private:
-    //invokes the user function object.
-    static void _postProcessFunctionCallback(void *buf, unsigned int samples, void *data) {
-        PostProcessCallbackFunctionType *fn = (PostProcessCallbackFunctionType *)data;
-        fn->operator ()(buf, samples, data);
+    PostProcessCallback setPostProcessCallback(PostProcessCallbackFunctionType &fn) {
+        std::shared_ptr<PostProcessCallbackInstance> instance = std::shared_ptr<PostProcessCallbackInstance>(new PostProcessCallbackInstance(*this, fn));
+        return al_set_mixer_postprocess_callback(get(), &PostProcessCallbackInstance::callback, instance.get()) ? instance : nullptr;        
     }
 };
 
