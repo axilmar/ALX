@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <tuple>
+#include <allegro5/allegro_memfile.h>
 #include "String.hpp"
 #include "Util.hpp"
 #include "FilePath.hpp"
@@ -56,6 +57,17 @@ public:
     }
 
     /**
+        Opens a memfile.
+        @param mem memory.
+        @param size size.
+        @param mode mode.
+     */
+    File(void *mem, int64_t size, const char *mode) : 
+        Shared(al_open_memfile(mem, size, mode), al_fclose)
+    {
+    }
+
+    /**
         opens a file.
         @param path path.
         @param mode mode.
@@ -74,6 +86,18 @@ public:
      */
     bool open(int fd, const char *mode) {
         reset(al_fopen_fd(fd, mode), al_fclose);
+        return *this;
+    }
+
+    /**
+        Opens a memfile.
+        @param mem memory.
+        @param size size.
+        @param mode mode.
+        @return true on success.
+     */
+    bool open(void *mem, int64_t size, const char *mode) {
+        reset(al_open_memfile(mem, size, mode), al_fclose);
         return *this;
     }
 

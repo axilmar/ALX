@@ -43,17 +43,6 @@ public:
     void unlock() {
         al_unlock_mutex(get());
     }
-
-    /**
-        Runs the given code with the mutex locked for the duration of the call.
-        The function is exception-safe: if an exception is thrown, the mutex will be unlocked appropriately.
-        @param f function to execute with the mutex.
-        @return whatever the function returns.
-     */
-    template <class F> auto operator << (F f) -> decltype(f()) {
-        Lock<Mutex> lock(*this);
-        return f();
-    }
 };
 
 

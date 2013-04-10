@@ -17,6 +17,8 @@
 #include "Transform.hpp"
 #include "Voice.hpp"
 #include "Font.hpp"
+#include "NativeFileDialog.hpp"
+#include "NativeTextLog.hpp"
 
 
 using namespace std;
@@ -99,7 +101,13 @@ int main() {
     //Mixer mixer(44400, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
     //AudioStream stream(1, 100, 44100, ALLEGRO_AUDIO_DEPTH_INT8, ALLEGRO_CHANNEL_CONF_1);
 
-    Font font1("test.ttf", 12);
+    //Font font1("test.ttf", 12);
+
+    //NativeFileDialog dlg1("load file", "c:/", "*.*;*.txt");
+    //dlg1.show(display);
+
+    //NativeTextLog log("TextLog");
+    //log << "hello world\n" << 1;
 
     for(;;) {
         Event event = queue.waitForEvent();

@@ -3,6 +3,7 @@
 
 
 #include <cassert>
+#include <allegro5/allegro_native_dialog.h>
 #include "Joystick.hpp"
 #include "Display.hpp"
 #include "Timer.hpp"
@@ -368,6 +369,7 @@ private:
             case ALLEGRO_EVENT_DISPLAY_SWITCH_IN:
             case ALLEGRO_EVENT_DISPLAY_SWITCH_OUT:
             case ALLEGRO_EVENT_DISPLAY_ORIENTATION:
+            case ALLEGRO_EVENT_NATIVE_DIALOG_CLOSE:
                 return false;
         }
         return true;
