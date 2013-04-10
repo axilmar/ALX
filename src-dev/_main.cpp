@@ -19,6 +19,7 @@
 #include "Font.hpp"
 #include "NativeFileDialog.hpp"
 #include "NativeTextLog.hpp"
+#include "VertexDecl.hpp"
 
 
 using namespace std;
@@ -108,6 +109,8 @@ int main() {
 
     //NativeTextLog log("TextLog");
     //log << "hello world\n" << 1;
+
+    //VertexDecl vd(nullptr, 0);
 
     for(;;) {
         Event event = queue.waitForEvent();
