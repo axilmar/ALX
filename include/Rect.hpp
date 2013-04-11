@@ -128,6 +128,14 @@ public:
     }
 
     /**
+        Returns the rectangle's center.
+        @return the rectangle's center.
+     */
+    Point<T> getCenter() const {
+        return Point<T>(getCenterX(), getCenterY());
+    }
+
+    /**
         Checks intersection with point.
         @param x horizontal coordinate.
         @param y vertical coordinate.
@@ -164,7 +172,7 @@ public:
         @return true if the two rectangles intersect, false otherwise.
      */
     bool intersects(const Rect<T> &r) const {
-        return intersects(r.m_left, r.m_top, r.m_right, r._bottom);
+        return intersects(r.m_left, r.m_top, r.m_right, r.m_bottom);
     }
 
     /**

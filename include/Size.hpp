@@ -36,6 +36,68 @@ public:
     }
 
     /**
+        Returns width * height.
+        @return width * height.
+     */
+    T getAreaLength() const {
+        return m_width * m_height;
+    }
+
+    /**
+        Equality test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator == (const Size<T> &pt) const {
+        return m_width == pt.m_width && m_height == pt.m_height;
+    }
+
+    /**
+        Difference test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator != (const Size<T> &pt) const {
+        return !operator == (pt);
+    }
+
+    /**
+        Less-than test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator < (const Size<T> &pt) const {
+        return getAreaLength() < pt.getAreaLength();
+    }
+
+    /**
+        Less-than-or-equal test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator <= (const Size<T> &pt) const {
+        return getAreaLength() <= pt.getAreaLength();
+    }
+
+    /**
+        Greater-than test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator > (const Size<T> &pt) const {
+        return getAreaLength() > pt.getAreaLength();
+    }
+
+    /**
+        Greater-than-or-equal test.
+        @param pt the other size to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator >= (const Size<T> &pt) const {
+        return getAreaLength() >= pt.getAreaLength();
+    }
+
+    /**
         Sets the width.
         @param w new width.
      */

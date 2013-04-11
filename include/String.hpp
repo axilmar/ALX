@@ -1227,13 +1227,6 @@ public:
 
     //TODO rest of std::string functions
 
-    /**
-        Clears the string.
-     */
-    void clear() {
-        reset();
-    }
-
 private:
     //convert wide character string to utf8
     static std::string _toUTF8(const wchar_t *str) {

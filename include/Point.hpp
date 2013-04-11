@@ -34,6 +34,60 @@ public:
     }
 
     /**
+        Equality test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator == (const Point<T> &pt) const {
+        return m_x == pt.m_x && m_y == pt.m_y;
+    }
+
+    /**
+        Difference test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator != (const Point<T> &pt) const {
+        return !operator == (pt);
+    }
+
+    /**
+        Less-than test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator < (const Point<T> &pt) const {
+        return m_y < pt.m_y || (m_y == pt.m_y && m_x < pt.m_x);
+    }
+
+    /**
+        Less-than-or-equal test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator <= (const Point<T> &pt) const {
+        return m_y < pt.m_y || (m_y == pt.m_y && m_x <= pt.m_x);
+    }
+
+    /**
+        Greater-than test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator > (const Point<T> &pt) const {
+        return m_y > pt.m_y || (m_y == pt.m_y && m_x > pt.m_x);
+    }
+
+    /**
+        Greater-than-or-equal test.
+        @param pt the other point to compare this to.
+        @return true if the test is successful.
+     */
+    bool operator >= (const Point<T> &pt) const {
+        return m_y > pt.m_y || (m_y == pt.m_y && m_x >= pt.m_x);
+    }
+
+    /**
         Sets the x coordinate.
         @param x x value.
      */

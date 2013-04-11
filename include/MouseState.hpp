@@ -51,6 +51,46 @@ public:
     bool isButtonDown(int button) const {
         return al_mouse_button_down(&get(), button);
     }
+
+    /**
+        Returns the mouse x.
+        @return the mouse x.
+     */
+    int getMouseX() const {
+        return get().x;
+    }
+
+    /**
+        Returns the mouse y.
+        @return the mouse y.
+     */
+    int getMouseY() const {
+        return get().y;
+    }
+
+    /**
+        Returns the mouse w.
+        @return the mouse w.
+     */
+    int getMouseW() const {
+        return get().w;
+    }
+
+    /**
+        Returns the mouse z.
+        @return the mouse z.
+     */
+    int getMouseZ() const {
+        return get().z;
+    }
+
+    /**
+        Returns the mouse buttons .
+        @return the mouse x.
+     */
+    int getMouseButtons() const {
+        return get().buttons;
+    }
 };
 
 
