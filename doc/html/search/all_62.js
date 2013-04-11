@@ -1,8 +1,0 @@
-var searchData=
-[
-  ['back',['back',['../classalx_1_1_string.html#ae0d1905ac4c964e2b10d52d5ea87e6a1',1,'alx::String::back() const '],['../classalx_1_1_string.html#a2f7f388f430f8c51cccd7cd143be5bef',1,'alx::String::back()']]],
-  ['begin',['begin',['../classalx_1_1_config_entry_container.html#aa4b02d4f1a8500fb07a551069060709f',1,'alx::ConfigEntryContainer::begin()'],['../classalx_1_1_config_section_container.html#aa4b02d4f1a8500fb07a551069060709f',1,'alx::ConfigSectionContainer::begin()'],['../classalx_1_1_file_entry.html#aa4b02d4f1a8500fb07a551069060709f',1,'alx::FileEntry::begin()'],['../classalx_1_1_string.html#aa4b02d4f1a8500fb07a551069060709f',1,'alx::String::begin() const '],['../classalx_1_1_string.html#ad69bd11391be1a1dba5c8202259664f8',1,'alx::String::begin()']]],
-  ['bigtonativeendian',['bigToNativeEndian',['../classalx_1_1_util1.html#a39a3d58f1100f69298aff61bf8271943',1,'alx::Util1']]],
-  ['bitmap',['Bitmap',['../classalx_1_1_bitmap.html#af3ac0122871b379c617761af1332442e',1,'alx::Bitmap::Bitmap()'],['../classalx_1_1_bitmap.html#aaf8b5f47f83295c0bc3ebe13bb14b21a',1,'alx::Bitmap::Bitmap(int width, int height)'],['../classalx_1_1_bitmap.html#a0b13c67ae4db047f9b787df7bf2a5147',1,'alx::Bitmap::Bitmap(Bitmap &amp;parent, int x, int y, int width, int height)'],['../classalx_1_1_bitmap.html#a7fb99012088b73b4dedc32f28215a215',1,'alx::Bitmap::Bitmap(const char *filename)'],['../classalx_1_1_bitmap.html#a3b9ddce5a18d0280edadd9944ee6585c',1,'alx::Bitmap::Bitmap(const File &amp;file, const char *ext)'],['../classalx_1_1_bitmap.html#a8e0e46906f838b9047374c836e2d7fdd',1,'alx::Bitmap::Bitmap(ALLEGRO_BITMAP *object, bool managed=true)']]],
-  ['bitmap',['Bitmap',['../classalx_1_1_bitmap.html',1,'alx']]]
-];
