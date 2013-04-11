@@ -17,16 +17,6 @@ namespace alx {
 class NativeFileDialog : public Shared<ALLEGRO_FILECHOOSER> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    NativeFileDialog(ALLEGRO_FILECHOOSER *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_native_file_dialog, [](ALLEGRO_FILECHOOSER *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     NativeFileDialog() {
@@ -81,6 +71,16 @@ public:
      */
     bool show(Display &display) {
         return al_show_native_file_dialog(display.get(), get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    NativeFileDialog(ALLEGRO_FILECHOOSER *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_native_file_dialog, [](ALLEGRO_FILECHOOSER *){})
+    {
     }
 };
 

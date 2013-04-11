@@ -69,8 +69,8 @@ public:
         It copies the user event pointer to the field ALLEGRO_EVENT.user.data1, and uses an internal destructor which deletes the object.
         The Event class will automatically unref the object, which will cause the destructor to be invoked.
         The type of the user event is copied to ALLEGRO_EVENT.type.
-        @param event user event.
-
+        @param userEvent user event.
+        @return true on success.
      */
     bool emitUserEvent(UserEvent *userEvent) {
         ALLEGRO_EVENT event;

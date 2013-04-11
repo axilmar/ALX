@@ -17,16 +17,6 @@ namespace alx {
 class Sample : public Shared<ALLEGRO_SAMPLE> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Sample(ALLEGRO_SAMPLE *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_sample, [](ALLEGRO_SAMPLE *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     Sample() {
@@ -37,6 +27,7 @@ public:
         @param buffer buffer with sample data.
         @param samples number of samples.
         @param freq frequency.
+        @param depth depth.
         @param conf channel configuration.
      */
     Sample(std::vector<char> &buffer, unsigned int samples, unsigned int freq, ALLEGRO_AUDIO_DEPTH depth, ALLEGRO_CHANNEL_CONF conf) :
@@ -143,6 +134,16 @@ public:
      */
     bool save(const File &file, const char *ext) const {
         return al_save_sample_f(file.get(), ext, get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Sample(ALLEGRO_SAMPLE *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_sample, [](ALLEGRO_SAMPLE *){})
+    {
     }
 };
 

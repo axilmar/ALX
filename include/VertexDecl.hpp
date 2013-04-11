@@ -15,16 +15,6 @@ namespace alx {
 class VertexDecl : public Shared<ALLEGRO_VERTEX_DECL> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    VertexDecl(ALLEGRO_VERTEX_DECL *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_vertex_decl, [](ALLEGRO_VERTEX_DECL *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     VertexDecl() {
@@ -37,6 +27,16 @@ public:
      */
     VertexDecl(const ALLEGRO_VERTEX_ELEMENT *elements, int stride) :
         Shared(al_create_vertex_decl(elements, stride), al_destroy_vertex_decl)
+    {
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    VertexDecl(ALLEGRO_VERTEX_DECL *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_vertex_decl, [](ALLEGRO_VERTEX_DECL *){})
     {
     }
 };

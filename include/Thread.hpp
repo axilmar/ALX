@@ -21,14 +21,6 @@ public:
     typedef std::function<void*()> Function;
 
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Thread(ALLEGRO_THREAD *object, bool managed = true) : Shared(object, managed, al_destroy_thread, [](ALLEGRO_THREAD *){}) {
-    }
-
-    /**
         Null constructor.
      */
     Thread() {
@@ -83,12 +75,19 @@ public:
 
     /**
         Sets the stop flag, then waits for termination.
-        @param result thread result variable.
         @return result of thread.
      */
     void *stop() {
         setStop();
         return wait();
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Thread(ALLEGRO_THREAD *object, bool managed = true) : Shared(object, managed, al_destroy_thread, [](ALLEGRO_THREAD *){}) {
     }
 
 private:

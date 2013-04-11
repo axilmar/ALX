@@ -15,14 +15,6 @@ namespace alx {
 class Condition : public Shared<ALLEGRO_COND> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Condition(ALLEGRO_COND *object, bool managed = true) : Shared(object, managed, al_destroy_cond, [](ALLEGRO_COND *){}) {
-    }
-
-    /**
         Creates a condition object.
         @param create create flag.
      */
@@ -59,6 +51,14 @@ public:
      */
     void wakeOne() {
         al_signal_cond(get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Condition(ALLEGRO_COND *object, bool managed = true) : Shared(object, managed, al_destroy_cond, [](ALLEGRO_COND *){}) {
     }
 };
 

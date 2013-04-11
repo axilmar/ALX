@@ -14,16 +14,6 @@ namespace alx {
 class SampleInstance : public Shared<ALLEGRO_SAMPLE_INSTANCE> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    SampleInstance(ALLEGRO_SAMPLE_INSTANCE *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_sample_instance, [](ALLEGRO_SAMPLE_INSTANCE *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     SampleInstance() {
@@ -236,6 +226,16 @@ public:
      */
     bool setSample(Sample &sample) {
         return al_set_sample(get(), sample.get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    SampleInstance(ALLEGRO_SAMPLE_INSTANCE *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_sample_instance, [](ALLEGRO_SAMPLE_INSTANCE *){})
+    {
     }
 };
 

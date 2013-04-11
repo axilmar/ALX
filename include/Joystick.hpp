@@ -15,14 +15,6 @@ namespace alx {
 class Joystick : public Shared<ALLEGRO_JOYSTICK> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : Shared(object, managed, al_release_joystick, [](ALLEGRO_JOYSTICK *){}) {
-    }
-
-    /**
         Null constructor.
      */
     Joystick() {
@@ -119,6 +111,14 @@ public:
      */
     static EventSource getEventSource() {
         return EventSource(al_get_joystick_event_source(), false);
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : Shared(object, managed, al_release_joystick, [](ALLEGRO_JOYSTICK *){}) {
     }
 };
 

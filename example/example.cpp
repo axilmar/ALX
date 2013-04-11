@@ -232,6 +232,11 @@ int main() {
                     updateLogic();
                 }
                 break;
+
+            //display close
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                loop = false;
+                break;
         }
     }
 

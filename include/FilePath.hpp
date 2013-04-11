@@ -15,14 +15,6 @@ namespace alx {
 class FilePath : public Shared<ALLEGRO_PATH> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    FilePath(ALLEGRO_PATH *path, bool managed = true) : Shared(path, managed, al_destroy_path, [](ALLEGRO_PATH *){}) {
-    }
-
-    /**
         Null constructor.
      */
     FilePath() {
@@ -163,7 +155,7 @@ public:
 
     /**
         Removes a path string at the specific position.
-        @param path path string.
+        @param index index of path component.
      */
     void removePath(int index) {
         al_remove_path_component(get(), index);
@@ -198,6 +190,14 @@ public:
      */
     bool setCanonical() {
         al_make_path_canonical(get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    FilePath(ALLEGRO_PATH *object, bool managed = true) : Shared(object, managed, al_destroy_path, [](ALLEGRO_PATH *){}) {
     }
 };
 

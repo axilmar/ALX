@@ -15,14 +15,6 @@ namespace alx {
 class FileEntry : public Shared<ALLEGRO_FS_ENTRY> {
 public:
     /**
-        Constructor from allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : Shared(object, managed, al_destroy_fs_entry, [](ALLEGRO_FS_ENTRY *){}) {
-    }
-
-    /**
         A null file entry.
      */
     FileEntry() {
@@ -233,6 +225,14 @@ public:
      */
     const_iterator end() const {
         return const_iterator();    
+    }
+
+    /**
+        Constructor from allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : Shared(object, managed, al_destroy_fs_entry, [](ALLEGRO_FS_ENTRY *){}) {
     }
 
 private:

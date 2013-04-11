@@ -1,0 +1,27 @@
+var classalx_1_1_display =
+[
+    [ "Display", "classalx_1_1_display.html#a2d74d3b2a65b87bae815051671df134b", null ],
+    [ "Display", "classalx_1_1_display.html#a41eacf3a693d22ace5a2d48f7b791775", null ],
+    [ "Display", "classalx_1_1_display.html#a9b3dd60571cfe5078c746f8760e10b28", null ],
+    [ "acknowledgeResize", "classalx_1_1_display.html#ad748b972ff9637c5b646095b85bb7776", null ],
+    [ "getBackbuffer", "classalx_1_1_display.html#a3ade9970e7a2450d9ae4f3bff9fb8868", null ],
+    [ "getEventSource", "classalx_1_1_display.html#ad3f322c8d7f266aab648f6904570ce92", null ],
+    [ "getFlags", "classalx_1_1_display.html#a49987b26de21a02f724b1ae69c1ab840", null ],
+    [ "getFormat", "classalx_1_1_display.html#ac08e2752176d267cc4429d4d185975b8", null ],
+    [ "getHeight", "classalx_1_1_display.html#a317329daf960a1759801c0f16d43d5a3", null ],
+    [ "getOption", "classalx_1_1_display.html#aae4c44b6680191792175db4f35e7d5a4", null ],
+    [ "getRefreshRate", "classalx_1_1_display.html#a7e29d51b309f5bfa9cb99da0ff247a55", null ],
+    [ "getSize", "classalx_1_1_display.html#a27b71fee55ff02af9c0d7e9dd2b622ca", null ],
+    [ "getWidth", "classalx_1_1_display.html#af149cb053bc8b5fbc1364b5dbb934488", null ],
+    [ "getWindowPosition", "classalx_1_1_display.html#aa6143a0e51806c3b95006376145247e4", null ],
+    [ "operator EventSource", "classalx_1_1_display.html#ac8d0cf58829fbe6633b495190ef2d5af", null ],
+    [ "setFlagEnabled", "classalx_1_1_display.html#a2bc09fae250edc4300803c9c1b92a5f7", null ],
+    [ "setMousePosition", "classalx_1_1_display.html#a04c2998dc53c051bb037b5a3a6b8fa3c", null ],
+    [ "setMousePosition", "classalx_1_1_display.html#a8293a8c6e8e237ce5424027d97d4a869", null ],
+    [ "setSize", "classalx_1_1_display.html#accb90911586eb378484a62a269b66d73", null ],
+    [ "setSize", "classalx_1_1_display.html#a7fac4a8d88e34adaa75d58ddabc15536", null ],
+    [ "setWindowIcon", "classalx_1_1_display.html#a69edb231033575bd58427baeca32c076", null ],
+    [ "setWindowPosition", "classalx_1_1_display.html#a3a4eea9bf730d854ba2dc632e829b75d", null ],
+    [ "setWindowPosition", "classalx_1_1_display.html#a5716a5723b05206506935a14bc80a038", null ],
+    [ "setWindowTitle", "classalx_1_1_display.html#ab0bfbd62cf8ab1b0a55e7071a0fdca11", null ]
+];

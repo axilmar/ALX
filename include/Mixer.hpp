@@ -18,16 +18,6 @@ namespace alx {
 class Mixer : public Shared<ALLEGRO_MIXER> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Mixer(ALLEGRO_MIXER *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_mixer, [](ALLEGRO_MIXER *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     Mixer() {
@@ -176,8 +166,8 @@ public:
         @param ppCallbackUserData user data.
         @return true on success.
      */
-    bool setPostProcessCallback(void (*ppCallback)(void *buf, unsigned int samples, void *data), void *ppCallbackUserdata) {
-        return al_set_mixer_postprocess_callback(get(), ppCallback, ppCallbackUserdata);
+    bool setPostProcessCallback(void (*ppCallback)(void *buf, unsigned int samples, void *data), void *ppCallbackUserData) {
+        return al_set_mixer_postprocess_callback(get(), ppCallback, ppCallbackUserData);
     }
 
     /**
@@ -185,6 +175,7 @@ public:
      */
     typedef std::function<void(void *, unsigned int, void *)> PostProcessCallbackFunctionType;
 
+private:
     /*
         Internal object.
      */
@@ -219,6 +210,7 @@ public:
         friend class PostProcessCallback;
     };
 
+public:
     /**
         Post process callback.
      */
@@ -241,6 +233,16 @@ public:
     PostProcessCallback setPostProcessCallback(PostProcessCallbackFunctionType &fn) {
         std::shared_ptr<PostProcessCallbackInstance> instance = std::shared_ptr<PostProcessCallbackInstance>(new PostProcessCallbackInstance(*this, fn));
         return al_set_mixer_postprocess_callback(get(), &PostProcessCallbackInstance::callback, instance.get()) ? instance : nullptr;        
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Mixer(ALLEGRO_MIXER *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_mixer, [](ALLEGRO_MIXER *){})
+    {
     }
 };
 

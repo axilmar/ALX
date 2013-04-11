@@ -18,14 +18,6 @@ namespace alx {
 class Bitmap : public Shared<ALLEGRO_BITMAP> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Bitmap(ALLEGRO_BITMAP *object, bool managed = true) : Shared(object, managed, al_destroy_bitmap, [](ALLEGRO_BITMAP *){}) {
-    }
-
-    /**
         Null constructor.
      */
     Bitmap() {
@@ -56,13 +48,6 @@ public:
      */
     Bitmap(const char *filename) : Shared(al_load_bitmap(filename), al_destroy_bitmap) {
     }
-
-    /**
-        Loads a bitmap from file.
-        @param filename filename.
-     */
-/*    Bitmap(const String &filename) : Shared(al_load_bitmap(filename.cstr()), al_destroy_bitmap) {
-    }*/
 
     /**
         Loads a bitmap from file.
@@ -464,6 +449,14 @@ public:
      */
     bool save(const File &file, const char *ext) const {
         return al_save_bitmap_f(file.get(), ext, get());
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Bitmap(ALLEGRO_BITMAP *object, bool managed = true) : Shared(object, managed, al_destroy_bitmap, [](ALLEGRO_BITMAP *){}) {
     }
 };
 

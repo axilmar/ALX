@@ -29,7 +29,6 @@
 #include "Mutex.hpp"
 #include "NativeFileDialog.hpp"
 #include "NativeTextLog.hpp"
-#include "Object.hpp"
 #include "Point.hpp"
 #include "Rect.hpp"
 #include "Sample.hpp"

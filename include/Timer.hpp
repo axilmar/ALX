@@ -14,14 +14,6 @@ namespace alx {
 class Timer : public Shared<ALLEGRO_TIMER> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Timer(ALLEGRO_TIMER *object, bool managed = true) : Shared(object, managed, al_destroy_timer, [](ALLEGRO_TIMER *){}) {
-    }
-
-    /**
         Null constructor.
      */
     Timer() {
@@ -110,6 +102,14 @@ public:
      */
     void setSpeed(double speedSecs) {
         al_set_timer_speed(get(), speedSecs);
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Timer(ALLEGRO_TIMER *object, bool managed = true) : Shared(object, managed, al_destroy_timer, [](ALLEGRO_TIMER *){}) {
     }
 };
 

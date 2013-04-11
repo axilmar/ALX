@@ -21,16 +21,6 @@ namespace alx {
 class Font : public Shared<ALLEGRO_FONT> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Font(ALLEGRO_FONT *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_font, [](ALLEGRO_FONT *){}) 
-    {
-    }
-
-    /**
         Null constructor.
      */
     Font() {
@@ -268,7 +258,7 @@ public:
 
     /**
         loads a true-type font from a file.
-        @param file.
+        @param file file to load the font from.
         @param size size in points.
         @param flags font flags.
         @return true on success.
@@ -280,7 +270,7 @@ public:
 
     /**
         loads a true-type font from a file.
-        @param file.
+        @param file file to load the font from.
         @param filename used for additional files.
         @param size size in points.
         @param flags font flags.
@@ -307,6 +297,15 @@ public:
         return *this;
     }
 
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Font(ALLEGRO_FONT *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_font, [](ALLEGRO_FONT *){}) 
+    {
+    }
 };
 
 

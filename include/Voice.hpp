@@ -16,16 +16,6 @@ namespace alx {
 class Voice : public Shared<ALLEGRO_VOICE> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Voice(ALLEGRO_VOICE *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_voice, [](ALLEGRO_VOICE *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     Voice() {
@@ -132,6 +122,16 @@ public:
      */
     bool setVoicePosition(unsigned int val) {
         return al_set_voice_position(get(), val);
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Voice(ALLEGRO_VOICE *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_voice, [](ALLEGRO_VOICE *){})
+    {
     }
 };
 

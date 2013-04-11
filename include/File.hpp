@@ -26,14 +26,6 @@ namespace alx {
 class File : public Shared<ALLEGRO_FILE> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose, [](ALLEGRO_FILE *){}) {
-    }
-
-    /**
         null file constructor.
      */
     File() {
@@ -79,7 +71,7 @@ public:
 
     /**
         opens a file.
-        @param int fd file descriptor.
+        @param fd file descriptor.
         @param mode mode.
         @return true on success.
      */
@@ -321,6 +313,14 @@ public:
         ALLEGRO_PATH *path = nullptr;
         ALLEGRO_FILE *file = al_make_temp_file(filenameTemplate, &path);       
         return std::make_tuple(file, path); 
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose, [](ALLEGRO_FILE *){}) {
     }
 };
 

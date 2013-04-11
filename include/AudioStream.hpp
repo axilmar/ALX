@@ -16,16 +16,6 @@ namespace alx {
 class AudioStream : public Shared<ALLEGRO_AUDIO_STREAM> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    AudioStream(ALLEGRO_AUDIO_STREAM *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_audio_stream, [](ALLEGRO_AUDIO_STREAM *){})
-    {
-    }
-
-    /**
         Null constructor.
      */
     AudioStream() {
@@ -312,6 +302,16 @@ public:
     bool load(const File &file, const char *ext, size_t bufferCount, size_t sampleCount) {
         reset(al_load_audio_stream_f(file.get(), ext, bufferCount, sampleCount), al_destroy_audio_stream);
         return *this;
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    AudioStream(ALLEGRO_AUDIO_STREAM *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_audio_stream, [](ALLEGRO_AUDIO_STREAM *){})
+    {
     }
 };
 

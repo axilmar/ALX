@@ -16,14 +16,6 @@ namespace alx {
 class Config : public Shared<ALLEGRO_CONFIG> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    Config(ALLEGRO_CONFIG *object, bool managed = true) : Shared(object, managed, al_destroy_config, [](ALLEGRO_CONFIG *){}) {
-    }
-
-    /**
         creates an internal config object.
         @param create create flag.
      */
@@ -128,12 +120,20 @@ public:
 
     /**
         Merges the given configuration to this.
-        @param conf config.
+        @param config configuration.
         @return reference to this.
      */
     Config &operator << (const Config &config) {
         al_merge_config_into(get(), config.get());
         return *this;
+    }
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    Config(ALLEGRO_CONFIG *object, bool managed = true) : Shared(object, managed, al_destroy_config, [](ALLEGRO_CONFIG *){}) {
     }
 };
 

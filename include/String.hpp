@@ -22,14 +22,6 @@ namespace alx {
 class String : public Shared<ALLEGRO_USTR> {
 public:
     /**
-        constructor from Allegro object.
-        @param object allegro object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */    
-    String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free, [](ALLEGRO_USTR *){}) {
-    }
-
-    /**
         Null string constructor.
      */
     String() {
@@ -674,7 +666,7 @@ public:
         Substring constructor.
         @param str source string.
         @param index start character index.
-        @param numer of characters; if -1, the whole string.
+        @param len of characters; if -1, the whole string.
      */
     String(const String &str, size_t index, size_t len = -1) : 
         Shared(al_ustr_dup_substr(str.get(), al_ustr_offset(str.get(), index), al_ustr_offset(str.get(), len >= 0 ? index + len : INT_MAX)), al_ustr_free) 
@@ -1075,7 +1067,7 @@ public:
     /**
         Adds the given code point at the end of the string multiple times.
         @param count number of code points to append.
-        @return cp code point to append.
+        @param cp code point to append.
         @return reference to this.
      */
     String &append(size_t count, int32_t cp) {
@@ -1181,7 +1173,7 @@ public:
     /**
         Assigns the given code point at the end of the string multiple times.
         @param count number of code points to assign.
-        @return cp code point to assign.
+        @param cp code point to assign.
         @return reference to this.
      */
     String &assign(size_t count, int32_t cp) {
@@ -1226,6 +1218,14 @@ public:
     }
 
     //TODO rest of std::string functions
+
+    /**
+        constructor from Allegro object.
+        @param object allegro object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */    
+    String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free, [](ALLEGRO_USTR *){}) {
+    }
 
 private:
     //convert wide character string to utf8

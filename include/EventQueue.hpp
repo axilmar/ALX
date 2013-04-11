@@ -15,16 +15,6 @@ namespace alx {
 class EventQueue : public Shared<ALLEGRO_EVENT_QUEUE> {
 public:
     /**
-        Constructor from external object.
-        @param object object.
-        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */
-    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_event_queue, [](ALLEGRO_EVENT_QUEUE *){})
-    {
-    }
-
-    /**
         Creates an event queue.
         @param create create flag.
      */
@@ -144,6 +134,16 @@ public:
      */
     void clear() {
         al_flush_event_queue(get());
+    }
+
+    /**
+        Constructor from external object.
+        @param object object.
+        @param managed if true, the object will be deleted automatically when its last reference will be deleted.
+     */
+    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) : 
+        Shared(object, managed, al_destroy_event_queue, [](ALLEGRO_EVENT_QUEUE *){})
+    {
     }
 };
 
