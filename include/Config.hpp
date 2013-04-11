@@ -77,8 +77,8 @@ public:
         @param key name of key.
         @return the key's value or null.
      */
-    const char *getValue(const char *section, const char *key) const {
-        return al_get_config_value(get(), section, key);
+    String getValue(const char *section, const char *key) const {
+        return String(al_get_config_value(get(), section, key), false);
     }
 
     /**

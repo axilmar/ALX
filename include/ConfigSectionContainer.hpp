@@ -18,13 +18,13 @@ public:
     /**
         Iterator for sections.
      */
-    class const_iterator : public std::iterator<std::forward_iterator_tag, const char *> {
+    class const_iterator : public std::iterator<std::forward_iterator_tag, String> {
     public:
         /**
             Returns the section name.
             @return the section name.
          */
-        const char *operator *() const {
+        String operator *() const {
             return m_name;
         }
 

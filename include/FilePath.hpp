@@ -40,16 +40,16 @@ public:
         Converts the path to a string.
         @return a null-terminated string that represents the path.
      */
-    operator const char *() const {
-        return al_path_cstr(get(), ALLEGRO_NATIVE_PATH_SEP);
+    operator String () const {
+        return String(al_path_cstr(get(), ALLEGRO_NATIVE_PATH_SEP), false);
     }
 
     /**
         Returns the drive letter.
         @return the drive letter.
      */
-    const char *getDrive() const {
-        return al_get_path_drive(get());
+    String getDrive() const {
+        return String(al_get_path_drive(get()), false);
     }
 
     /**
@@ -65,40 +65,40 @@ public:
         @param index index.
         @return the path component.
      */
-    const char *getComponent(int index) const {
-        return al_get_path_component(get(), index);
+    String getComponent(int index) const {
+        return String(al_get_path_component(get(), index), false);
     }
 
     /**
         Returns the last directory component.
         @return the last directory component.
      */
-    const char *getTail() const {
-        return al_get_path_tail(get());
+    String getTail() const {
+        return String(al_get_path_tail(get()), false);
     }
 
     /**
         Returns the filename of the path.
         @return the filename of the path.
      */
-    const char *getFilename() const {
-        return al_get_path_filename(get());
+    String getFilename() const {
+        return String(al_get_path_filename(get()), false);
     }
 
     /**
         Returns the basename of the path.
         @return the basename of the path.
      */
-    const char *getBasename() const {
-        return al_get_path_basename(get());
+    String getBasename() const {
+        return String(al_get_path_basename(get()), false);
     }
 
     /**
         Returns the filename extension.
         @return the filename extension.
      */
-    const char *getExtension() const {
-        return al_get_path_extension(get());
+    String getExtension() const {
+        return String(al_get_path_extension(get()), false);
     }
 
     /**

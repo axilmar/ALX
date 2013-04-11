@@ -3,8 +3,7 @@
 
 
 #include <iterator>
-#include <allegro5/allegro.h>
-#include "Shared.hpp"
+#include "String.hpp"
 
 
 namespace alx {
@@ -18,14 +17,14 @@ public:
     /**
         Iterator for entries.
      */
-    class const_iterator : public std::iterator<std::forward_iterator_tag, const char *> {
+    class const_iterator : public std::iterator<std::forward_iterator_tag, String> {
     public:
         /**
             Returns the entry name.
             @return the entry name.
          */
-        const char *operator *() const {
-            return m_name;
+        String operator *() const {
+            return String(m_name, false);
         }
 
         /**

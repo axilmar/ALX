@@ -47,8 +47,8 @@ public:
         @param index index of files.
         @return the path of the given selected file.
      */
-    const char *getSelectedFile(int index) const {
-        return al_get_native_file_dialog_path(get(), index);
+    String getSelectedFile(int index) const {
+        return String(al_get_native_file_dialog_path(get(), index), false);
     }
 
     /**
@@ -59,7 +59,7 @@ public:
         std::vector<FilePath> result;
         int count = getSelectedFileCount();
         for(int index = 0; index < count; ++index) {
-            result.push_back(getSelectedFile(index));
+            result.push_back(FilePath(getSelectedFile(index)));
         }
         return result;
     }
