@@ -12,9 +12,6 @@
 namespace alx {
 
 
-//TODO
-
-
 /**
     Shared-based wrapper around ALLEGRO_BITMAP.
  */
@@ -59,6 +56,13 @@ public:
      */
     Bitmap(const char *filename) : Shared(al_load_bitmap(filename), al_destroy_bitmap) {
     }
+
+    /**
+        Loads a bitmap from file.
+        @param filename filename.
+     */
+/*    Bitmap(const String &filename) : Shared(al_load_bitmap(filename.cstr()), al_destroy_bitmap) {
+    }*/
 
     /**
         Loads a bitmap from file.

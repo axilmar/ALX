@@ -1,5 +1,21 @@
+#include <vector>
 #include "alx.hpp"
 using namespace alx;
+
+
+//a sprite class
+class Sprite {
+public:
+    //position
+    Point<float> position;
+
+    //bitmap
+    Bitmap bitmap;
+
+    //Sprite
+    Sprite(const Point<float> &pos, const Bitmap &bmp) : position(pos), bitmap(bmp) {
+    }
+};
 
 
 //main
@@ -17,6 +33,14 @@ int main() {
 
     //bind the resources to the event queue
     eventQueue << Keyboard::getEventSource() << Mouse::getEventSource() << display << timer << ues;
+
+    //bitmaps
+    Bitmap paddle("data/paddle.jpg");
+    Bitmap ball("data/ball.jpg");
+    std::vector<Bitmap> stones;
+    for(int i = 1; i <= 23; ++i) {
+        stones.push_back(Bitmap(String("stone") + i + ".jpg"));
+    } 
 
     //the function to use for drawing the current frame
     auto drawFrame = []() {

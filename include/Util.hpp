@@ -12,7 +12,7 @@ namespace alx {
 /** 
     Class with utility functions.
  */
-class Util {
+class Util1 {
 public:
     /**
         Checks if this program runs in little or big endian mode.
@@ -80,7 +80,4 @@ public:
 
 
 #endif //ALX_UTIL_HPP
-
-
-//TODO remove if not needed
 

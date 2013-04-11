@@ -525,11 +525,25 @@ private:
 };
 
 
-template <class T> Rect<T> makeRect(T x1, T y1, T x2, T y2) {
-    return Rect<T>(x1, y1, x2, y2);
+/**
+    Creates a rectangle.
+    @param left left coordinate.
+    @param top top coordinate
+    @param right right coordinate.
+    @param bottom bottom coordinate.
+    @return a rectangle with the given coordinates.
+ */
+template <class T> Rect<T> makeRect(T left, T top, T right, T bottom) {
+    return Rect<T>(left, top, right, bottom);
 }
 
 
+/**
+    Creates a rectangle from point and size.
+    @param pt top-left coordinate.
+    @param sz size.
+    @return a rectangle with the given top-left coordinate and size.
+ */
 template <class T> Rect<T> makeRect(const Point<T> &pt, const Size<T> &sz) {
     return Rect<T>(pt, sz);
 }

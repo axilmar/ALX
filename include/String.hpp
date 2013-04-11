@@ -149,11 +149,39 @@ public:
     }
 
     /**
+        Constructor from substring of null-terminated string.
+        @param str string.
+        @param index index.
+        @param size size.
+     */
+    String(const char *str, size_t index, size_t size) {
+        assign(str, index, size);
+    }
+
+    /**
+        Constructor from substring of null-terminated string.
+        @param str string.
+        @param index index.
+        @param size size.
+     */
+    String(const wchar_t *str, size_t index, size_t size) {
+        assign(str, index, size);
+    }
+
+    /**
         Returns a temporary pointer to a null-terminated string.
         @return a temporary pointer to a null-terminated string.
      */
     const char *cstr() const {
         return al_cstr(get());
+    }
+
+    /**
+        Returns a temporary pointer to a null-terminated string.
+        @return a temporary pointer to a null-terminated string.
+     */
+    operator const char *() const {
+        return cstr();
     }
 
     /**
@@ -391,23 +419,13 @@ public:
     }
 
     /**
-        Appends a string.
-        @param str string to append.
-        @return reference to this.
-     */
-    String &operator += (const String &str) {
-        if (get()) al_ustr_append(get(), str.get()); else operator = (str.clone());
-        return *this;
-    }
-
-    /**
-        Adds two strings.
+        Adds a string to this string.
         @param a 1st string.
         @param b 2nd string.
         @return a string that contains both strings.
      */
-    friend String operator + (const String &a, const String &b) {
-        return a.clone() += b;
+    template <class T> friend String operator + (const String &a, const T &b) {
+        return a.clone() += String(b);
     }
 
     /**
@@ -427,15 +445,6 @@ public:
      */
     bool prepend(const String &str) {
         return insert(str, 0);
-    }
-
-    /**
-        Adds the given string at the end of this one.
-        @param str string to insert.
-        @return true on success.
-     */
-    bool append(const String &str) {
-        return al_ustr_append(get(), str.get());
     }
 
     /**
@@ -986,7 +995,244 @@ public:
         return CodePointRef(get(), 0);
     }
 
-    //TODO rest of std::string functions.
+    /**
+        Appends a string.
+        @param str string to append.
+        @return reference to this.
+     */
+    String &operator += (const char *str) {
+        if (get()) al_ustr_append_cstr(get(), str); else operator = (str);
+        return *this;
+    }
+
+    /**
+        Appends a string.
+        @param str string to append.
+        @return reference to this.
+     */
+    String &operator += (const String &str) {
+        if (get()) al_ustr_append(get(), str.get()); else operator = (str.clone());
+        return *this;
+    }
+
+    /**
+        Appends a code point.
+        @param cp code point to append.
+        @return reference to this.
+     */
+    String &operator += (int32_t cp) {
+        if (get()) al_ustr_append_chr(get(), cp); else operator = (cp);
+        return *this;
+    }
+
+    /**
+        Adds the given string at the end of this one.
+        @param str string to insert.
+        @return reference to this.
+     */
+    String &append(const String &str) {
+        al_ustr_append(get(), str.get());
+        return *this;
+    }
+
+    /**
+        Adds a subtring the given string at the end of this one.
+        @param str string to insert.
+        @param offset byte offset.
+        @param size byte size.
+        @return reference to this.
+     */
+    String &append(const String &str, size_t offset, size_t size) {
+        ALLEGRO_USTR_INFO info;
+        const ALLEGRO_USTR *substr = al_ref_ustr(&info, str.get(), offset, offset + size);
+        al_ustr_append(get(), substr);
+        return *this;
+    }
+
+    /**
+        Adds the given string at the end of this one.
+        @param str string to insert.
+        @return reference to this.
+     */
+    String &append(const char *str) {
+        al_ustr_append_cstr(get(), str);
+        return *this;
+    }
+
+    /**
+        Adds part of the given string at the end of this one.
+        @param str string to insert.
+        @param size number of characters to add.
+        @return reference to this.
+     */
+    String &append(const char *str, size_t size) {
+        ALLEGRO_USTR_INFO info;
+        const ALLEGRO_USTR *substr = al_ref_buffer(&info, str, size);
+        al_ustr_append(get(), substr);
+        return *this;
+    }
+
+    /**
+        Adds the given code point at the end of the string multiple times.
+        @param count number of code points to append.
+        @return cp code point to append.
+        @return reference to this.
+     */
+    String &append(size_t count, int32_t cp) {
+        if (count > 0) {
+            operator += (cp);
+            for(; count > 1; --count) {
+                al_ustr_append_chr(get(), cp);
+            }
+        }
+        return *this;
+    }
+
+    /**
+        Appends the given range.
+        @param first iterator that points to the first element.
+        @param last iterator that points to the end element; exclusive.
+        @return reference to this.
+     */
+    template <class It> String &append(const It &first, const It &last) {
+        for(It it = first; it != last; ++it) {
+            operator += (*it);
+        }
+        return *this;
+    }
+
+    /**
+        Adds a subtring the given string at the end of this one.
+        @param str string to insert.
+        @param index index.
+        @param size ize.
+        @return reference to this.
+     */
+    String &append(const char *str, size_t index, size_t size) {
+        ALLEGRO_USTR_INFO info;
+        const ALLEGRO_USTR *substr = al_ref_buffer(&info, str + index, size);
+        al_ustr_append(get(), substr);
+        return *this;
+    }
+
+    /**
+        Adds a subtring the given string at the end of this one.
+        @param str string to insert.
+        @param index index.
+        @param size ize.
+        @return reference to this.
+     */
+    String &append(const wchar_t *str, size_t index, size_t size) {
+        return append(str + index, str + index + size);
+    }
+
+    /**
+        Pushes back a code point.
+        @param c code point.
+     */
+    void push_back(int32_t c) {
+        operator += (c);
+    }
+
+    /**
+        Assigns the given string to this.
+        @param str string to insert.
+        @return reference to this.
+     */
+    String &assign(const String &str) {
+        return operator = (str);
+    }
+
+    /**
+        Assigns a subtring of the given string to this.
+        @param str string to insert.
+        @param offset byte offset.
+        @param size byte size.
+        @return reference to this.
+     */
+    String &assign(const String &str, size_t offset, size_t size) {
+        ALLEGRO_USTR_INFO info;
+        const ALLEGRO_USTR *substr = al_ref_ustr(&info, str.get(), offset, offset + size);
+        reset(al_ustr_dup(substr), al_ustr_free);
+        return operator = (String());
+    }
+
+    /**
+        Assigns the given string to this.
+        @param str string to insert.
+        @return reference to this.
+     */
+    String &assign(const char *str) {
+        reset(al_ustr_new(str), al_ustr_free);
+        return *this;
+    }
+
+    /**
+        Assigns part of the given string to this.
+        @param str string to insert.
+        @param size number of characters to add.
+        @return reference to this.
+     */
+    String &assign(const char *str, size_t size) {
+        reset(al_ustr_new_from_buffer(str, size), al_ustr_free);
+        return *this;
+    }
+
+    /**
+        Assigns the given code point at the end of the string multiple times.
+        @param count number of code points to assign.
+        @return cp code point to assign.
+        @return reference to this.
+     */
+    String &assign(size_t count, int32_t cp) {
+        clear();
+        append(count, cp);
+        return *this;
+    }
+
+    /**
+        Appends the given range.
+        @param first iterator that points to the first element.
+        @param last iterator that points to the end element; exclusive.
+        @return reference to this.
+     */
+    template <class It> String &assign(const It &first, const It &last) {
+        clear();
+        append(first, last);
+        return *this;
+    }
+
+    /**
+        Assigns a subtring the given string to this.
+        @param str string to insert.
+        @param index index.
+        @param size ize.
+        @return reference to this.
+     */
+    String &assign(const char *str, size_t index, size_t size) {
+        reset(al_ustr_new_from_buffer(str + index, size), al_ustr_free);
+        return *this;
+    }
+
+    /**
+        Assigns a subtring the given string to this.
+        @param str string to insert.
+        @param index index.
+        @param size ize.
+        @return reference to this.
+     */
+    String &assign(const wchar_t *str, size_t index, size_t size) {
+        return assign(str + index, str + index + size);
+    }
+
+    //TODO rest of std::string functions
+
+    /**
+        Clears the string.
+     */
+    void clear() {
+        reset();
+    }
 
 private:
     //convert wide character string to utf8
