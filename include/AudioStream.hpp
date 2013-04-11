@@ -4,6 +4,7 @@
 
 #include <allegro5/allegro_audio.h>
 #include "EventSource.hpp"
+#include "File.hpp"
 
 
 namespace alx {

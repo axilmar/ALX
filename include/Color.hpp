@@ -40,7 +40,7 @@ public:
         @param blue initial value of the blue color component.
         @param alpha initial value of the alpha color component.
      */
-    Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255) {
+    Color(int red, int green, int blue, int alpha = 255) {
         set(red, green, blue, alpha);
     }
 
@@ -279,11 +279,11 @@ public:
         @param blue initial value of the blue color component.
         @param alpha initial value of the alpha color component.
      */
-    void set(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255) {
-        m_color.m_red   = red  ;
-        m_color.m_green = green;
-        m_color.m_blue  = blue ;
-        m_color.m_alpha = alpha;
+    void set(int red, int green, int blue, int alpha = 255) {
+        m_color.m_red   = std::max(0, std::min(red, 255));
+        m_color.m_green = std::max(0, std::min(green, 255));
+        m_color.m_blue  = std::max(0, std::min(blue , 255));
+        m_color.m_alpha = std::max(0, std::min(alpha, 255));
     }
 
     /**
