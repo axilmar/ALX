@@ -16,5 +16,5 @@ somewhere in your project.
 
 <h1>Compiling</h1>
 
-Compiling is done on Visual Studio 2012 with the November 2012 CTS compiler.
+Compiling is done on Visual Studio 2012 with the November 2012 CTP compiler.
 
