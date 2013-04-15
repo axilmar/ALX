@@ -24,6 +24,14 @@ public:
     }
 
     /**
+        Checks if the queue is empty.
+        @return true if the queue is empty, false otherwise.
+     */
+    bool isEmpty() const {
+        return al_is_event_queue_empty(get());
+    }
+
+    /**
         Registers an event source.
         @param source event source.
         @return reference to this.
@@ -64,14 +72,6 @@ public:
     }
 
     /**
-        Checks if the queue is empty.
-        @return true if the queue is empty, false otherwise.
-     */
-    bool isEmpty() const {
-        return al_is_event_queue_empty(get());
-    }
-
-    /**
         Retrieves the next available event from the queue.
         It automatically unrefs a user event.
         @return the result event.
@@ -99,6 +99,15 @@ public:
         ALLEGRO_EVENT event;
         al_wait_for_event(get(), &event);
         return event;
+    }
+
+    /**
+        Waits for an event.
+        @param event event.
+        @return reference to this.
+     */
+    EventQueue& operator >> (Event &event) {
+        al_wait_for_event(get(), &event.get());
     }
 
     /**

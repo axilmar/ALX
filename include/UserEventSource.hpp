@@ -79,6 +79,16 @@ public:
         return al_emit_user_event(&m_event_source, &event, &_userEventDestructor);
     }
 
+    /**
+        Same as emitUserEvent(userEvent).
+        @param userEvent user event.
+        @return reference to this.
+     */
+    UserEventSource& operator << (UserEvent *userEvent) {
+        emitUserEvent(userEvent);
+        return *this;
+    }
+
 private:
     //the internal allegro event source object
     ALLEGRO_EVENT_SOURCE m_event_source;

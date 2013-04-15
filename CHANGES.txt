@@ -1,0 +1,12 @@
+0.0.0.2
+-------
+
+-added Vector2 base class for Point and Size.
+-renamed getAreaLength() to getArea().
+-Added operator >> (Event) for EventQueue.
+-Added operator << (UserEvent *) for UserEventSource.
+
+0.0.0.1
+-------
+
+Initial version.
