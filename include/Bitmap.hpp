@@ -32,6 +32,13 @@ public:
     }
 
     /**
+        Creates a bitmap of the specific size.
+        @param size size.
+     */
+    Bitmap(const Size<int> &size) : Shared(al_create_bitmap(size.getWidth(), size.getHeight()), al_destroy_bitmap) {
+    }
+
+    /**
         Creates a subbitmap.
         @param parent parent bitmap.
         @param x x.
@@ -39,7 +46,20 @@ public:
         @param width width.
         @param height height.
      */
-    Bitmap(Bitmap &parent, int x, int y, int width, int height) : Shared(al_create_sub_bitmap(parent.get(), x, y, width, height), al_destroy_bitmap) {
+    Bitmap(Bitmap &parent, int x, int y, int width, int height) : 
+        Shared(al_create_sub_bitmap(parent.get(), x, y, width, height), al_destroy_bitmap)
+    {
+    }
+
+    /**
+        Creates a subbitmap.
+        @param parent parent bitmap.
+        @param pt point of origin in the parent.
+        @param size size.
+     */
+    Bitmap(Bitmap &parent, const Point<int> &pt, const Size<int> &size) : 
+        Shared(al_create_sub_bitmap(parent.get(), pt.getX(), pt.getY(), size.getWidth(), size.getHeight()), al_destroy_bitmap)
+    {
     }
 
     /**

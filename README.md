@@ -7,7 +7,7 @@ using the features provided by c++11.
 
 <h1>Version</h1>
 
-0.0.0.1
+0.0.0.3
 
 <h1>Usage</h1>
 
