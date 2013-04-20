@@ -116,7 +116,7 @@ public:
         @return true on success.
      */
     bool setHead(const FilePath &head) {
-        return al_rebase_path(head.get(), get());    
+        return al_rebase_path(head.get(), get());
     }
 
     /**
@@ -170,7 +170,7 @@ public:
 
     /**
         Sets the filename.
-        @param filename filename. 
+        @param filename filename.
      */
     void setFilename(const char *filename) {
         al_set_path_filename(get(), filename);
@@ -189,7 +189,7 @@ public:
         @return true on success.
      */
     bool setCanonical() {
-        al_make_path_canonical(get());
+        return al_make_path_canonical(get());
     }
 
     /**

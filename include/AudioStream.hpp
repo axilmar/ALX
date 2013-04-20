@@ -142,7 +142,7 @@ public:
         @return the play mode.
      */
     ALLEGRO_PLAYMODE getPlayMode() const {
-        return al_get_audio_stream_playmode(get());    
+        return al_get_audio_stream_playmode(get());
     }
 
     /**
@@ -186,7 +186,7 @@ public:
     }
 
     /**
-        finalises an audio stream that will no longer be fed.    
+        finalises an audio stream that will no longer be fed.
      */
     void drain() {
         al_drain_audio_stream(get());
@@ -289,7 +289,7 @@ public:
      */
     bool load(const char *filename, size_t bufferCount, size_t sampleCount) {
         reset(al_load_audio_stream(filename, bufferCount, sampleCount), al_destroy_audio_stream);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -301,7 +301,7 @@ public:
      */
     bool load(const File &file, const char *ext, size_t bufferCount, size_t sampleCount) {
         reset(al_load_audio_stream_f(file.get(), ext, bufferCount, sampleCount), al_destroy_audio_stream);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -309,7 +309,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    AudioStream(ALLEGRO_AUDIO_STREAM *object, bool managed = true) : 
+    AudioStream(ALLEGRO_AUDIO_STREAM *object, bool managed = true) :
         Shared(object, managed, al_destroy_audio_stream, [](ALLEGRO_AUDIO_STREAM *){})
     {
     }

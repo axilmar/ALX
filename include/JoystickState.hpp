@@ -2,6 +2,7 @@
 #define ALX_JOYSTICKSTATE_HPP
 
 
+#include <limits>
 #include "Joystick.hpp"
 #include "Value.hpp"
 
@@ -32,7 +33,7 @@ public:
         @param stick joystick.
      */
     void retrieve(const Joystick &stick) {
-        al_get_joystick_state(stick.get(), &get());    
+        al_get_joystick_state(stick.get(), &get());
     }
 
     /**
@@ -51,7 +52,7 @@ public:
         @return axis value or FLT_MAX if the stick index is invalid.
      */
     float getAxis(int stick, int axis) const {
-        return stick >= 0 && stick < _AL_MAX_JOYSTICK_STICKS && axis >= 0 && axis < _AL_MAX_JOYSTICK_AXES ? get().stick[stick].axis[axis] : FLT_MAX;
+        return stick >= 0 && stick < _AL_MAX_JOYSTICK_STICKS && axis >= 0 && axis < _AL_MAX_JOYSTICK_AXES ? get().stick[stick].axis[axis] : std::numeric_limits<float>::max();
     }
 
 private:

@@ -10,6 +10,7 @@
 #include <allegro5/allegro_memfile.h>
 #include "String.hpp"
 #include "FilePath.hpp"
+#include "Util.hpp"
 
 
 #ifdef min
@@ -53,7 +54,7 @@ public:
         @param size size.
         @param mode mode.
      */
-    File(void *mem, int64_t size, const char *mode) : 
+    File(void *mem, int64_t size, const char *mode) :
         Shared(al_open_memfile(mem, size, mode), al_fclose)
     {
     }
@@ -66,7 +67,7 @@ public:
      */
     bool open(const char *path, const char *mode) {
         reset(al_fopen(path, mode), al_fclose);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -77,7 +78,7 @@ public:
      */
     bool open(int fd, const char *mode) {
         reset(al_fopen_fd(fd, mode), al_fclose);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -89,7 +90,7 @@ public:
      */
     bool open(void *mem, int64_t size, const char *mode) {
         reset(al_open_memfile(mem, size, mode), al_fclose);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -104,7 +105,7 @@ public:
         @return true on success.
      */
     bool flush() {
-        al_fflush(get());
+        return al_fflush(get());
     }
 
     /**
@@ -154,7 +155,7 @@ public:
     int64_t getSize() const {
        return al_fsize(get());
     }
-    
+
     /**
         Reads raw bytes into a buffer.
         @param dst destination buffer; it must have enough space to read the given data.
@@ -167,7 +168,7 @@ public:
 
     /**
         Reads raw bytes into a static array.
-        It reads no more than the size that the array can hold. 
+        It reads no more than the size that the array can hold.
         @param dst destination buffer.
         @param size number of bytes to read.
         @return the number of bytes actually read.
@@ -178,7 +179,7 @@ public:
 
     /**
         Reads raw bytes into a dynamic array.
-        It reads no more than the size that the array can hold. 
+        It reads no more than the size that the array can hold.
         @param dst destination buffer.
         @param size number of bytes to read.
         @return the number of bytes actually read.
@@ -244,7 +245,7 @@ public:
 
     /**
         Writes raw bytes from a static array.
-        It writes no more than the size that the array can hold. 
+        It writes no more than the size that the array can hold.
         @param src source buffer.
         @param size number of bytes to write.
         @return the number of bytes actually written.
@@ -255,7 +256,7 @@ public:
 
     /**
         Writes raw bytes from a dynamic array.
-        It writes no more than the size that the array can hold. 
+        It writes no more than the size that the array can hold.
         @param src source buffer.
         @param size number of bytes to write.
         @return the number of bytes actually written.
@@ -311,8 +312,8 @@ public:
      */
     static std::tuple<File, FilePath> createTempFile(const char *filenameTemplate) {
         ALLEGRO_PATH *path = nullptr;
-        ALLEGRO_FILE *file = al_make_temp_file(filenameTemplate, &path);       
-        return std::make_tuple(file, path); 
+        ALLEGRO_FILE *file = al_make_temp_file(filenameTemplate, &path);
+        return std::make_tuple(file, path);
     }
 
     /**

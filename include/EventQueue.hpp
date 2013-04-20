@@ -18,7 +18,7 @@ public:
         Creates an event queue.
         @param create create flag.
      */
-    EventQueue(bool create = true) : 
+    EventQueue(bool create = true) :
         Shared(create ? al_create_event_queue() : nullptr, create ? al_destroy_event_queue : [](ALLEGRO_EVENT_QUEUE *){})
     {
     }
@@ -108,6 +108,7 @@ public:
      */
     EventQueue& operator >> (Event &event) {
         al_wait_for_event(get(), &event.get());
+        return *this;
     }
 
     /**
@@ -150,7 +151,7 @@ public:
         @param object object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) : 
+    EventQueue(ALLEGRO_EVENT_QUEUE *object, bool managed = true) :
         Shared(object, managed, al_destroy_event_queue, [](ALLEGRO_EVENT_QUEUE *){})
     {
     }

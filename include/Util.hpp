@@ -9,10 +9,10 @@
 namespace alx {
 
 
-/** 
+/**
     Class with utility functions.
  */
-class Util1 {
+class Util {
 public:
     /**
         Checks if this program runs in little or big endian mode.
@@ -29,7 +29,7 @@ public:
      */
     template <class T> static T swapEndianess(T v) {
         union {
-            T v; 
+            T v;
             uint8_t b[sizeof(T)];
         } r = {v};
         for(int i = 0; i < sizeof(T)/2; ++i) {

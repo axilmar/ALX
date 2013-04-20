@@ -19,7 +19,7 @@ public:
         @param width the default width.
         @param height the default height.
      */
-    Size(T width = 0, T height = 0) : Vector2(width, height) {
+    Size(T width = 0, T height = 0) : Vector2<T>(width, height) {
     }
 
     /**
@@ -27,7 +27,7 @@ public:
         @return the width.
      */
     T getWidth() const {
-        return getX();
+        return Vector2<T>::getX();
     }
 
     /**
@@ -35,7 +35,7 @@ public:
         @return the height.
      */
     T getHeight() const {
-        return getY();
+        return Vector2<T>::getY();
     }
 
     /**
@@ -43,7 +43,7 @@ public:
         @return width * height.
      */
     T getArea() const {
-        return getProduct();
+        return Vector2<T>::getProduct();
     }
 
     /**

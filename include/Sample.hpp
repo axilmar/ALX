@@ -104,7 +104,7 @@ public:
      */
     bool load(const char *filename) {
         reset(al_load_sample(filename), al_destroy_sample);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -114,7 +114,7 @@ public:
      */
     bool load(const File &file, const char *ext) {
         reset(al_load_sample_f(file.get(), ext), al_destroy_sample);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -141,7 +141,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Sample(ALLEGRO_SAMPLE *object, bool managed = true) : 
+    Sample(ALLEGRO_SAMPLE *object, bool managed = true) :
         Shared(object, managed, al_destroy_sample, [](ALLEGRO_SAMPLE *){})
     {
     }

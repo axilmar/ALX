@@ -188,7 +188,7 @@ public:
      */
     Vector2<T> &operator /= (const Vector2<T> &pt) {
         set(m_x / pt.m_x, m_y / pt.m_y);
-        return /this;
+        return *this;
     }
 
     /**
@@ -208,7 +208,7 @@ public:
      */
     Vector2<T> &operator %= (const Vector2<T> &pt) {
         set(m_x % pt.m_x, m_y % pt.m_y);
-        return %this;
+        return *this;
     }
 
     /**

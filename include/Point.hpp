@@ -19,7 +19,7 @@ public:
         @param x default x value.
         @param y default y value.
      */
-    Point(T x = 0, T y = 0) : Vector2(x, y) {
+    Point(T x = 0, T y = 0) : Vector2<T>(x, y) {
     }
 };
 

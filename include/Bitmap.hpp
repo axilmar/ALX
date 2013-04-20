@@ -46,7 +46,7 @@ public:
         @param width width.
         @param height height.
      */
-    Bitmap(Bitmap &parent, int x, int y, int width, int height) : 
+    Bitmap(Bitmap &parent, int x, int y, int width, int height) :
         Shared(al_create_sub_bitmap(parent.get(), x, y, width, height), al_destroy_bitmap)
     {
     }
@@ -57,7 +57,7 @@ public:
         @param pt point of origin in the parent.
         @param size size.
      */
-    Bitmap(Bitmap &parent, const Point<int> &pt, const Size<int> &size) : 
+    Bitmap(Bitmap &parent, const Point<int> &pt, const Size<int> &size) :
         Shared(al_create_sub_bitmap(parent.get(), pt.getX(), pt.getY(), size.getWidth(), size.getHeight()), al_destroy_bitmap)
     {
     }
@@ -146,7 +146,7 @@ public:
 
     /**
         Checks if the bitmap is locked.
-        @return true if locked. 
+        @return true if locked.
      */
     bool isLocked() const {
         return al_is_bitmap_locked(get());
@@ -439,7 +439,7 @@ public:
      */
     bool load(const char *filename) {
         reset(al_load_bitmap(filename), al_destroy_bitmap);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -449,7 +449,7 @@ public:
      */
     bool load(const File &file, const char *ext) {
         reset(al_load_bitmap_f(file.get(), ext), al_destroy_bitmap);
-        return *this;
+        return (bool)(*this);
     }
 
     /**

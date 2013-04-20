@@ -190,7 +190,7 @@ public:
         @return reference to this.
      */
     Rect<T> &operator = (const std::initializer_list<T> &coords) {
-        std::initializer_list<T>::const_iterator it = coords.begin();
+        typename std::initializer_list<T>::const_iterator it = coords.begin();
         switch (coords.size()) {
             case 4: m_bottom = *(it + 3);
             case 3: m_right  = *(it + 2);
@@ -448,7 +448,7 @@ public:
         @param dsz delta size.
      */
     void offsetBy(const Size<T> &dsz) {
-        offsetBy(dsz.getWidth(), dpt.getHeight());
+        offsetBy(dsz.getWidth(), dsz.getHeight());
     }
 
     /**

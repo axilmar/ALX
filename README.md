@@ -7,7 +7,7 @@ using the features provided by c++11.
 
 <h1>Version</h1>
 
-0.0.0.3
+0.0.0.4
 
 <h1>Usage</h1>
 
@@ -16,5 +16,6 @@ somewhere in your project.
 
 <h1>Compiling</h1>
 
-Compiling is done on Visual Studio 2012 with the November 2012 CTP compiler.
+Compiling is done on Visual Studio 2012 with the November 2012 CTP compiler
+and mingw32/gcc 4.7.1.
 

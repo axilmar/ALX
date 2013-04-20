@@ -82,7 +82,7 @@ public:
         Returns an iterator that points to the entry end.
      */
     const_iterator end() const {
-        return const_iterator();    
+        return const_iterator();
     }
 
 private:
@@ -90,7 +90,7 @@ private:
     const char *m_section;
 
     //internal constructor
-    ConfigEntryContainer(const char *section, const std::shared_ptr<ALLEGRO_CONFIG> &config) : m_section(section), Shared(config) {
+    ConfigEntryContainer(const char *section, const std::shared_ptr<ALLEGRO_CONFIG> &config) : Shared(config), m_section(section) {
     }
 
     friend class Config;

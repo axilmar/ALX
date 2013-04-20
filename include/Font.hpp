@@ -253,7 +253,7 @@ public:
      */
     bool load(const char *filename, int size, int flags = 0) {
         reset(al_load_font(filename, size, flags), al_destroy_font);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -265,7 +265,7 @@ public:
      */
     bool load(const File &file, int size, int flags = 0) {
         reset(al_load_ttf_font_f(file.get(), nullptr, size, flags), al_destroy_font);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -278,7 +278,7 @@ public:
      */
     bool load(const File &file, const char *filename, int size, int flags = 0) {
         reset(al_load_ttf_font_f(file.get(), filename, size, flags), al_destroy_font);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -294,7 +294,7 @@ public:
             rangeBuffer.push_back(std::get<1>(t));
         }
         reset(al_grab_font_from_bitmap(bmp.get(), rangeBuffer.size(), rangeBuffer.data()), al_destroy_font);
-        return *this;
+        return (bool)(*this);
     }
 
     /**
@@ -302,8 +302,8 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Font(ALLEGRO_FONT *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_font, [](ALLEGRO_FONT *){}) 
+    Font(ALLEGRO_FONT *object, bool managed = true) :
+        Shared(object, managed, al_destroy_font, [](ALLEGRO_FONT *){})
     {
     }
 };
