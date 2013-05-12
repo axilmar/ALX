@@ -310,7 +310,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     AudioStream(ALLEGRO_AUDIO_STREAM *object, bool managed = true) :
-        Shared(object, managed, al_destroy_audio_stream, [](ALLEGRO_AUDIO_STREAM *){})
+        Shared(object, managed, al_destroy_audio_stream)
     {
     }
 };

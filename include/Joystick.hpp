@@ -118,7 +118,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : Shared(object, managed, al_release_joystick, [](ALLEGRO_JOYSTICK *){}) {
+    Joystick(ALLEGRO_JOYSTICK *object, bool managed = true) : Shared(object, managed, al_release_joystick) {
     }
 };
 

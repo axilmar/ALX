@@ -142,7 +142,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     Sample(ALLEGRO_SAMPLE *object, bool managed = true) :
-        Shared(object, managed, al_destroy_sample, [](ALLEGRO_SAMPLE *){})
+        Shared(object, managed, al_destroy_sample)
     {
     }
 };

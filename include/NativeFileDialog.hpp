@@ -79,7 +79,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     NativeFileDialog(ALLEGRO_FILECHOOSER *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_native_file_dialog, [](ALLEGRO_FILECHOOSER *){})
+        Shared(object, managed, al_destroy_native_file_dialog)
     {
     }
 };

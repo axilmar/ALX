@@ -20,7 +20,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Mutex(ALLEGRO_MUTEX *object, bool managed = true) : Shared(object, managed, al_destroy_mutex, [](ALLEGRO_MUTEX *){}) {
+    Mutex(ALLEGRO_MUTEX *object, bool managed = true) : Shared(object, managed, al_destroy_mutex) {
     }
 
     /**

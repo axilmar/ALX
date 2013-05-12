@@ -13,6 +13,7 @@ namespace alx {
     @param T type of resource to manage via shared pointer.
  */
 template <class T> class Shared : public std::shared_ptr<T> {
+    static void nullDeleter(T*) {}
 protected:
     /**
         null object constructor.
@@ -27,7 +28,7 @@ protected:
         @param deleter the functor that will delete the object.
         @param nullDeleter an empty deleter.
      */
-    template <class DELETER, class NULL_DELETER> Shared(T *object, bool managed, DELETER deleter, NULL_DELETER nullDeleter) :
+    template <class DELETER> Shared(T *object, bool managed, DELETER deleter) :
         std::shared_ptr<T>(object, managed ? deleter : nullDeleter)
     {
     }        
