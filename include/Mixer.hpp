@@ -241,7 +241,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     Mixer(ALLEGRO_MIXER *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_mixer, [](ALLEGRO_MIXER *){})
+        Shared(object, managed, al_destroy_mixer)
     {
     }
 };

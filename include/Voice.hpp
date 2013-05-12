@@ -130,7 +130,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     Voice(ALLEGRO_VOICE *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_voice, [](ALLEGRO_VOICE *){})
+        Shared(object, managed, al_destroy_voice)
     {
     }
 };

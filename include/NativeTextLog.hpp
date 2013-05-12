@@ -96,7 +96,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     NativeTextLog(ALLEGRO_TEXTLOG *object, bool managed = true) : 
-        Shared(object, managed, al_close_native_text_log, [](ALLEGRO_TEXTLOG *){})
+        Shared(object, managed, al_close_native_text_log)
     {
     }
 };

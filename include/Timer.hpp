@@ -109,7 +109,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Timer(ALLEGRO_TIMER *object, bool managed = true) : Shared(object, managed, al_destroy_timer, [](ALLEGRO_TIMER *){}) {
+    Timer(ALLEGRO_TIMER *object, bool managed = true) : Shared(object, managed, al_destroy_timer) {
     }
 };
 

@@ -58,7 +58,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Condition(ALLEGRO_COND *object, bool managed = true) : Shared(object, managed, al_destroy_cond, [](ALLEGRO_COND *){}) {
+    Condition(ALLEGRO_COND *object, bool managed = true) : Shared(object, managed, al_destroy_cond) {
     }
 };
 

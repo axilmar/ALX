@@ -1224,7 +1224,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */    
-    String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free, [](ALLEGRO_USTR *){}) {
+    String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free) {
     }
 
 private:

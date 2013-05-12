@@ -229,7 +229,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Display(ALLEGRO_DISPLAY *object, bool managed = true) : Shared(object, managed, al_destroy_display, [](ALLEGRO_DISPLAY *){}) {
+    Display(ALLEGRO_DISPLAY *object, bool managed = true) : Shared(object, managed, al_destroy_display) {
     }
 };
 

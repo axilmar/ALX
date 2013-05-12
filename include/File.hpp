@@ -321,7 +321,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose, [](ALLEGRO_FILE *){}) {
+    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose) {
     }
 };
 

@@ -232,7 +232,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : Shared(object, managed, al_destroy_fs_entry, [](ALLEGRO_FS_ENTRY *){}) {
+    FileEntry(ALLEGRO_FS_ENTRY *object, bool managed = true) : Shared(object, managed, al_destroy_fs_entry) {
     }
 
 private:

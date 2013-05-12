@@ -87,7 +87,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Thread(ALLEGRO_THREAD *object, bool managed = true) : Shared(object, managed, al_destroy_thread, [](ALLEGRO_THREAD *){}) {
+    Thread(ALLEGRO_THREAD *object, bool managed = true) : Shared(object, managed, al_destroy_thread) {
     }
 
 private:

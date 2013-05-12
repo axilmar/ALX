@@ -303,7 +303,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     Font(ALLEGRO_FONT *object, bool managed = true) :
-        Shared(object, managed, al_destroy_font, [](ALLEGRO_FONT *){})
+        Shared(object, managed, al_destroy_font)
     {
     }
 };

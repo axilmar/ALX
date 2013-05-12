@@ -476,7 +476,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Bitmap(ALLEGRO_BITMAP *object, bool managed = true) : Shared(object, managed, al_destroy_bitmap, [](ALLEGRO_BITMAP *){}) {
+    Bitmap(ALLEGRO_BITMAP *object, bool managed = true) : Shared(object, managed, al_destroy_bitmap) {
     }
 };
 

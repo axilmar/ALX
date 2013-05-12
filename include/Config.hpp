@@ -133,7 +133,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    Config(ALLEGRO_CONFIG *object, bool managed = true) : Shared(object, managed, al_destroy_config, [](ALLEGRO_CONFIG *){}) {
+    Config(ALLEGRO_CONFIG *object, bool managed = true) : Shared(object, managed, al_destroy_config) {
     }
 };
 

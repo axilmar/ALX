@@ -36,7 +36,7 @@ public:
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
     VertexDecl(ALLEGRO_VERTEX_DECL *object, bool managed = true) : 
-        Shared(object, managed, al_destroy_vertex_decl, [](ALLEGRO_VERTEX_DECL *){})
+        Shared(object, managed, al_destroy_vertex_decl)
     {
     }
 };
