@@ -1,3 +1,9 @@
+0.0.0.5
+-------
+
+Replaced custom null deleters with a null-deleter specified in base class,
+courtesy of SpaceManiac (https://github.com/axilmar/ALX/pull/1).
+
 0.0.0.4
 -------
 
