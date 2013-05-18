@@ -197,10 +197,10 @@ public:
         @param format printf-style format.
         @param ... printf-style arguments.
      */
-    void draw(float x, float y, int flags, ALLEGRO_COLOR color, const char *format, ...) {
+    void drawf(float x, float y, int flags, ALLEGRO_COLOR color, const char *format, ...) const {
         va_list args;
         va_start(args, format);
-        draw(x, y, flags, color, String().printf(format, args));
+        drawf(x, y, flags, color, format, args);
         va_end(args);
     }
 
@@ -212,10 +212,10 @@ public:
         @param format printf-style format.
         @param ... printf-style arguments.
      */
-    void draw(float x, float y, ALLEGRO_COLOR color, const char *format, ...) {
+    void drawf(float x, float y, ALLEGRO_COLOR color, const char *format, ...) const {
         va_list args;
         va_start(args, format);
-        draw(x, y, color, String().printf(format, args));
+        drawf(x, y, 0, color, format, args);
         va_end(args);
     }
 
@@ -228,8 +228,10 @@ public:
         @param format printf-style format.
         @param args arguments.
      */
-    void draw(float x, float y, int flags, ALLEGRO_COLOR color, const char *format, va_list args) {
-        draw(x, y, flags, color, String().printf(format, args));
+    void drawf(float x, float y, int flags, ALLEGRO_COLOR color, const char *format, va_list args) const {
+        String str;
+        if (!str.printf(format, args)) str = "printf error";
+        draw(x, y, flags, color, str);
     }
 
     /**
@@ -240,8 +242,8 @@ public:
         @param format printf-style format.
         @param args arguments.
      */
-    void draw(float x, float y, ALLEGRO_COLOR color, const char *format, va_list args) {
-        draw(x, y, color, String().printf(format, args));
+    void drawf(float x, float y, ALLEGRO_COLOR color, const char *format, va_list args) const {
+        drawf(x, y, 0, color, format, args);
     }
 
     /**
