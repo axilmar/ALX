@@ -1,3 +1,7 @@
+0.0.0.6
+
+Fixed String.printf, courtesy of Tom Hardesty (https://github.com/axilmar/ALX/pull/2).
+
 0.0.0.5
 -------
 
