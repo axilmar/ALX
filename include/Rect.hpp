@@ -184,6 +184,20 @@ public:
     }
 
     /**
+        Checks if this and given rectangle are equal.
+     */
+    bool operator == (const Rect<T> &rct) const {
+        return m_left == rct.m_left && m_top == rct.m_top && m_right == rct.m_right && m_bottom == rct.m_bottom;
+    }
+
+    /**
+        Checks if this and given rectangle are different.
+     */
+    bool operator != (const Rect<T> &rct) const {
+        return !operator == (rct);
+    }
+
+    /**
         sets the rectangle from coordinates.
         Only the first 4 coordinates are used.
         @param coords list of coordinates (left, top, right, bottom).
@@ -518,7 +532,7 @@ public:
     /**
         Sets the current clipping from this rectangle.
      */
-    void setClipping() {
+    void setClipping() const {
         al_set_clipping_rectangle(m_left, m_top, getWidth(), getHeight());
     }
 
