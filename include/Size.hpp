@@ -2,7 +2,7 @@
 #define ALX_SIZE_HPP
 
 
-#include "Vector2.hpp"
+#include "Vector2Base.hpp"
 
 
 namespace alx {
@@ -12,14 +12,12 @@ namespace alx {
     A size object.
     @param T type of member.
  */
-template <class T> class Size : public Vector2<T> {
+template <class T> class Size : public Vector2Base<Size<T>, T> {
 public:
     /**
-        The default constructor.
-        @param width the default width.
-        @param height the default height.
+        constructor from width and height.
      */
-    Size(T width = 0, T height = 0) : Vector2<T>(width, height) {
+    Size(T w = T(), T h = T()) : Vector2Base<Size<T>, T>(w, h) {
     }
 
     /**
@@ -27,7 +25,7 @@ public:
         @return the width.
      */
     T getWidth() const {
-        return Vector2<T>::getX();
+        return Vector2Base<Size<T>, T>::getX();
     }
 
     /**
@@ -35,7 +33,7 @@ public:
         @return the height.
      */
     T getHeight() const {
-        return Vector2<T>::getY();
+        return Vector2Base<Size<T>, T>::getY();
     }
 
     /**
@@ -43,7 +41,7 @@ public:
         @return width * height.
      */
     T getArea() const {
-        return Vector2<T>::getProduct();
+        return Vector2Base<Size<T>, T>::getProduct();
     }
 
     /**
@@ -107,7 +105,6 @@ public:
         setWidth(w);
         setHeight(h);
     }
-
 };
 
 

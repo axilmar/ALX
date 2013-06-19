@@ -2,7 +2,7 @@
 #define ALX_POINT_HPP
 
 
-#include "Vector2.hpp"
+#include "Vector2Base.hpp"
 
 
 namespace alx {
@@ -12,14 +12,12 @@ namespace alx {
     A Point class.
     @param T type of coordinate.
  */
-template <class T> class Point : public Vector2<T> {
+template <class T> class Point : public Vector2Base<Point<T>, T> {
 public:
     /**
-        the default constructor.
-        @param x default x value.
-        @param y default y value.
+        constructor from x and y coordinates.
      */
-    Point(T x = 0, T y = 0) : Vector2<T>(x, y) {
+    Point(T x = T(), T y = T()) : Vector2Base<Point<T>, T>(x, y) {
     }
 };
 

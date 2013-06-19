@@ -4,6 +4,7 @@
 
 #include <initializer_list>
 #include <algorithm>
+#include <iostream>
 #include <allegro5/allegro.h>
 #include "Point.hpp"
 #include "Size.hpp"
@@ -96,6 +97,34 @@ public:
     }
 
     /**
+        Returns the top-left coordinates of the rectangle.
+     */
+    Point<T> getTopLeft() const {
+        return Point<T>(m_left, m_top);
+    }
+
+    /**
+        Returns the top-right coordinates of the rectangle.
+     */
+    Point<T> getTopRight() const {
+        return Point<T>(m_right, m_top);
+    }
+
+    /**
+        Returns the bottom-left coordinates of the rectangle.
+     */
+    Point<T> getBottomLeft() const {
+        return Point<T>(m_left, m_bottom);
+    }
+
+    /**
+        Returns the bottom-right coordinates of the rectangle.
+     */
+    Point<T> getBottomRight() const {
+        return Point<T>(m_right, m_bottom);
+    }
+
+    /**
         Returns the width.
         @return the width.
      */
@@ -109,6 +138,13 @@ public:
      */
     T getHeight() const {
         return m_bottom - m_top + 1;
+    }
+
+    /**
+        Returns the size of the rectangle.
+     */
+    Size<T> getSize() const {
+        return Size<T>(getWidth(), getHeight());
     }
 
     /**
@@ -231,6 +267,22 @@ public:
     }
 
     /**
+        Sets the right coordinate.
+        @param x coordinate.
+     */
+    void setRight(T x) {
+        m_right = x;
+    }
+
+    /**
+        Sets the bottom coordinate.
+        @param y coordinate.
+     */
+    void setBottom(T y) {
+        m_bottom = y;
+    }
+
+    /**
         sets the left and top coordinates.
         @param x left.
         @param y top.
@@ -249,19 +301,39 @@ public:
     }
 
     /**
-        Sets the right coordinate.
-        @param x coordinate.
+        sets the right and top coordinates.
+        @param x right.
+        @param y top.
      */
-    void setRight(T x) {
-        m_right = x;
+    void setTopRight(T x, T y) {
+        setRight(x);
+        setTop(y);
     }
 
     /**
-        Sets the bottom coordinate.
-        @param y coordinate.
+        sets the right and top coordinates.
+        @param pt coordinates.
      */
-    void setBottom(T y) {
-        m_bottom = y;
+    void setTopRight(const Point<T> &pt) {
+        setTopRight(pt.getX(), pt.getY());
+    }
+
+    /**
+        sets the left and bottom coordinates.
+        @param x left.
+        @param y bottom.
+     */
+    void setBottomLeft(T x, T y) {
+        setLeft(x);
+        setBottom(y);
+    }
+
+    /**
+        sets the left and bottom coordinates.
+        @param pt coordinates.
+     */
+    void setBottomLeft(const Point<T> &pt) {
+        setBottomLeft(pt.getX(), pt.getY());
     }
 
     /**
@@ -420,6 +492,34 @@ public:
     }
 
     /**
+        Copy this into another rect with the given x position.
+     */
+    Rect<T> moveToX(T x) const {
+        return Rect<T>(Point<T>(x, getTop()), getSize());
+    }
+
+    /**
+        Copy this into another rect with the given y position.
+     */
+    Rect<T> moveToY(T y) const {
+        return Rect<T>(Point<T>(getLeft(), y), getSize());
+    }
+
+    /**
+        Copy this into another rect with the given x, y position.
+     */
+    Rect<T> moveTo(T x, T y) const {
+        return Rect<T>(Point<T>(x, y), getSize());
+    }
+
+    /**
+        Copy this into another rect with the given x, y position.
+     */
+    Rect<T> moveTo(const Point<T> &pt) const {
+        return Rect<T>(pt, getSize());
+    }
+
+    /**
         Moves the rectangle horizontally by the given points.
         @param dx horizontal delta.
      */
@@ -463,6 +563,34 @@ public:
      */
     void offsetBy(const Size<T> &dsz) {
         offsetBy(dsz.getWidth(), dsz.getHeight());
+    }
+
+    /**
+        Offsets a copy of this rectangle horizontally.
+     */
+    Rect<T> offsetByX(T dx) const {
+        return Rect<T>(Point<T>(getLeft() + dx, getTop()), getSize());
+    }
+
+    /**
+        Offsets a copy of this rectangle vertically.
+     */
+    Rect<T> offsetByY(T dy) const {
+        return Rect<T>(Point<T>(getLeft(), getTop() + dy), getSize());
+    }
+
+    /**
+        Offsets a copy of this rectangle.
+     */
+    Rect<T> offsetBy(T dx, T dy) const {
+        return Rect<T>(Point<T>(getLeft() + dx, getTop() + dy), getSize());
+    }
+
+    /**
+        Offsets a copy of this rectangle.
+     */
+    Rect<T> offsetBy(const Point<T> &dpt) const {
+        return offsetBy(dpt.getX(), dpt.getY());
     }
 
     /**
@@ -572,6 +700,15 @@ template <class T> Rect<T> makeRect(const Point<T> &pt, const Size<T> &sz) {
 
 
 } //namespace alx
+
+
+/**
+    Output a rectangle.
+ */
+template <class Char, class CharTraits, class T> std::basic_ostream<Char, CharTraits> &operator << (std::basic_ostream<Char, CharTraits> &stream, const alx::Rect<T> &rct) {
+    std::cout << "[x=" << rct.getLeft() << " y=" << rct.getTop() << " w=" << rct.getWidth() << " h=" << rct.getHeight() << "]";
+    return stream;
+}
 
 
 #endif //ALX_RECT_HPP

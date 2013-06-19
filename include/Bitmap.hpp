@@ -398,11 +398,10 @@ public:
     }
 
     /**
-        Sets the target bitmap.
-        @param bmp the target bitmap.
+        Sets this as the target bitmap.
      */
-    static void setTarget(Bitmap &bmp) {
-        al_set_target_bitmap(bmp.get());
+    void setTarget() {
+        al_set_target_bitmap(get());
     }
 
     /**
