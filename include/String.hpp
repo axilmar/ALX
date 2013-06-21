@@ -200,7 +200,7 @@ public:
         @return substring.
      */
     String subString(int startOffset, int endOffset) const {
-        return al_ustr_dup_substr(get(), startOffset, endOffset); 
+        return al_ustr_dup_substr(get(), startOffset, endOffset);
     }
 
     /**
@@ -515,7 +515,7 @@ public:
     protected:
         /**
             String.
-         */    
+         */
         ALLEGRO_USTR *m_string;
 
         /**
@@ -668,8 +668,8 @@ public:
         @param index start character index.
         @param len of characters; if -1, the whole string.
      */
-    String(const String &str, size_t index, size_t len = -1) : 
-        Shared(al_ustr_dup_substr(str.get(), al_ustr_offset(str.get(), index), al_ustr_offset(str.get(), len >= 0 ? index + len : INT_MAX)), al_ustr_free) 
+    String(const String &str, size_t index, size_t len = -1) :
+        Shared(al_ustr_dup_substr(str.get(), al_ustr_offset(str.get(), index), al_ustr_offset(str.get(), len >= 0 ? index + len : INT_MAX)), al_ustr_free)
     {
     }
 
@@ -875,7 +875,7 @@ public:
      */
     void resize(size_t n, int32_t cp) {
         size_t len = length();
-        if (n < len) operator = (String(*this, 0, n)); 
+        if (n < len) operator = (String(*this, 0, n));
         else if (n > len) operator += (String(n - len, cp));
     }
 
@@ -1223,7 +1223,7 @@ public:
         constructor from Allegro object.
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
-     */    
+     */
     String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free) {
     }
 
@@ -1281,6 +1281,23 @@ template <class E, class TR = std::char_traits<E>> std::basic_ostream<E, TR> &op
 
 
 } //namespace alx
+
+
+namespace std {
+
+
+/**
+    Hash function for alx::String.
+ */
+template <> struct hash<alx::String> {
+public:
+    size_t operator ()(const alx::String &str) const {
+        return std::hash<std::string>()(str.cstr());
+    }
+};
+
+
+} //namespace std
 
 
 #endif //ALX_STRING_HPP

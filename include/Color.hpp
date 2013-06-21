@@ -3,7 +3,7 @@
 
 
 #include <algorithm>
-#include <initializer_list> 
+#include <initializer_list>
 #include <allegro5/allegro.h>
 
 
@@ -25,7 +25,7 @@ namespace alx {
  */
 class Color {
 public:
-    /** 
+    /**
         Constructor from single 32-bit color value.
         @param value 32-bit color value in the form of 0xAARRGGBB.
      */
@@ -76,6 +76,13 @@ public:
      */
     Color(const ALLEGRO_COLOR &color) {
         operator = (color);
+    }
+
+    /**
+        Copy constructor.
+     */
+    Color(const Color &c) {
+        operator = (c);
     }
 
     /**
