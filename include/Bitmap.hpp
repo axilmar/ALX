@@ -400,7 +400,7 @@ public:
     /**
         Sets this as the target bitmap.
      */
-    void setTarget() {
+    void setTarget() const {
         al_set_target_bitmap(get());
     }
 
