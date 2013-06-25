@@ -232,7 +232,7 @@ public:
 
     /**
         Returns the mouse z.
-        @return the mouse z. 
+        @return the mouse z.
      */
     int getMouseZ() const {
         return get().mouse.z;
@@ -240,7 +240,7 @@ public:
 
     /**
         Returns the mouse w.
-        @return the mouse w. 
+        @return the mouse w.
      */
     int getMouseW() const {
         return get().mouse.w;
@@ -248,7 +248,7 @@ public:
 
     /**
         Returns the mouse dx.
-        @return the mouse dx. 
+        @return the mouse dx.
      */
     int getMouseDX() const {
         return get().mouse.dx;
@@ -256,7 +256,7 @@ public:
 
     /**
         Returns the mouse dy.
-        @return the mouse dy. 
+        @return the mouse dy.
      */
     int getMouseDY() const {
         return get().mouse.dy;
@@ -264,7 +264,7 @@ public:
 
     /**
         Returns the mouse dz.
-        @return the mouse dz. 
+        @return the mouse dz.
      */
     int getMouseDZ() const {
         return get().mouse.dz;
@@ -272,7 +272,7 @@ public:
 
     /**
         Returns the mouse dw.
-        @return the mouse dw. 
+        @return the mouse dw.
      */
     int getMouseDW() const {
         return get().mouse.dw;
@@ -280,7 +280,7 @@ public:
 
     /**
         Returns the mouse pressure.
-        @return the mouse pressure. 
+        @return the mouse pressure.
      */
     float getMousePressure() const {
         return get().mouse.pressure;
@@ -320,7 +320,7 @@ public:
 
     /**
         Returns the user data field 2.
-        @return the user data field 2. 
+        @return the user data field 2.
      */
     intptr_t getUserData2() const {
         return get().user.data2;
@@ -328,7 +328,7 @@ public:
 
     /**
         Returns the user data field 3.
-        @return the user data field 3. 
+        @return the user data field 3.
      */
     intptr_t getUserData3() const {
         return get().user.data3;
@@ -336,7 +336,7 @@ public:
 
     /**
         Returns the user data field 4.
-        @return the user data field 4. 
+        @return the user data field 4.
      */
     intptr_t getUserData4() const {
         return get().user.data4;
@@ -352,7 +352,7 @@ public:
 
 private:
     friend class UserEventSource;
-    
+
     //check if the type represents an Allegro event or a user type event.
     static bool _isUserEvent(int type) {
         switch (type) {
@@ -382,7 +382,7 @@ private:
                 return false;
         }
         return true;
-    }       
+    }
 };
 
 
