@@ -200,7 +200,9 @@ public:
         @return substring.
      */
     String subString(int startOffset, int endOffset) const {
-        return al_ustr_dup_substr(get(), startOffset, endOffset);
+        ALLEGRO_USTR *str = al_ustr_dup_substr(get(), startOffset, endOffset);
+        String result = str;
+        return result;
     }
 
     /**
@@ -477,6 +479,27 @@ public:
      */
     bool replace(int startOffset, int endOffset, const String &str) {
         return al_ustr_replace_range(get(), startOffset, endOffset, str.get());
+    }
+
+    /**
+        Trim leading whitespace.
+     */
+    bool trimLeadingWhitespace() {
+        return al_ustr_ltrim_ws(get());
+    }
+
+    /**
+        Trim trailing whitespace.
+     */
+    bool trimTrailingWhitespace() {
+        return al_ustr_rtrim_ws(get());
+    }
+
+    /**
+        Trim leading and trailing whitespace.
+     */
+    bool trimWhitespace() {
+        return al_ustr_trim_ws(get());
     }
 
     /*
@@ -1227,6 +1250,44 @@ public:
     String(ALLEGRO_USTR *object, bool managed = true) : Shared(object, managed, al_ustr_free) {
     }
 
+    /**
+        Split the string by a character.
+     */
+    std::vector<String> split(int32_t c) const {
+        ALLEGRO_USTR *str = get();
+
+        int startPos = 0;
+        int currPos = 0;
+
+        std::vector<String> result;
+
+        for(;;) {
+            int tempCurrPos = currPos;
+            int32_t currChar = al_ustr_get_next(str, &tempCurrPos);
+
+            //end of sequence or error
+            if (currChar < 0) {
+                String str = subString(startPos, currPos);
+                str.trimWhitespace();
+                result.push_back(str);
+                break;
+            }
+
+            //found character
+            if (currChar == c) {
+                String str = subString(startPos, currPos);
+                str.trimWhitespace();
+                result.push_back(str);
+                startPos = tempCurrPos;
+            }
+
+            //next position
+            currPos = tempCurrPos;
+        }
+
+        return result;
+    }
+
 private:
     //convert wide character string to utf8
     static std::string _toUTF8(const wchar_t *str) {
@@ -1254,32 +1315,6 @@ private:
 };
 
 
-/**
-    Outputs a String to an std::stream.
-    @param stream stream.
-    @param str string.
-    @return reference to string.
- */
-template <class E, class TR = std::char_traits<E>> std::basic_ostream<E, TR> &operator << (std::basic_ostream<E, TR> &stream, const String &str) {
-    stream << str.cstr();
-    return stream;
-}
-
-
-/**
-    Inputs a String from an std::stream.
-    @param stream stream.
-    @param str string.
-    @return reference to string.
- */
-template <class E, class TR = std::char_traits<E>> std::basic_ostream<E, TR> &operator >> (std::basic_ostream<E, TR> &stream, String &str) {
-    std::basic_string<E, TR> temp;
-    stream >> temp;
-    str = temp;
-    return stream;
-}
-
-
 } //namespace alx
 
 
@@ -1298,6 +1333,32 @@ public:
 
 
 } //namespace std
+
+
+/**
+    Outputs a String to an std::stream.
+    @param stream stream.
+    @param str string.
+    @return reference to string.
+ */
+template <class E, class TR = std::char_traits<E>> std::basic_ostream<E, TR> &operator << (std::basic_ostream<E, TR> &stream, const alx::String &str) {
+    stream << str.cstr();
+    return stream;
+}
+
+
+/**
+    Inputs a String from an std::stream.
+    @param stream stream.
+    @param str string.
+    @return reference to string.
+ */
+template <class E, class TR = std::char_traits<E>> std::basic_ostream<E, TR> &operator >> (std::basic_ostream<E, TR> &stream, alx::String &str) {
+    std::basic_string<E, TR> temp;
+    stream >> temp;
+    str = temp;
+    return stream;
+}
 
 
 #endif //ALX_STRING_HPP

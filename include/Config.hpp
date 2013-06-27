@@ -78,7 +78,22 @@ public:
         @return the key's value or null.
      */
     String getValue(const char *section, const char *key) const {
-        return String(al_get_config_value(get(), section, key), false);
+        return String(al_get_config_value(get(), section, key));
+    }
+
+    /**
+        Returns a value.
+        Also takes a look at the alternative section, if the first section is null.
+        @param section name of section.
+        @param altSection the alternative section.
+        @param key name of key.
+        @return the key's value or null.
+     */
+    String getValue(const char *section, const char *altSection, const char *key) const {
+        const char *value = section && strlen(section) > 0 ? al_get_config_value(get(), section, key) : nullptr;
+        if (value) return String(value);
+        if (altSection && strlen(altSection) > 0) value = al_get_config_value(get(), altSection, key);
+        return String(value);
     }
 
     /**
