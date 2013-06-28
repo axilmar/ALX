@@ -8,6 +8,7 @@
 #include <iterator>
 #include <stdexcept>
 #include <initializer_list>
+#include <vector>
 #include <allegro5/allegro.h>
 #include "Shared.hpp"
 #include "Fixed.hpp"

@@ -2,6 +2,7 @@
 #define ALX_FIXED_HPP
 
 
+#include <cmath>
 #include <allegro5/allegro.h>
 
 

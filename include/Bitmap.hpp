@@ -3,6 +3,7 @@
 
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
 #include "Shared.hpp"
 #include "Point.hpp"
 #include "Size.hpp"
