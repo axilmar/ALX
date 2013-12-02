@@ -287,6 +287,14 @@ public:
     }
 
     /**
+        Returns the mouse button.
+        @return the mouse w.
+     */
+    int getMouseButton() const {
+        return get().mouse.button;
+    }
+
+    /**
         Returns the timer.
         @return the timer.
      */
