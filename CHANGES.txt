@@ -1,4 +1,10 @@
+1.0.0.0
+-------
+
+Reorganized files.
+
 0.0.0.6
+-------
 
 Fixed String.printf, courtesy of Tom Hardesty (https://github.com/axilmar/ALX/pull/2).
 
