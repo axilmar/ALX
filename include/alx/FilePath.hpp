@@ -4,6 +4,7 @@
 
 #include <allegro5/allegro.h>
 #include "alx/Shared.hpp"
+#include "alx/String.hpp"
 
 
 namespace alx {
@@ -25,7 +26,7 @@ public:
         @param path path string.
         @param dir if true, the path is created for a directory.
      */
-    FilePath(const char *path, bool dir = false) : Shared(dir ? al_create_path(path) : al_create_path_for_directory(path), al_destroy_path) {
+    FilePath(const char *path, bool dir = false) : Shared(!dir ? al_create_path(path) : al_create_path_for_directory(path), al_destroy_path) {
     }
 
     /**
@@ -66,7 +67,7 @@ public:
         @return the path component.
      */
     String getComponent(int index) const {
-        return String(al_get_path_component(get(), index), false);
+        return al_get_path_component(get(), index);
     }
 
     /**
@@ -99,6 +100,19 @@ public:
      */
     String getExtension() const {
         return String(al_get_path_extension(get()), false);
+    }
+
+    /**
+        Returns the directory of the path,
+        i.e. all components joined together using the native directory delimiter.
+     */
+    String getDirectory() const {
+        String result = "";
+        for(int i = 0; i < getNumComponents(); ++i) {
+            result += getComponent(i);
+            result += ALLEGRO_NATIVE_PATH_SEP;
+        }
+        return result;
     }
 
     /**
