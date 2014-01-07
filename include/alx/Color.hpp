@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <initializer_list>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_color.h>
 
 
 #ifdef min
@@ -53,6 +54,17 @@ public:
      */
     Color(float red, float green, float blue, float alpha = 1.0f) {
         set(red, green, blue, alpha);
+    }
+
+    /**
+        Constructor from color name.
+        @param name color name.
+     */
+    Color(const char *name) {
+        float red, green, blue;
+        if (al_color_name_to_rgb(name, &red, &green, &blue)) {
+            set(red, green, blue, 1.0f);
+        }
     }
 
     /**
