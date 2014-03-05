@@ -8,12 +8,18 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/alx" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../example" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../../../../../allegro-5.0.9-mingw-4.7.0/include" />
+					<Add directory="../../include" />
 				</Compiler>
+				<Linker>
+					<Add library="..\..\..\..\..\allegro-5.0.9-mingw-4.7.0\lib\liballegro-5.0.9-monolith-mt-debug.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/alx" prefix_auto="1" extension_auto="1" />
@@ -32,7 +38,58 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="main.cpp" />
+		<Unit filename="../../example/example.cpp" />
+		<Unit filename="../../include/alx.hpp" />
+		<Unit filename="../../include/alx/AllegroFile.hpp" />
+		<Unit filename="../../include/alx/AudioStream.hpp" />
+		<Unit filename="../../include/alx/Bitmap.hpp" />
+		<Unit filename="../../include/alx/Color.hpp" />
+		<Unit filename="../../include/alx/Condition.hpp" />
+		<Unit filename="../../include/alx/Config.hpp" />
+		<Unit filename="../../include/alx/ConfigEntryContainer.hpp" />
+		<Unit filename="../../include/alx/ConfigSectionContainer.hpp" />
+		<Unit filename="../../include/alx/Display.hpp" />
+		<Unit filename="../../include/alx/Event.hpp" />
+		<Unit filename="../../include/alx/EventQueue.hpp" />
+		<Unit filename="../../include/alx/EventSource.hpp" />
+		<Unit filename="../../include/alx/File.hpp" />
+		<Unit filename="../../include/alx/FileEntry.hpp" />
+		<Unit filename="../../include/alx/FilePath.hpp" />
+		<Unit filename="../../include/alx/Fixed.hpp" />
+		<Unit filename="../../include/alx/Font.hpp" />
+		<Unit filename="../../include/alx/Joystick.hpp" />
+		<Unit filename="../../include/alx/JoystickState.hpp" />
+		<Unit filename="../../include/alx/Keyboard.hpp" />
+		<Unit filename="../../include/alx/KeyboardState.hpp" />
+		<Unit filename="../../include/alx/Lock.hpp" />
+		<Unit filename="../../include/alx/Mixer.hpp" />
+		<Unit filename="../../include/alx/Mouse.hpp" />
+		<Unit filename="../../include/alx/MouseState.hpp" />
+		<Unit filename="../../include/alx/Mutex.hpp" />
+		<Unit filename="../../include/alx/NativeFileDialog.hpp" />
+		<Unit filename="../../include/alx/NativeTextLog.hpp" />
+		<Unit filename="../../include/alx/Point.hpp" />
+		<Unit filename="../../include/alx/Rect.hpp" />
+		<Unit filename="../../include/alx/Sample.hpp" />
+		<Unit filename="../../include/alx/SampleId.hpp" />
+		<Unit filename="../../include/alx/SampleInstance.hpp" />
+		<Unit filename="../../include/alx/Shared.hpp" />
+		<Unit filename="../../include/alx/Size.hpp" />
+		<Unit filename="../../include/alx/State.hpp" />
+		<Unit filename="../../include/alx/String.hpp" />
+		<Unit filename="../../include/alx/System.hpp" />
+		<Unit filename="../../include/alx/Thread.hpp" />
+		<Unit filename="../../include/alx/Timeout.hpp" />
+		<Unit filename="../../include/alx/Timer.hpp" />
+		<Unit filename="../../include/alx/Transform.hpp" />
+		<Unit filename="../../include/alx/UserEvent.hpp" />
+		<Unit filename="../../include/alx/UserEventSource.hpp" />
+		<Unit filename="../../include/alx/Util.hpp" />
+		<Unit filename="../../include/alx/Value.hpp" />
+		<Unit filename="../../include/alx/Vector2.hpp" />
+		<Unit filename="../../include/alx/Vector2Base.hpp" />
+		<Unit filename="../../include/alx/VertexDecl.hpp" />
+		<Unit filename="../../include/alx/Voice.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
