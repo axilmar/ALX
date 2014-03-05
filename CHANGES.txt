@@ -1,3 +1,15 @@
+1.0.0.1
+-------
+
+Solved the problem with fclose() being called twice,
+once from File.close() -> al_fclose() and 
+once from ~File() -> al_fclose().
+The bug was reported by DanielH (https://www.allegro.cc/members/danielh).
+
+Added a codeblocks project.
+
+Fixed the operator + of class String to be more generic.
+
 1.0.0.0
 -------
 

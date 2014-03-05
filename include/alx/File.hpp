@@ -11,6 +11,7 @@
 #include "alx/String.hpp"
 #include "alx/FilePath.hpp"
 #include "alx/Util.hpp"
+#include "alx/AllegroFile.hpp"
 
 
 #ifdef min
@@ -24,7 +25,7 @@ namespace alx {
 /**
     Shared-based wrapper around ALLEGRO_FILE.
  */
-class File : public Shared<ALLEGRO_FILE> {
+class File : public Shared<AllegroFile> {
 public:
     /**
         null file constructor.
@@ -37,7 +38,7 @@ public:
         @param path path.
         @param mode mode.
      */
-    File(const char *path, const char *mode) : Shared(al_fopen(path, mode), al_fclose) {
+    File(const char *path, const char *mode) : Shared(new AllegroFile(al_fopen(path, mode))) {
     }
 
     /**
@@ -45,7 +46,7 @@ public:
         @param fd file descriptor.
         @param mode mode.
      */
-    File(int fd, const char *mode) : Shared(al_fopen_fd(fd, mode), al_fclose) {
+    File(int fd, const char *mode) : Shared(new AllegroFile(al_fopen_fd(fd, mode))) {
     }
 
     /**
@@ -55,7 +56,7 @@ public:
         @param mode mode.
      */
     File(void *mem, int64_t size, const char *mode) :
-        Shared(al_open_memfile(mem, size, mode), al_fclose)
+        Shared(new AllegroFile(al_open_memfile(mem, size, mode)))
     {
     }
 
@@ -66,7 +67,7 @@ public:
         @return true on success.
      */
     bool open(const char *path, const char *mode) {
-        reset(al_fopen(path, mode), al_fclose);
+        reset(new AllegroFile(al_fopen(path, mode)));
         return (bool)(*this);
     }
 
@@ -77,7 +78,7 @@ public:
         @return true on success.
      */
     bool open(int fd, const char *mode) {
-        reset(al_fopen_fd(fd, mode), al_fclose);
+        reset(new AllegroFile(al_fopen_fd(fd, mode)));
         return (bool)(*this);
     }
 
@@ -89,15 +90,29 @@ public:
         @return true on success.
      */
     bool open(void *mem, int64_t size, const char *mode) {
-        reset(al_open_memfile(mem, size, mode), al_fclose);
+        reset(new AllegroFile(al_open_memfile(mem, size, mode)));
         return (bool)(*this);
+    }
+
+    /**
+        Returns the underlying allegro file structure.
+     */
+    ALLEGRO_FILE *get() const {
+        return Shared<AllegroFile>::get()->get();
+    }
+
+    /**
+        Auto conversion to ALLEGRO_FILE.
+     */
+    operator ALLEGRO_FILE *() const {
+        return get();
     }
 
     /**
         closes the file.
      */
     void close() {
-        al_fclose(get());
+        Shared<AllegroFile>::get()->close();
     }
 
     /**
@@ -321,7 +336,7 @@ public:
         @param object allegro object.
         @param managed if true, the object will be deleted automatically when its last reference will be deleted.
      */
-    File(ALLEGRO_FILE *object, bool managed = true) : Shared(object, managed, al_fclose) {
+    File(ALLEGRO_FILE *object, bool managed = true) : Shared(new AllegroFile(object, managed)) {
     }
 };
 

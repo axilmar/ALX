@@ -92,7 +92,7 @@ int main() {
     std::vector<Bitmap> stones;
     for(int i = 1; i <= 23; ++i) {
         stones.push_back(Bitmap(String("data/stone") + i + ".jpg"));
-    } 
+    }
 
     //blocks
     std::vector<SpritePtr> blocks;
@@ -104,7 +104,7 @@ int main() {
         for(int i = 0; i < blockCols; ++i) {
             blocks.push_back(SpritePtr(new Sprite(makePoint(i * stoneWidth, j * stoneHeight), stones[rnd(stones.size())])));
         }
-    } 
+    }
 
     //paddle and ball sprites
     auto paddleStartPos = makePoint(display.getWidth()/2 - paddleBmp.getWidth()/2, display.getHeight() - paddleBmp.getHeight());
@@ -181,6 +181,12 @@ int main() {
         paddle.draw();
         ball.draw();
     };
+
+    //test fclose issue.
+    {
+        File test("text.txt", "r");
+        test.close();
+    }
 
     //event loop
     timer.start();

@@ -424,6 +424,16 @@ public:
     }
 
     /**
+        Adds a string to this string.
+        @param a 1st string.
+        @param b 2nd string.
+        @return a string that contains both strings.
+     */
+    template <class T> friend String operator + (const T &a, const String &b) {
+        return String(a) += b;
+    }
+
+    /**
         inserts the given string at the givven offset.
         @param str string to insert.
         @param offset offset.

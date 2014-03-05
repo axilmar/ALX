@@ -1,3 +1,7 @@
-doc
+bin/
+obj/
+doc/
 *.log
+*.depend
+*.layout
 

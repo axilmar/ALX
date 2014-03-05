@@ -31,7 +31,7 @@ protected:
     template <class DELETER> Shared(T *object, bool managed, DELETER deleter) :
         std::shared_ptr<T>(object, managed ? deleter : nullDeleter)
     {
-    }        
+    }
 
     /**
         Managed object constructor.
@@ -40,6 +40,15 @@ protected:
      */
     template <class DELETER> Shared(T *object, DELETER deleter) :
         std::shared_ptr<T>(object, deleter)
+    {
+    }
+
+    /**
+        Managed object constructor with the default deleter.
+        @param object pointer to object.
+     */
+    Shared(T *object) :
+        std::shared_ptr<T>(object)
     {
     }
 

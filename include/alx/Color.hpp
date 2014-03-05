@@ -30,7 +30,7 @@ public:
         Constructor from single 32-bit color value.
         @param value 32-bit color value in the form of 0xAARRGGBB.
      */
-    Color(uint32_t value = 0) {
+    Color(int value = 0) {
         m_color.m_value = value;
     }
 
