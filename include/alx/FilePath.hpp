@@ -42,7 +42,7 @@ public:
         @return a null-terminated string that represents the path.
      */
     operator String () const {
-        return String(al_path_cstr(get(), ALLEGRO_NATIVE_PATH_SEP), false);
+        return String(al_path_cstr(get(), ALLEGRO_NATIVE_PATH_SEP));
     }
 
     /**
@@ -50,7 +50,7 @@ public:
         @return the drive letter.
      */
     String getDrive() const {
-        return String(al_get_path_drive(get()), false);
+        return String(al_get_path_drive(get()));
     }
 
     /**
@@ -75,7 +75,7 @@ public:
         @return the last directory component.
      */
     String getTail() const {
-        return String(al_get_path_tail(get()), false);
+        return String(al_get_path_tail(get()));
     }
 
     /**
@@ -83,7 +83,7 @@ public:
         @return the filename of the path.
      */
     String getFilename() const {
-        return String(al_get_path_filename(get()), false);
+        return String(al_get_path_filename(get()));
     }
 
     /**
@@ -91,7 +91,7 @@ public:
         @return the basename of the path.
      */
     String getBasename() const {
-        return String(al_get_path_basename(get()), false);
+        return String(al_get_path_basename(get()));
     }
 
     /**
@@ -99,7 +99,7 @@ public:
         @return the filename extension.
      */
     String getExtension() const {
-        return String(al_get_path_extension(get()), false);
+        return String(al_get_path_extension(get()));
     }
 
     /**

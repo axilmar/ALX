@@ -12,13 +12,15 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="../../../../../allegro-5.0.9-mingw-4.7.0/include" />
+					<Add directory="../../../../../dev/allegro-5.0.10-mingw-4.7.0/include" />
 					<Add directory="../../include" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\allegro-5.0.9-mingw-4.7.0\lib\liballegro-5.0.9-monolith-mt-debug.a" />
+					<Add library="..\..\..\..\..\dev\allegro-5.0.10-mingw-4.7.0\lib\liballegro-5.0.10-monolith-md-debug.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">

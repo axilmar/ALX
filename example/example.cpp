@@ -188,6 +188,13 @@ int main() {
         test.close();
     }
 
+    //test string issue
+    {
+        alx::FilePath path("bar/foo.txt");
+        alx::String basename = path.getBasename();
+        textLog << "basename = " << basename;
+    }
+
     //event loop
     timer.start();
     bool loop = true;

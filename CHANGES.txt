@@ -1,3 +1,8 @@
+1.0.0.2
+-------
+
+-Solved the issue with class FilePath. The problem was the conversion of filepaths to String objects: the wrong construction of String was invoked (thanks to C++ implicit conversions! and no, the explicit keyword didn't do any difference), causing filepath parts to not be extracted correctly from the path.
+
 1.0.0.1
 -------
 
