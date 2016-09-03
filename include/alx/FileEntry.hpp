@@ -48,7 +48,7 @@ public:
         @return true if readable.
      */
     bool isReadable() const {
-        return (getMode() && ALLEGRO_FILEMODE_READ) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_READ) != 0;
     }
 
     /**
@@ -56,7 +56,7 @@ public:
         @return true if writable.
      */
     bool isWritable() const {
-        return (getMode() && ALLEGRO_FILEMODE_WRITE) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_WRITE) != 0;
     }
 
     /**
@@ -64,7 +64,7 @@ public:
         @return true if executable.
      */
     bool isExecutable() const {
-        return (getMode() && ALLEGRO_FILEMODE_EXECUTE) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_EXECUTE) != 0;
     }
 
     /**
@@ -72,7 +72,7 @@ public:
         @return true if visible.
      */
     bool isHidden() const {
-        return (getMode() && ALLEGRO_FILEMODE_HIDDEN) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_HIDDEN) != 0;
     }
 
     /**
@@ -80,7 +80,7 @@ public:
         @return true if not a directory.
      */
     bool isFile() const {
-        return (getMode() && ALLEGRO_FILEMODE_ISFILE) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_ISFILE) != 0;
     }
 
     /**
@@ -88,7 +88,7 @@ public:
         @return true if a directory.
      */
     bool isDirectory() const {
-        return (getMode() && ALLEGRO_FILEMODE_ISDIR) != 0;
+        return (getMode() & ALLEGRO_FILEMODE_ISDIR) != 0;
     }
 
     /**
