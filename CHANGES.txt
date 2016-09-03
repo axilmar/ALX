@@ -1,3 +1,8 @@
+1.0.0.3
+-------
+
+Fixed bugs in the functions isFile, isReadable etc in class FileEntry.
+
 1.0.0.2
 -------
 

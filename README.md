@@ -6,7 +6,7 @@ ALX is a c++11 Allegro 5 wrapper library.
 The purpose of this library is to provide c++ wrappers for Allegro objects 
 using the features provided by c++11.
 
-**Version 1.0.0.2**
+**Version 1.0.0.3**
 
 Usage
 -----
